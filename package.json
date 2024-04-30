@@ -72,9 +72,9 @@
       "output": "./lib/openapi/schemas/service-authorization.d.ts"
     },
     {
-      "input": "https://raw.githubusercontent.com/theguriev/service-walls/master/swagger.json",
-      "swagger": "./lib/openapi/schemas/service-walls.json",
-      "output": "./lib/openapi/schemas/service-walls.d.ts"
+      "input": "https://raw.githubusercontent.com/theguriev/service-billing/master/swagger.json",
+      "swagger": "./lib/openapi/schemas/service-billing.json",
+      "output": "./lib/openapi/schemas/service-billing.d.ts"
     }
   ]
 }
