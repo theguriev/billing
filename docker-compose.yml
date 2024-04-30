@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  backend:
+  billing-network:
     driver: bridge
 
 services:
@@ -14,7 +14,7 @@ services:
     logging:
       driver: none
     networks:
-      - backend
+      - billing-network
     ports:
       - 27017:27017
     volumes:
@@ -34,7 +34,7 @@ services:
     logging:
       driver: none
     networks:
-      - backend
+      - billing-network
 
   authorization:
     image: therealguriev/service-authorization:3125b19fae7fbb45c19968d822b02e802056bc99
@@ -44,7 +44,7 @@ services:
     logging:
       driver: none
     networks:
-      - backend
+      - billing-network
     environment:
       NITRO_MONGO_URI: "mongodb://root:example@mongo:27017/"
       NITRO_SECRET: "secret"
@@ -57,7 +57,7 @@ services:
     logging:
       driver: none
     networks:
-      - backend
+      - billing-network
     environment:
       NITRO_MONGO_URI: "mongodb://root:example@mongo:27017/"
       NITRO_SECRET: "secret"
@@ -76,4 +76,4 @@ services:
       - authorization
       - billing
     networks:
-      - backend
+      - billing-network
