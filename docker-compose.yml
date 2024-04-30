@@ -49,8 +49,8 @@ services:
       NITRO_MONGO_URI: "mongodb://root:example@mongo:27017/"
       NITRO_SECRET: "secret"
 
-  streams:
-    image: therealguriev/service-walls:0e03017bfc7eee55c95c115c8987f2b377fcd0c0
+  billing:
+    image: therealguriev/service-billing:944d3c59ee1aa7356b22c963cf6f51fc7dd9080c
     restart: unless-stopped
     depends_on:
       - mongo
@@ -74,6 +74,6 @@ services:
     depends_on:
       - mongo-express
       - authorization
-      - streams
+      - billing
     networks:
       - backend
