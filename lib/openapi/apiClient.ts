@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import omit from "@/app/utils/omit";
 
 import replacePathParameters from "./replacePathParameters";
-import { authorization, streams } from "./schemas/";
+import { authorization, billing } from "./schemas/";
 import type {
   Parameters as EndpointParameters,
   ExtractContentJson,
@@ -96,7 +96,7 @@ export const api = {
   authorization: createRequest<authorization.paths>({
     getBaseUrl: () => `${process.env.API_URL}/authorization`,
   }),
-  streams: createRequest<streams.paths>({
-    getBaseUrl: () => `${process.env.API_URL}/streams`,
+  billing: createRequest<billing.paths>({
+    getBaseUrl: () => `${process.env.API_URL}/billing`,
   }),
 };
