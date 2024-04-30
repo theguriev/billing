@@ -1,0 +1,492 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ethereum Wallet API",
+    "description": "An API for interacting with Ethereum wallets",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com"
+    }
+  ],
+  "paths": {
+    "/signature": {
+      "post": {
+        "summary": "Sign Ethereum Message",
+        "description": "Signs an Ethereum message using a private key",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignedMessage"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token": {
+      "post": {
+        "summary": "Create Token",
+        "description": "Creates a new token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Token already exists",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Token already exists! Symbol should be unique!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get All Tokens",
+        "description": "Retrieves all tokens",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/{symbol}": {
+      "post": {
+        "summary": "Verify Signature and Perform Transaction",
+        "description": "Verifies a signature and performs a transaction for a specific symbol",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "Symbol identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransactionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "example": {
+                  "error": "Invalid signature! Or Insufficient funds!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get Transaction History by Symbol",
+        "description": "Retrieves transaction history for a specific symbol",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "description": "Symbol identifier",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallet": {
+      "get": {
+        "summary": "Create Random Wallet",
+        "description": "Creates a random Ethereum wallet",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Wallet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wallet/{key}": {
+      "get": {
+        "summary": "Get Wallet Balance",
+        "description": "Retrieves wallet balance by key",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Wallet key",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalletBalance"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MessageRequest": {
+        "type": "object",
+        "properties": {
+          "privateKey": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "symbol": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "privateKey",
+          "from",
+          "to",
+          "value",
+          "symbol"
+        ]
+      },
+      "SignedMessage": {
+        "type": "string",
+        "example": "0x1234567890abcdef"
+      },
+      "TokenRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 50
+          },
+          "symbol": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3
+          },
+          "wallet": {
+            "type": "string"
+          },
+          "emission": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000000
+          }
+        },
+        "required": [
+          "name",
+          "symbol",
+          "wallet",
+          "emission"
+        ]
+      },
+      "TokenResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "author": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          }
+        }
+      },
+      "TokensList": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "author": {
+              "type": "string"
+            },
+            "symbol": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "TransactionRequest": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "signature": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "value",
+          "signature"
+        ]
+      },
+      "TransactionResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "message": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        }
+      },
+      "Transaction": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "symbol": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "message": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        }
+      },
+      "Wallet": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "Ethereum address of the created wallet"
+          },
+          "chainCode": {
+            "type": "string",
+            "description": "Chain code of the created wallet"
+          },
+          "depth": {
+            "type": "integer",
+            "description": "Depth of the created wallet"
+          },
+          "fingerprint": {
+            "type": "string",
+            "description": "Fingerprint of the created wallet"
+          },
+          "index": {
+            "type": "integer",
+            "description": "Index of the created wallet"
+          },
+          "mnemonic": {
+            "type": "object",
+            "properties": {
+              "entropy": {
+                "type": "string",
+                "description": "Entropy of the mnemonic phrase"
+              },
+              "password": {
+                "type": "string",
+                "description": "Password used with the mnemonic phrase"
+              },
+              "phrase": {
+                "type": "string",
+                "description": "Mnemonic phrase of the created wallet"
+              },
+              "wordlist": {
+                "type": "object",
+                "properties": {
+                  "locale": {
+                    "type": "string",
+                    "description": "Locale of the wordlist"
+                  }
+                }
+              }
+            }
+          },
+          "parentFingerprint": {
+            "type": "string",
+            "description": "Parent fingerprint of the created wallet"
+          },
+          "path": {
+            "type": "string",
+            "description": "Derivation path of the created wallet"
+          },
+          "provider": {
+            "type": "string",
+            "description": "Provider of the created wallet"
+          },
+          "publicKey": {
+            "type": "string",
+            "description": "Public key of the created wallet"
+          },
+          "privateKey": {
+            "type": "string",
+            "description": "Public key of the created wallet"
+          }
+        }
+      },
+      "WalletBalance": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "number"
+        },
+        "description": "Balance by symbol"
+      }
+    }
+  }
+}
