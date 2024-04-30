@@ -1,0 +1,94 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
+  "rules": {
+    "tailwindcss/enforces-negative-arbitrary-values": [
+      "error",
+      {
+        "callees": [
+          "classnames",
+          "clsx",
+          "ctl",
+          "cva",
+          "tv",
+          "twMerge",
+          "twJoin"
+        ]
+      }
+    ],
+    "tailwindcss/enforces-shorthand": [
+      "error",
+      {
+        "callees": [
+          "classnames",
+          "clsx",
+          "ctl",
+          "cva",
+          "tv",
+          "twMerge",
+          "twJoin"
+        ]
+      }
+    ],
+    "tailwindcss/migration-from-tailwind-2": [
+      "error",
+      {
+        "callees": [
+          "classnames",
+          "clsx",
+          "ctl",
+          "cva",
+          "tv",
+          "twMerge",
+          "twJoin"
+        ]
+      }
+    ],
+    "tailwindcss/no-arbitrary-value": [
+      "error",
+      {
+        "callees": [
+          "classnames",
+          "clsx",
+          "ctl",
+          "cva",
+          "tv",
+          "twMerge",
+          "twJoin"
+        ]
+      }
+    ],
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/no-contradicting-classname": "error",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      { "max": 1, "maxBOF": 0, "maxEOF": 1 }
+    ],
+    "curly": ["error", "all"]
+  }
+}

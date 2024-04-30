@@ -1,0 +1,54 @@
+{
+  "/authorization/change-name": {
+    "methods": ["PUT"],
+    "authorizationNeeded": true,
+    "proxy": {
+      "to": "http://authorization:3000/change-name"
+    }
+  },
+  "/authorization": {
+    "methods": ["GET"],
+    "authorizationNeeded": true,
+    "proxy": {
+      "to": "http://authorization:3000"
+    }
+  },
+  "/authorization/login": {
+    "methods": ["POST"],
+    "proxy": {
+      "to": "http://authorization:3000/login"
+    }
+  },
+  "/authorization/registration": {
+    "methods": ["POST"],
+    "proxy": {
+      "to": "http://authorization:3000/registration"
+    }
+  },
+  "/authorization/logout": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://authorization:3000/logout"
+    }
+  },
+  "/authorization/refresh": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://authorization:3000/refresh"
+    }
+  },
+  "/streams": {
+    "methods": ["GET", "POST"],
+    "authorizationNeeded": true,
+    "proxy": {
+      "to": "http://streams:3000/"
+    }
+  },
+  "/streams/:id": {
+    "methods": ["GET", "DELETE", "PUT"],
+    "authorizationNeeded": true,
+    "proxy": {
+      "to": "http://streams:3000/:id"
+    }
+  }
+}
