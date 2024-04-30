@@ -37,18 +37,34 @@
       "to": "http://authorization:3000/refresh"
     }
   },
-  "/streams": {
-    "methods": ["GET", "POST"],
-    "authorizationNeeded": true,
+  "/billing/signature": {
+    "methods": ["POST"],
     "proxy": {
-      "to": "http://streams:3000/"
+      "to": "http://billing:3000/signature"
     }
   },
-  "/streams/:id": {
-    "methods": ["GET", "DELETE", "PUT"],
-    "authorizationNeeded": true,
+  "/billing/token": {
+    "methods": ["GET", "POST"],
     "proxy": {
-      "to": "http://streams:3000/:id"
+      "to": "http://billing:3000/token"
+    }
+  },
+  "/billing/transaction/:symbol": {
+    "methods": ["GET", "POST"],
+    "proxy": {
+      "to": "http://billing:3000/transaction/:symbol"
+    }
+  },
+  "/billing/wallet/:key": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://billing:3000/wallet/:key"
+    }
+  },
+  "/billing/wallet": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://billing:3000/wallet"
     }
   }
 }
