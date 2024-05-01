@@ -9,6 +9,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
+import Form from "./components/Form";
+
 const AddTokenPage = () => {
   return (
     <>
@@ -28,6 +30,7 @@ const AddTokenPage = () => {
       <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Add token</h1>
       </div>
+      <Form />
     </>
   );
 };

@@ -20,7 +20,7 @@ const AppPage = () => {
             Your token can be first.
           </p>
           <Button className="mt-4" asChild>
-            <Link href="/app/add-token">Create Token</Link>
+            <Link href="/app/create-token">Create Token</Link>
           </Button>
         </div>
       </div>
