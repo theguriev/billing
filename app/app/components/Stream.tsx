@@ -2,12 +2,6 @@
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import {
-  InstagramIcon,
-  FacebookIcon,
-  TwitterIcon,
-  YoutubeIcon,
-} from "lucide-react";
 import Link from "next/link";
 
 import type { Stream } from "@/app/types";
@@ -19,20 +13,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import deleteStream from "../actions/deleteStream";
-
 dayjs.extend(relativeTime);
-
-const iconMap = {
-  instagram: <InstagramIcon width={18} height={18} />,
-  facebook: <FacebookIcon width={18} height={18} />,
-  x: <TwitterIcon width={18} height={18} />,
-  youtube: <YoutubeIcon width={18} height={18} />,
-} as const;
 
 const Stream = ({ _id, name, timestamp, sources }: Stream) => {
   const handleDoItClick = () => {
-    deleteStream(String(_id));
+    console.log("Do it!");
   };
   return (
     <Card className="flex justify-between">
@@ -42,7 +27,7 @@ const Stream = ({ _id, name, timestamp, sources }: Stream) => {
           #{_id} created {dayjs(dayjs(timestamp)).fromNow(true)} ago
         </div>
         <div className="flex items-end gap-2  text-muted-foreground">
-          {sources.map((source) => iconMap[source.type])}
+          NOthing
         </div>
       </CardHeader>
       <CardFooter className="flex justify-between gap-2">
