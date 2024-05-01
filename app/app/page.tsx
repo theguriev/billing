@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 
 const AppPage = () => {
@@ -17,7 +19,9 @@ const AppPage = () => {
           <p className="text-sm text-muted-foreground">
             Your token can be first.
           </p>
-          <Button className="mt-4">Add Token</Button>
+          <Button className="mt-4" asChild>
+            <Link href="/app/add-token">Create Token</Link>
+          </Button>
         </div>
       </div>
     </>
