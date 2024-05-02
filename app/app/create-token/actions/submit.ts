@@ -19,7 +19,6 @@ const submit = async (body: FormSchema) => {
 
   const response = await request.json();
   passSetCookie(request.headers.getSetCookie());
-  console.log(response);
   if (request.status === 200) {
     redirect("/app");
   }
