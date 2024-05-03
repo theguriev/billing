@@ -179,7 +179,7 @@ export interface components {
       emission: number;
     };
     TokenResponse: {
-      id?: string;
+      _id?: string;
       name?: string;
       /** Format: date-time */
       timestamp?: string;
@@ -187,7 +187,7 @@ export interface components {
       symbol?: string;
     };
     TokensList: {
-        id?: string;
+        _id?: string;
         name?: string;
         /** Format: date-time */
         timestamp?: string;
@@ -202,7 +202,7 @@ export interface components {
       message?: string;
     };
     TransactionResponse: {
-      id?: string;
+      _id?: string;
       from?: string;
       to?: string;
       symbol?: string;
@@ -212,7 +212,7 @@ export interface components {
       value?: number;
     };
     Transaction: {
-      id?: string;
+      _id?: string;
       from?: string;
       to?: string;
       symbol?: string;
