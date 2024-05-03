@@ -1,7 +1,10 @@
+/* eslint-disable tailwindcss/no-arbitrary-value */
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { CalendarClockIcon, HashIcon } from "lucide-react";
 import Link from "next/link";
 
+import getMe from "@/app/utils/getMe";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,55 +14,66 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import getTokens from "./actions/getTokens";
 
 dayjs.extend(relativeTime);
 
 const AppPage = async () => {
+  const me = await getMe();
   const tokens = await getTokens();
   return (
     <>
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold md:text-2xl">Tokens</h1>
+        <Button asChild>
+          <Link href="/app/create-token">Create Token</Link>
+        </Button>
       </div>
       {tokens.length > 0 ? (
         tokens.map((token) => (
-          <Card key={token.id} className="flex justify-between">
-            <CardHeader>
-              <CardTitle>{token.name}</CardTitle>
-              <div className="text-xs font-medium text-muted-foreground">
-                #{token.id} created{" "}
-                {dayjs(dayjs(token.timestamp)).fromNow(true)} ago
+          <Card key={token._id} className="flex justify-between">
+            <CardHeader className="space-y-0">
+              <CardTitle>
+                <Button variant="link" asChild className="p-0">
+                  <Link href={`/transaction/${token.symbol}`}>
+                    {token.name}
+                  </Link>
+                </Button>
+              </CardTitle>
+
+              <div className="flex items-center">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <CalendarClockIcon className="mr-1 size-[1em] text-xs text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>Timestamp: {token.timestamp}</TooltipContent>
+                </Tooltip>
+                <div className="mr-1 text-xs font-medium text-muted-foreground">
+                  created {dayjs(dayjs(token.timestamp)).fromNow(true)} ago
+                </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HashIcon className="size-[1em] text-xs text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>ID: {token._id}</TooltipContent>
+                </Tooltip>
+                <div className="text-xs font-medium text-muted-foreground">
+                  {token.symbol?.toUpperCase()}
+                </div>
               </div>
             </CardHeader>
-            <CardFooter className="flex justify-between gap-2">
-              <Button variant="outline" asChild>
-                <Link href={`/builder/${token.id}`}>Edit</Link>
-              </Button>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="destructive">Delete</Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-80">
-                  <div className="grid gap-4">
-                    <div className="space-y-2">
-                      <h4 className="font-medium leading-none">
-                        Are you sure?
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        This will permanently delete the stream and all
-                        associated data.
-                      </p>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </CardFooter>
+            {token.author === me?.userId && (
+              <CardFooter className="flex justify-between gap-2">
+                <Button variant="outline" asChild>
+                  <Link href={`/builder/${token._id}`}>Issue</Link>
+                </Button>
+              </CardFooter>
+            )}
           </Card>
         ))
       ) : (
