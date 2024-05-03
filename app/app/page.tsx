@@ -70,7 +70,7 @@ const AppPage = async () => {
             {token.author === me?.userId && (
               <CardFooter className="flex justify-between gap-2">
                 <Button variant="outline" asChild>
-                  <Link href={`/builder/${token._id}`}>Issue</Link>
+                  <Link href={`/app/issue/${token.symbol}`}>Issue</Link>
                 </Button>
               </CardFooter>
             )}
