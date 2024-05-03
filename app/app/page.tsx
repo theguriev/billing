@@ -19,7 +19,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import getTokens from "./actions/getTokens";
+import getTokens from "./services/getTokens";
 
 dayjs.extend(relativeTime);
 
