@@ -36,21 +36,8 @@ services:
     networks:
       - billing-network
 
-  authorization:
-    image: therealguriev/service-authorization:3125b19fae7fbb45c19968d822b02e802056bc99
-    restart: unless-stopped
-    depends_on:
-      - mongo
-    logging:
-      driver: none
-    networks:
-      - billing-network
-    environment:
-      NITRO_MONGO_URI: "mongodb://root:example@mongo:27017/"
-      NITRO_SECRET: "secret"
-
   billing:
-    image: therealguriev/service-billing:944d3c59ee1aa7356b22c963cf6f51fc7dd9080c
+    image: therealguriev/service-billing:8330e28e3efff64d4c71017dcf9035397d97731f
     restart: unless-stopped
     depends_on:
       - mongo
@@ -73,7 +60,6 @@ services:
       - ./routes.json:/routes.json
     depends_on:
       - mongo-express
-      - authorization
       - billing
     networks:
       - billing-network

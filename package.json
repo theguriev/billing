@@ -33,7 +33,6 @@
     "destr": "^2.0.3",
     "ethers": "^6.12.1",
     "framer-motion": "^11.1.7",
-    "jose": "^5.2.4",
     "lucide-react": "^0.363.0",
     "next": "14.1.4",
     "react": "^18.3.1",
@@ -68,11 +67,6 @@
     "typescript": "^5.4.5"
   },
   "openapiFiles": [
-    {
-      "input": "https://raw.githubusercontent.com/theguriev/service-authorization/master/swagger.json",
-      "swagger": "./lib/openapi/schemas/service-authorization.json",
-      "output": "./lib/openapi/schemas/service-authorization.d.ts"
-    },
     {
       "input": "https://raw.githubusercontent.com/theguriev/service-billing/master/swagger.json",
       "swagger": "./lib/openapi/schemas/service-billing.json",

@@ -4,7 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { CalendarClockIcon, HashIcon } from "lucide-react";
 import Link from "next/link";
 
-import getMe from "@/app/utils/getMe";
+import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,7 +24,7 @@ import getTokens from "./services/getTokens";
 dayjs.extend(relativeTime);
 
 const AppPage = async () => {
-  const me = await getMe();
+  const wallet = getWalletFromCookie();
   const tokens = await getTokens();
   return (
     <>
@@ -67,7 +67,7 @@ const AppPage = async () => {
                 </div>
               </div>
             </CardHeader>
-            {token.author === me?.userId && (
+            {token.address === wallet?.address && (
               <CardFooter className="flex justify-between gap-2">
                 <Button variant="outline" asChild>
                   <Link href={`/app/issue/${token.symbol}`}>Issue</Link>

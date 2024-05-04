@@ -34,7 +34,7 @@ const CreateTokenForm = () => {
       name: "",
       symbol: "",
       wallet: "",
-      emission: 0,
+      emission: "0",
     },
   });
 
@@ -106,27 +106,6 @@ const CreateTokenForm = () => {
               <FormDescription>
                 The token initial emisson amount. It should be a number and
                 could be changed later.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="wallet"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Wallet address</FormLabel>
-              <FormControl>
-                <Input
-                  type="string"
-                  placeholder="Please enter the wallet address"
-                  {...field}
-                  className="bg-background"
-                />
-              </FormControl>
-              <FormDescription>
-                The wallet address where the initial emission will be stored.
               </FormDescription>
               <FormMessage />
             </FormItem>
