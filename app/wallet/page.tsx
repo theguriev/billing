@@ -1,6 +1,5 @@
+import { Wallet } from "ethers";
 import type { Metadata } from "next";
-
-import FooterLinks from "@/app/auth/components/FooterLinks";
 
 import Form from "./components/Form";
 
@@ -10,15 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  const wallet = Wallet.createRandom();
   return (
     <div>
-      <Form />
-      <FooterLinks
-        links={[
-          { title: "Forgot password?", href: "/auth/forgot-password" },
-          { title: "Sign in", href: "/auth" },
-        ]}
-      />
+      <Form initialMnemonic={String(wallet.mnemonic?.phrase)} />
     </div>
   );
 }

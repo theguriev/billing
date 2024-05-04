@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -7,28 +9,32 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 import submitAction from "../actions/submit";
+import type { SubmitAction } from "../actions/submit";
 import { formSchema } from "../zod";
 import type { FormSchema } from "../zod";
 
-const ForgotPasswordForm = () => {
+import ServerErrorMessage from "./ServerErrorMessage";
+
+const WalletForm = ({ initialMnemonic }: { initialMnemonic: string }) => {
+  const [submitState, setSubmitState] = useState<SubmitAction>();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
     defaultValues: {
-      email: "",
+      mnemonic: initialMnemonic,
     },
   });
 
-  const handleSubmit = (body: FormSchema) => {
-    submitAction(body);
+  const handleSubmit = async (body: FormSchema) => {
+    setSubmitState(await submitAction(body));
   };
 
   return (
@@ -39,31 +45,32 @@ const ForgotPasswordForm = () => {
       >
         <FormField
           control={form.control}
-          name="email"
+          name="mnemonic"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input
-                  placeholder="Email"
-                  autoFocus
+                <Textarea
+                  placeholder="Mnemonic"
                   {...field}
-                  className="bg-background"
+                  autoFocus
+                  rows={3}
                 />
               </FormControl>
               <FormDescription>
-                Don&apos;t fret! Just type in your email and we will send you a
-                code to reset your password!
+                Please insert your mnemonic phrase that you saved earlier or
+                just leave the default one and store it somewhere!
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
+        <ServerErrorMessage response={submitState} />
         <Button name="submit" type="submit" disabled={!form.formState.isValid}>
-          Remind me
+          Login
         </Button>
       </form>
     </Form>
   );
 };
 
-export default ForgotPasswordForm;
+export default WalletForm;

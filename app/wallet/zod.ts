@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { email } from "@/app/auth/zod";
+export const mnemonic = z.string();
 
 export const formSchema = z.object({
-  email,
+  mnemonic,
 });
 
 export type FormSchema = z.infer<typeof formSchema>;
