@@ -31,7 +31,7 @@ const CreateTokenForm = () => {
     resolver: zodResolver(formSchema),
     mode: "onSubmit",
     defaultValues: {
-      wallet: "",
+      symbol: "",
       emission: "0",
     },
   });
@@ -46,6 +46,27 @@ const CreateTokenForm = () => {
         onSubmit={form.handleSubmit(handleSubmit)}
         className="flex w-full max-w-[600px] flex-col gap-y-4"
       >
+        <FormField
+          control={form.control}
+          name="symbol"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Symbol</FormLabel>
+              <FormControl>
+                <Input
+                  type="string"
+                  placeholder="Please enter the symbol of the token"
+                  {...field}
+                  className="bg-background"
+                />
+              </FormControl>
+              <FormDescription>
+                The symbol of the token should be unique.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="emission"
@@ -63,27 +84,6 @@ const CreateTokenForm = () => {
               <FormDescription>
                 The token initial emisson amount. It should be a number and
                 could be changed later.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="wallet"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Wallet address</FormLabel>
-              <FormControl>
-                <Input
-                  type="string"
-                  placeholder="Please enter the wallet address"
-                  {...field}
-                  className="bg-background"
-                />
-              </FormControl>
-              <FormDescription>
-                The wallet address where the initial emission will be stored.
               </FormDescription>
               <FormMessage />
             </FormItem>

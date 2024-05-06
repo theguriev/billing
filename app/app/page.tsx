@@ -6,13 +6,7 @@ import Link from "next/link";
 
 import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
@@ -30,9 +24,11 @@ const AppPage = async () => {
     <>
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold md:text-2xl">Tokens</h1>
-        <Button asChild>
-          <Link href="/app/create-token">Create Token</Link>
-        </Button>
+        {tokens.length > 0 && (
+          <Button asChild>
+            <Link href="/app/create-token">Create Token</Link>
+          </Button>
+        )}
       </div>
       {tokens.length > 0 ? (
         tokens.map((token) => (
