@@ -37,7 +37,7 @@ services:
       - billing-network
 
   billing:
-    image: therealguriev/service-billing:8330e28e3efff64d4c71017dcf9035397d97731f
+    image: therealguriev/service-billing:b6e1438c76b8c0ed496a39da7ea12a6bb8655029
     restart: unless-stopped
     depends_on:
       - mongo
