@@ -12,6 +12,4 @@ const submit = async (body: FormSchema) => {
   redirect("/app");
 };
 
-export type SubmitAction = Awaited<ReturnType<typeof submit>>;
-
 export default submit;

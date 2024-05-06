@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import getTokens from "@/app/app/services/getTokens";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,7 +16,6 @@ const AddTokenPage = async ({
 }: {
   params: { symbol: string };
 }) => {
-  const tokens = await getTokens();
   return (
     <>
       <Breadcrumb className="hidden md:flex">
@@ -36,7 +34,7 @@ const AddTokenPage = async ({
       <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Issue</h1>
       </div>
-      <Form />
+      <Form symbol={symbol} />
     </>
   );
 };

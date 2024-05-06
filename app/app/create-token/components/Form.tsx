@@ -33,7 +33,6 @@ const CreateTokenForm = () => {
     defaultValues: {
       name: "",
       symbol: "",
-      wallet: "",
       emission: "0",
     },
   });

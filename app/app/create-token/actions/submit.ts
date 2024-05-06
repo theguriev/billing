@@ -29,12 +29,12 @@ const submit = async (body: FormSchema) => {
     },
   });
 
-  const response = await request.json();
   passSetCookie(request.headers.getSetCookie());
   if (request.status === 200) {
     revalidateTag("tokens");
     redirect("/app");
   }
+  const response = await request.json();
   return response;
 };
 

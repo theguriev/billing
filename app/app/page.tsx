@@ -66,7 +66,9 @@ const AppPage = async () => {
             {token.address === wallet?.address && (
               <CardFooter className="flex justify-between gap-2">
                 <Button variant="outline" asChild>
-                  <Link href={`/app/issue/${token.symbol}`}>Issue</Link>
+                  <Link prefetch={true} href={`/app/issue/${token.symbol}`}>
+                    Issue
+                  </Link>
                 </Button>
               </CardFooter>
             )}

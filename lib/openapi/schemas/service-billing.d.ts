@@ -79,7 +79,7 @@ export interface paths {
         /** @description Token already exists */
         409: {
           content: {
-            "application/json": unknown;
+            "application/json": components["schemas"]["TokenPost409Error"];
           };
         };
       };
@@ -253,6 +253,16 @@ export interface components {
       timestamp?: string;
       address?: string;
       symbol?: string;
+    };
+    TokenPost409Error: {
+      /** @example /forgot-password */
+      url?: string;
+      /** @example 409 */
+      statusCode?: number;
+      /** @example Validation Error */
+      statusMessage?: string;
+      /** @example Validation Error */
+      message?: string;
     };
     TokensList: {
         _id?: string;

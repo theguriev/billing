@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -17,14 +15,10 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 import submitAction from "../actions/submit";
-import type { SubmitAction } from "../actions/submit";
 import { formSchema } from "../zod";
 import type { FormSchema } from "../zod";
 
-import ServerErrorMessage from "./ServerErrorMessage";
-
 const WalletForm = ({ initialMnemonic }: { initialMnemonic: string }) => {
-  const [submitState, setSubmitState] = useState<SubmitAction>();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     mode: "onBlur",
@@ -34,7 +28,7 @@ const WalletForm = ({ initialMnemonic }: { initialMnemonic: string }) => {
   });
 
   const handleSubmit = async (body: FormSchema) => {
-    setSubmitState(await submitAction(body));
+    await submitAction(body);
   };
 
   return (
@@ -64,7 +58,6 @@ const WalletForm = ({ initialMnemonic }: { initialMnemonic: string }) => {
             </FormItem>
           )}
         />
-        <ServerErrorMessage response={submitState} />
         <Button name="submit" type="submit" disabled={!form.formState.isValid}>
           Login
         </Button>

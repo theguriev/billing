@@ -25,19 +25,18 @@ import type { FormSchema } from "../zod";
 
 import ServerErrorMessage from "./ServerErrorMessage";
 
-const CreateTokenForm = () => {
+const CreateTokenForm = ({ symbol }: { symbol: string }) => {
   const [submitState, setSubmitState] = useState<SubmitAction>();
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     mode: "onSubmit",
     defaultValues: {
-      symbol: "",
       emission: "0",
     },
   });
 
   const handleSubmit = async (body: FormSchema) => {
-    setSubmitState(await submitAction(body));
+    setSubmitState(await submitAction({ ...body, symbol }));
   };
 
   return (
@@ -46,27 +45,6 @@ const CreateTokenForm = () => {
         onSubmit={form.handleSubmit(handleSubmit)}
         className="flex w-full max-w-[600px] flex-col gap-y-4"
       >
-        <FormField
-          control={form.control}
-          name="symbol"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Symbol</FormLabel>
-              <FormControl>
-                <Input
-                  type="string"
-                  placeholder="Please enter the symbol of the token"
-                  {...field}
-                  className="bg-background"
-                />
-              </FormControl>
-              <FormDescription>
-                The symbol of the token should be unique.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="emission"
