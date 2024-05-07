@@ -68,9 +68,9 @@ dependencies:
   framer-motion:
     specifier: ^11.1.7
     version: 11.1.7(react-dom@18.3.1)(react@18.3.1)
-  jose:
-    specifier: ^5.2.4
-    version: 5.2.4
+  js-cookie:
+    specifier: ^3.0.5
+    version: 3.0.5
   lucide-react:
     specifier: ^0.363.0
     version: 0.363.0(react@18.3.1)
@@ -115,6 +115,9 @@ devDependencies:
   '@commitlint/config-conventional':
     specifier: ^19.2.2
     version: 19.2.2
+  '@types/js-cookie':
+    specifier: ^3.0.6
+    version: 3.0.6
   '@types/node':
     specifier: ^20.12.7
     version: 20.12.7
@@ -1429,6 +1432,10 @@ packages:
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
     dependencies:
       '@types/node': 20.12.7
+    dev: true
+
+  /@types/js-cookie@3.0.6:
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
     dev: true
 
   /@types/json5@0.0.29:
@@ -3454,8 +3461,9 @@ packages:
     resolution: {integrity: sha512-gFqAIbuKyyso/3G2qhiO2OM6shY6EPP/R0+mkDbyspxKazh8BXDC5FiFsUjlczgdNz/vfra0da2y+aHrusLG/Q==}
     hasBin: true
 
-  /jose@5.2.4:
-    resolution: {integrity: sha512-6ScbIk2WWCeXkmzF6bRPmEuaqy1m8SbsRFMa/FLrSCkGIhj8OLVG/IH+XHVmNMx/KUo8cVWEE6oKR4dJ+S0Rkg==}
+  /js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
     dev: false
 
   /js-tokens@4.0.0:
