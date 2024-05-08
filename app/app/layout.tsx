@@ -86,7 +86,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
           </div>
         </div>
         <div className="flex flex-col">
-          {/* <header className="flex h-14 items-center gap-4 px-4 lg:h-[60px] lg:px-6">
+          <header className="flex h-14 items-center gap-4 px-4 lg:h-[60px] lg:px-6">
             <Sheet>
               <SheetTrigger asChild>
                 <Button
@@ -145,7 +145,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                 </nav>
               </SheetContent>
             </Sheet>
-            <div className="w-full flex-1">
+            {/* <div className="w-full flex-1">
               <form>
                 <div className="relative">
                   <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
@@ -159,7 +159,11 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="secondary" size="icon" className="rounded-full">
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full"
+                >
                   <CircleUser className="size-5" />
                   <span className="sr-only">Toggle user menu</span>
                 </Button>
@@ -172,8 +176,8 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>Logout</DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu>
-          </header> */}
+            </DropdownMenu> */}
+          </header>
           <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
             {children}
           </main>
