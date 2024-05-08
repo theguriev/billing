@@ -22,7 +22,7 @@ const TransactionsTable = async ({ symbol }: { symbol: string }) => {
       <TableCaption></TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">From</TableHead>
+          <TableHead>From</TableHead>
           <TableHead>To</TableHead>
           <TableHead>Date time</TableHead>
           <TableHead>Message</TableHead>
