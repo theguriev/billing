@@ -68,7 +68,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                   Settings
                 </Link>
                 <Link
-                  href="#"
+                  href="https://t.me/theguriev"
                   className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
                 >
                   <HeadsetIcon className="size-4" />
