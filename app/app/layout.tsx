@@ -2,37 +2,24 @@
 import { ReactNode } from "react";
 
 import {
-  CircleUser,
   Home,
   LineChart,
   Menu,
   Package,
   Package2,
-  Search,
   ShoppingCart,
   Users,
-  BanknoteIcon,
-  WalletIcon,
-  UserCogIcon,
-  LogOutIcon,
-  HeadsetIcon,
 } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-const AppLayout = ({ children }: { children: ReactNode }) => {
+import DesktopNavigation from "./components/DesktopNavigation";
+
+const AppLayout = ({ children, ...rest }: { children: ReactNode }) => {
+  console.log("log: rest", rest);
   return (
     <TooltipProvider delayDuration={0}>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -45,43 +32,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
               </Link>
             </div>
             <div className="flex-1">
-              <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                <Link
-                  href="#"
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                >
-                  <BanknoteIcon className="size-4" />
-                  Tokens
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                >
-                  <WalletIcon className="size-4" />
-                  Wallet
-                </Link>
-                <Link
-                  href="#"
-                  className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
-                >
-                  <UserCogIcon className="size-4" />
-                  Settings
-                </Link>
-                <Link
-                  href="https://t.me/theguriev"
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                >
-                  <HeadsetIcon className="size-4" />
-                  Support
-                </Link>
-                <Link
-                  href="/wallet?logout=true"
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                >
-                  <LogOutIcon className="size-4" />
-                  Log out
-                </Link>
-              </nav>
+              <DesktopNavigation />
             </div>
           </div>
         </div>
@@ -145,38 +96,6 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                 </nav>
               </SheetContent>
             </Sheet>
-            {/* <div className="w-full flex-1">
-              <form>
-                <div className="relative">
-                  <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-                  <Input
-                    type="search"
-                    placeholder="Search token..."
-                    className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
-                  />
-                </div>
-              </form>
-            </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="secondary"
-                  size="icon"
-                  className="rounded-full"
-                >
-                  <CircleUser className="size-5" />
-                  <span className="sr-only">Toggle user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
           </header>
           <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
             {children}

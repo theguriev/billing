@@ -36,7 +36,7 @@ const AppPage = async () => {
             <CardHeader className="space-y-0">
               <CardTitle>
                 <Button variant="link" asChild className="p-0">
-                  <Link href={`/transaction/${token.symbol}`}>
+                  <Link href={`/app/transactions/${token.symbol}`}>
                     {token.name}
                   </Link>
                 </Button>

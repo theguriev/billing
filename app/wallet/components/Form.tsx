@@ -45,6 +45,7 @@ const WalletForm = ({ initialMnemonic }: { initialMnemonic: string }) => {
               <FormControl>
                 <Textarea
                   placeholder="Mnemonic"
+                  className="bg-background"
                   {...field}
                   autoFocus
                   rows={3}
