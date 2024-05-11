@@ -1,15 +1,7 @@
 /* eslint-disable tailwindcss/no-arbitrary-value */
 import { ReactNode } from "react";
 
-import {
-  Home,
-  LineChart,
-  Menu,
-  Package,
-  Package2,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
+import { Menu, Package2 } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -17,9 +9,9 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import DesktopNavigation from "./components/DesktopNavigation";
+import MobileNavigation from "./components/MobileNavigation";
 
 const AppLayout = ({ children, ...rest }: { children: ReactNode }) => {
-  console.log("log: rest", rest);
   return (
     <TooltipProvider delayDuration={0}>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -50,50 +42,7 @@ const AppLayout = ({ children, ...rest }: { children: ReactNode }) => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col">
-                <nav className="grid gap-2 text-lg font-medium">
-                  <Link
-                    href="#"
-                    className="flex items-center gap-2 text-lg font-semibold"
-                  >
-                    <Package2 className="size-6" />
-                    <span className="sr-only">Acme Inc</span>
-                  </Link>
-                  <Link
-                    href="#"
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                  >
-                    <Home className="size-5" />
-                    Dashboard
-                  </Link>
-                  <Link
-                    href="#"
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
-                  >
-                    <ShoppingCart className="size-5" />
-                    Orders
-                  </Link>
-                  <Link
-                    href="#"
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                  >
-                    <Package className="size-5" />
-                    Products
-                  </Link>
-                  <Link
-                    href="#"
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                  >
-                    <Users className="size-5" />
-                    Customers
-                  </Link>
-                  <Link
-                    href="#"
-                    className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
-                  >
-                    <LineChart className="size-5" />
-                    Analytics
-                  </Link>
-                </nav>
+                <MobileNavigation />
               </SheetContent>
             </Sheet>
           </header>
