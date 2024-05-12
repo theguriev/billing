@@ -1,4 +1,8 @@
+import { CircleArrowUpIcon } from "lucide-react";
+import Link from "next/link";
+
 import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import getBallance from "../services/getBallance";
@@ -19,11 +23,17 @@ const WalletPage = async () => {
             <Card key={key}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {key.toUpperCase()}
+                  {key.toUpperCase()} Ballance
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex justify-between">
                 <div className="text-2xl font-bold">{value}</div>
+                <Button asChild>
+                  <Link href={`/app/wallet/${wallet.address}/${key}`}>
+                    <CircleArrowUpIcon className="mr-2 size-4" />
+                    Send
+                  </Link>
+                </Button>
               </CardContent>
             </Card>
           ))}
