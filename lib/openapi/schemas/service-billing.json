@@ -39,6 +39,34 @@
         }
       }
     },
+    "/token/{symbol}": {
+      "get": {
+        "summary": "Retrieve token information by symbol",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "required": true,
+            "description": "Symbol of the token to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokensList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/token": {
       "post": {
         "summary": "Create Token",
@@ -68,8 +96,8 @@
             "description": "Token already exists",
             "content": {
               "application/json": {
-                "example": {
-                  "error": "Token already exists! Symbol should be unique!"
+                "schema": {
+                  "$ref": "#/components/schemas/TokenPost409Error"
                 }
               }
             }
@@ -86,6 +114,94 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TokensList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/token/issue": {
+      "post": {
+        "summary": "Issue Token",
+        "description": "Issues a token to a specific address",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "symbol": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 3,
+                    "description": "Symbol of the token (1-3 characters)"
+                  },
+                  "address": {
+                    "type": "string",
+                    "description": "Address associated with the token issuance"
+                  },
+                  "emission": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000000000,
+                    "description": "Emission value for the token (1-10000000000)"
+                  },
+                  "signature": {
+                    "type": "string",
+                    "description": "Signature for verification"
+                  }
+                },
+                "required": [
+                  "symbol",
+                  "address",
+                  "emission",
+                  "signature"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token issued successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid signature",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message indicating invalid signature"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Token does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Error message indicating token not found"
+                    }
+                  }
                 }
               }
             }
@@ -267,13 +383,16 @@
             "minLength": 1,
             "maxLength": 3
           },
-          "wallet": {
+          "address": {
             "type": "string"
           },
           "emission": {
             "type": "integer",
             "minimum": 1,
             "maximum": 1000000000
+          },
+          "signature": {
+            "type": "string"
           }
         },
         "required": [
@@ -286,7 +405,7 @@
       "TokenResponse": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string"
           },
           "name": {
@@ -296,11 +415,32 @@
             "type": "string",
             "format": "date-time"
           },
-          "author": {
+          "address": {
             "type": "string"
           },
           "symbol": {
             "type": "string"
+          }
+        }
+      },
+      "TokenPost409Error": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "example": "/forgot-password"
+          },
+          "statusCode": {
+            "type": "integer",
+            "example": 409
+          },
+          "statusMessage": {
+            "type": "string",
+            "example": "Validation Error"
+          },
+          "message": {
+            "type": "string",
+            "example": "Validation Error"
           }
         }
       },
@@ -309,7 +449,7 @@
         "items": {
           "type": "object",
           "properties": {
-            "id": {
+            "_id": {
               "type": "string"
             },
             "name": {
@@ -319,7 +459,7 @@
               "type": "string",
               "format": "date-time"
             },
-            "author": {
+            "address": {
               "type": "string"
             },
             "symbol": {
@@ -358,7 +498,7 @@
       "TransactionResponse": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string"
           },
           "from": {
@@ -385,7 +525,7 @@
       "Transaction": {
         "type": "object",
         "properties": {
-          "id": {
+          "_id": {
             "type": "string"
           },
           "from": {

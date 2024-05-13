@@ -25,6 +25,25 @@ export interface paths {
       };
     };
   };
+  "/token/{symbol}": {
+    /** Retrieve token information by symbol */
+    get: {
+      parameters: {
+        path: {
+          /** @description Symbol of the token to retrieve */
+          symbol: string;
+        };
+      };
+      responses: {
+        /** @description Successful operation */
+        200: {
+          content: {
+            "application/json": components["schemas"]["TokensList"];
+          };
+        };
+      };
+    };
+  };
   "/token": {
     /**
      * Get All Tokens
@@ -60,7 +79,55 @@ export interface paths {
         /** @description Token already exists */
         409: {
           content: {
-            "application/json": unknown;
+            "application/json": components["schemas"]["TokenPost409Error"];
+          };
+        };
+      };
+    };
+  };
+  "/token/issue": {
+    /**
+     * Issue Token
+     * @description Issues a token to a specific address
+     */
+    post: {
+      requestBody: {
+        content: {
+          "application/json": {
+            /** @description Symbol of the token (1-3 characters) */
+            symbol: string;
+            /** @description Address associated with the token issuance */
+            address: string;
+            /** @description Emission value for the token (1-10000000000) */
+            emission: number;
+            /** @description Signature for verification */
+            signature: string;
+          };
+        };
+      };
+      responses: {
+        /** @description Token issued successfully */
+        200: {
+          content: {
+            "application/json": components["schemas"]["TransactionResponse"];
+          };
+        };
+        /** @description Invalid signature */
+        400: {
+          content: {
+            "application/json": {
+              /** @description Error message indicating invalid signature */
+              message?: string;
+            };
+          };
+        };
+        /** @description Token does not exist */
+        404: {
+          content: {
+            "application/json": {
+              /** @description Error message indicating token not found */
+              message?: string;
+            };
           };
         };
       };
@@ -175,23 +242,34 @@ export interface components {
     TokenRequest: {
       name: string;
       symbol: string;
-      wallet: string;
+      address?: string;
       emission: number;
+      signature?: string;
     };
     TokenResponse: {
-      id?: string;
+      _id?: string;
       name?: string;
       /** Format: date-time */
       timestamp?: string;
-      author?: string;
+      address?: string;
       symbol?: string;
     };
+    TokenPost409Error: {
+      /** @example /forgot-password */
+      url?: string;
+      /** @example 409 */
+      statusCode?: number;
+      /** @example Validation Error */
+      statusMessage?: string;
+      /** @example Validation Error */
+      message?: string;
+    };
     TokensList: {
-        id?: string;
+        _id?: string;
         name?: string;
         /** Format: date-time */
         timestamp?: string;
-        author?: string;
+        address?: string;
         symbol?: string;
       }[];
     TransactionRequest: {
@@ -202,7 +280,7 @@ export interface components {
       message?: string;
     };
     TransactionResponse: {
-      id?: string;
+      _id?: string;
       from?: string;
       to?: string;
       symbol?: string;
@@ -212,7 +290,7 @@ export interface components {
       value?: number;
     };
     Transaction: {
-      id?: string;
+      _id?: string;
       from?: string;
       to?: string;
       symbol?: string;

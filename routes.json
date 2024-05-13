@@ -1,52 +1,14 @@
 {
-  "/authorization/change-name": {
-    "methods": ["PUT"],
-    "authorizationNeeded": true,
-    "proxy": {
-      "to": "http://authorization:3000/change-name"
-    }
-  },
-  "/authorization": {
-    "methods": ["GET"],
-    "authorizationNeeded": true,
-    "proxy": {
-      "to": "http://authorization:3000"
-    }
-  },
-  "/authorization/login": {
-    "methods": ["POST"],
-    "proxy": {
-      "to": "http://authorization:3000/login"
-    }
-  },
-  "/authorization/registration": {
-    "methods": ["POST"],
-    "proxy": {
-      "to": "http://authorization:3000/registration"
-    }
-  },
-  "/authorization/logout": {
-    "methods": ["GET"],
-    "proxy": {
-      "to": "http://authorization:3000/logout"
-    }
-  },
-  "/authorization/refresh": {
-    "methods": ["GET"],
-    "proxy": {
-      "to": "http://authorization:3000/refresh"
-    }
-  },
-  "/billing/signature": {
-    "methods": ["POST"],
-    "proxy": {
-      "to": "http://billing:3000/signature"
-    }
-  },
   "/billing/token": {
     "methods": ["GET", "POST"],
     "proxy": {
       "to": "http://billing:3000/token"
+    }
+  },
+  "/billing/token/issue": {
+    "methods": ["POST"],
+    "proxy": {
+      "to": "http://billing:3000/token/issue"
     }
   },
   "/billing/transaction/:symbol": {

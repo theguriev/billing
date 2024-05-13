@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import omit from "@/app/utils/omit";
 
 import replacePathParameters from "./replacePathParameters";
-import { authorization, billing } from "./schemas/";
+import { billing } from "./schemas/";
 import type {
   Parameters as EndpointParameters,
   ExtractContentJson,
@@ -85,6 +85,12 @@ const createRequest = <Paths>({ getBaseUrl }: { getBaseUrl: () => string }) => {
       ])
     ) as unknown as RequestInit;
 
+    console.log(
+      "log: ",
+      fetchParameters,
+      `${getBaseUrl()}${replacePathParameters(path.toString(), pathParams)}`
+    );
+
     return (await fetch(
       `${getBaseUrl()}${replacePathParameters(path.toString(), pathParams)}`,
       fetchParameters
@@ -93,9 +99,6 @@ const createRequest = <Paths>({ getBaseUrl }: { getBaseUrl: () => string }) => {
 };
 
 export const api = {
-  authorization: createRequest<authorization.paths>({
-    getBaseUrl: () => `${process.env.API_URL}/authorization`,
-  }),
   billing: createRequest<billing.paths>({
     getBaseUrl: () => `${process.env.API_URL}/billing`,
   }),

@@ -31,8 +31,9 @@
     "dayjs": "^1.11.11",
     "defu": "^6.1.4",
     "destr": "^2.0.3",
+    "ethers": "^6.12.1",
     "framer-motion": "^11.1.7",
-    "jose": "^5.2.4",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.363.0",
     "next": "14.1.4",
     "react": "^18.3.1",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
@@ -67,11 +69,6 @@
     "typescript": "^5.4.5"
   },
   "openapiFiles": [
-    {
-      "input": "https://raw.githubusercontent.com/theguriev/service-authorization/master/swagger.json",
-      "swagger": "./lib/openapi/schemas/service-authorization.json",
-      "output": "./lib/openapi/schemas/service-authorization.d.ts"
-    },
     {
       "input": "https://raw.githubusercontent.com/theguriev/service-billing/master/swagger.json",
       "swagger": "./lib/openapi/schemas/service-billing.json",
