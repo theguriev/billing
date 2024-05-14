@@ -186,6 +186,25 @@ export interface paths {
       };
     };
   };
+  "/transaction/address/{address}": {
+    /** Get all transactions by address */
+    get: {
+      parameters: {
+        path: {
+          /** @description Wallet address to fetch transactions */
+          address: string;
+        };
+      };
+      responses: {
+        /** @description Successful response */
+        200: {
+          content: {
+            "application/json": components["schemas"]["Transaction"][];
+          };
+        };
+      };
+    };
+  };
   "/wallet": {
     /**
      * Create Random Wallet
