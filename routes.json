@@ -17,6 +17,12 @@
       "to": "http://billing:3000/transaction/:symbol"
     }
   },
+  "/billing/transaction/address/:address": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://billing:3000/transaction/address/:address"
+    }
+  },
   "/billing/wallet/:key": {
     "methods": ["GET"],
     "proxy": {

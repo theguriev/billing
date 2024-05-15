@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-
 import Link from "next/link";
 
 import {
@@ -11,12 +9,12 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import TransactionsTable from "./components/TransactionsTable";
+import Form from "./components/Form";
 
-const AddressTransactionsPage = async ({
-  params: { address, symbol },
+const SendFoundsPage = async ({
+  params: { symbol, address },
 }: {
-  params: { address: string; symbol: string };
+  params: { symbol: string; address: string };
 }) => {
   return (
     <>
@@ -34,17 +32,23 @@ const AddressTransactionsPage = async ({
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
-          <BreadcrumbItem>{symbol}</BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href={`/app/wallet/${address}/${symbol}`}>{symbol}</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Send funds</BreadcrumbPage>
+          </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl">Transactions</h1>
+        <h1 className="text-lg font-semibold md:text-2xl">Send funds</h1>
       </div>
-      <Suspense fallback={null}>
-        <TransactionsTable address={address} />
-      </Suspense>
+      <Form symbol={symbol} />
     </>
   );
 };
 
-export default AddressTransactionsPage;
+export default SendFoundsPage;

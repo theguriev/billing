@@ -23,13 +23,15 @@ const WalletPage = async () => {
             <Card key={key}>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {key.toUpperCase()} Ballance
+                  <Link href={`/app/wallet/${wallet.address}/${key}`}>
+                    {key.toUpperCase()} Ballance
+                  </Link>
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex justify-between">
                 <div className="text-2xl font-bold">{value}</div>
                 <Button asChild>
-                  <Link href={`/app/wallet/${wallet.address}/${key}`}>
+                  <Link href={`/app/wallet/${wallet.address}/${key}/send`}>
                     <CircleArrowUpIcon className="mr-2 size-4" />
                     Send
                   </Link>
