@@ -32,6 +32,7 @@ const submit = async (body: FormSchema & { symbol: string }) => {
   passSetCookie(request.headers.getSetCookie());
   if (request.status === 200) {
     revalidateTag("tokens");
+    revalidateTag("transactions");
     redirect("/app");
   }
   return response;
