@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
+import Logo from "../components/Logo";
+
 import DesktopNavigation from "./components/DesktopNavigation";
 import MobileNavigation from "./components/MobileNavigation";
 
@@ -15,12 +17,11 @@ const AppLayout = ({ children, ...rest }: { children: ReactNode }) => {
   return (
     <TooltipProvider delayDuration={0}>
       <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-        <div className="hidden border-r bg-muted/40 md:block">
+        <div className="hidden md:block">
           <div className="flex h-full max-h-screen flex-col gap-2">
-            <div className="flex h-14 items-center px-4 lg:h-[60px] lg:px-6">
+            <div className="flex w-full items-center justify-center py-10">
               <Link href="/" className="flex items-center gap-2 font-semibold">
-                <Package2 className="size-6" />
-                <span className="">blls.me</span>
+                <Logo className="w-16" />
               </Link>
             </div>
             <div className="flex-1">
@@ -29,7 +30,7 @@ const AppLayout = ({ children, ...rest }: { children: ReactNode }) => {
           </div>
         </div>
         <div className="flex flex-col">
-          <header className="flex h-14 items-center gap-4 px-4 lg:h-[60px] lg:px-6">
+          <header className="flex h-14 items-center gap-4 px-4 md:hidden lg:h-[60px] lg:px-6">
             <Sheet>
               <SheetTrigger asChild>
                 <Button

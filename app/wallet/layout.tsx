@@ -8,10 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="w-full max-w-80">{children}</div>
       <div className="absolute inset-x-0 bottom-4 flex items-center justify-center">
         <Link href="/app">
-          <Logo
-            width={100}
-            className="group cursor-pointer fill-neutral-400 hover:fill-neutral-950"
-          />
+          <Logo className="w-14" />
         </Link>
       </div>
     </main>
