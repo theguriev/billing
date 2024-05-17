@@ -2,15 +2,16 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import {
+  CalendarClockIcon,
+  HashIcon,
+  WalletIcon,
+  MoveRightIcon,
+  MessageCircleIcon,
   ArrowUpRightIcon,
   ArrowDownLeftIcon,
-  HashIcon,
-  CalendarIcon,
-  ClockIcon,
-  MessageCircleIcon,
 } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/app/utils/shadcn";
 import {
   Tooltip,
   TooltipContent,
@@ -20,66 +21,117 @@ import { components } from "@/lib/openapi/schemas/service-billing";
 
 dayjs.extend(relativeTime);
 
+const getTransactionDirection = (
+  from: string,
+  to: string,
+  targetAddress: string
+) => {
+  if (from === targetAddress) {
+    return "Sent";
+  }
+  if (to === targetAddress) {
+    return "Received";
+  }
+  return "";
+};
+
+const getTransactionDirectionIcon = (
+  from: string,
+  to: string,
+  targetAddress: string
+) => {
+  if (from === targetAddress) {
+    return ArrowUpRightIcon;
+  }
+  if (to === targetAddress) {
+    return ArrowDownLeftIcon;
+  }
+  return null;
+};
+
+const getTransactionDirectionColor = (
+  from: string,
+  to: string,
+  targetAddress: string
+) => {
+  if (from === targetAddress) {
+    return "text-red-500";
+  }
+  if (to === targetAddress) {
+    return "text-green-500";
+  }
+  return "";
+};
+
 const Transaction = ({
   _id,
   from,
-  to,
   message,
   symbol,
+  targetAddress = "0x",
   timestamp,
+  to,
   value,
-}: components["schemas"]["Transaction"]) => {
+}: components["schemas"]["Transaction"] & { targetAddress?: string }) => {
+  const transactionDirection = getTransactionDirection(
+    from!,
+    to!,
+    targetAddress
+  );
+  const PrefixIcon = getTransactionDirectionIcon(from!, to!, targetAddress);
+  const textColor = getTransactionDirectionColor(from!, to!, targetAddress);
   return (
-    <Card className="rounded-md">
-      <CardContent className="pt-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-            <ArrowUpRightIcon className="size-4" />
-            <span>Sent</span>
-          </div>
-          <div className="flex items-center gap-1 text-sm font-medium">
-            <span>{value}</span>
-            <span className="text-gray-500 dark:text-gray-400">
-              {symbol?.toUpperCase()}
-            </span>
+    <div className="flex items-center justify-between border-x border-b p-4 first:rounded-t-md first:border-t last:rounded-b-md">
+      <div className="flex flex-col">
+        <span className={cn("mb-2 flex", textColor)}>
+          {PrefixIcon && <PrefixIcon />} {transactionDirection} {value}
+        </span>
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center">
+            <MessageCircleIcon className="mr-1 size-[1em] text-xs text-muted-foreground" />
+            <div className="text-xs font-medium text-muted-foreground">
+              <span>{message}</span>
+            </div>
           </div>
         </div>
-        <div className="mt-2 flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center">
             <Tooltip>
               <TooltipTrigger asChild>
-                <CalendarIcon className="size-4" />
+                <HashIcon className="size-[1em] text-xs text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>ID: {_id}</TooltipContent>
+            </Tooltip>
+            <div className="text-xs font-medium text-muted-foreground">
+              {symbol?.toUpperCase()}
+            </div>
+          </div>
+          <div className="flex items-center">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <CalendarClockIcon className="mr-1 size-[1em] text-xs text-muted-foreground" />
               </TooltipTrigger>
               <TooltipContent>Timestamp: {timestamp}</TooltipContent>
             </Tooltip>
-            <span>{dayjs(timestamp).format("MMM D, YYYY")}</span>
+            <div className="text-xs font-medium text-muted-foreground">
+              {dayjs(dayjs(timestamp)).fromNow(true)} ago
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-            <ClockIcon className="size-4" />
-            <span>{dayjs(timestamp).format("HH:mm:ss")}</span>
-          </div>
-        </div>
-        <div className="mt-2 flex flex-col gap-1 text-sm">
-          <div className="flex items-center gap-2">
-            <ArrowUpRightIcon className="size-4 text-gray-500 dark:text-gray-400" />
-            <span className="truncate">{from}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ArrowDownLeftIcon className="size-4 text-gray-500 dark:text-gray-400" />
-            <span className="truncate">{to}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <HashIcon className="size-4 text-gray-500 dark:text-gray-400" />
-            <span className="truncate">{_id}</span>
+          <div className="flex items-center">
+            <WalletIcon className="mr-1 size-[1em] text-xs text-muted-foreground" />
+            <div className="flex items-center space-x-1">
+              <span className="text-xs font-medium text-muted-foreground">
+                {from}
+              </span>
+              <MoveRightIcon className="mr-1 size-[1em] text-xs text-muted-foreground" />
+              <span className="text-xs font-medium text-muted-foreground">
+                {to}
+              </span>
+            </div>
           </div>
         </div>
-        <div className="mt-2 flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
-          <MessageCircleIcon className="size-4 text-gray-500 dark:text-gray-400" />
-          {message}
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
-
 export default Transaction;

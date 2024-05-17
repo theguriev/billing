@@ -7,11 +7,10 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import TransactionsTable from "./components/TransactionsTable";
+import Transactions from "./components/Transactions";
 
 const AddressTransactionsPage = async ({
   params: { address, symbol },
@@ -41,7 +40,7 @@ const AddressTransactionsPage = async ({
         <h1 className="text-lg font-semibold md:text-2xl">Transactions</h1>
       </div>
       <Suspense fallback={null}>
-        <TransactionsTable address={address} />
+        <Transactions address={address} />
       </Suspense>
     </>
   );

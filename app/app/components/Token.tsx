@@ -30,7 +30,7 @@ const Token = ({
             <Link href={`/app/transactions/${symbol}`}>{name}</Link>
           </Button>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-center space-x-2">
           <div className="flex items-center">
             <Tooltip>
               <TooltipTrigger asChild>
@@ -58,7 +58,7 @@ const Token = ({
               <TooltipTrigger asChild>
                 <WalletIcon className="mr-1 size-[1em] text-xs text-muted-foreground" />
               </TooltipTrigger>
-              <TooltipContent>Wallet owner</TooltipContent>
+              <TooltipContent>Owner wallet address</TooltipContent>
             </Tooltip>
             <div className="text-xs font-medium text-muted-foreground">
               {address}

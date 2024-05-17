@@ -11,7 +11,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-import TransactionsTable from "./components/TransactionsTable";
+import Transactions from "./components/Transactions";
 
 const AddTokenPage = async ({
   params: { symbol },
@@ -39,7 +39,7 @@ const AddTokenPage = async ({
         <h1 className="text-lg font-semibold md:text-2xl">Transactions</h1>
       </div>
       <Suspense fallback={null}>
-        <TransactionsTable symbol={symbol} />
+        <Transactions symbol={symbol} />
       </Suspense>
     </>
   );
