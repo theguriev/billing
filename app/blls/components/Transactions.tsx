@@ -7,10 +7,16 @@ import { api } from "@/lib/openapi/apiClient";
 
 dayjs.extend(relativeTime);
 
-const AllAddressTransactions = async ({ address }: { address: string }) => {
-  const request = await api.billing("/transaction/address/{address}", "get", {
-    path: { address },
+const AllAddressTransactions = async ({
+  address,
+  symbol = "",
+}: {
+  address: string;
+  symbol?: string;
+}) => {
+  const request = await api.billing("/transactions", "get", {
     next: { tags: ["transactions"] },
+    query: { address, symbol },
   });
 
   const transactions = await request.json();
