@@ -4,52 +4,46 @@
  */
 
 export interface paths {
-  "/signature": {
+  "/ballance/{address}": {
     /**
-     * Sign Ethereum Message
-     * @description Signs an Ethereum message using a private key
+     * Get Wallet Balance
+     * @description Retrieves wallet balance by public address
      */
-    post: {
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["MessageRequest"];
-        };
-      };
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["SignedMessage"];
-          };
-        };
-      };
-    };
-  };
-  "/token/{symbol}": {
-    /** Retrieve token information by symbol */
     get: {
       parameters: {
         path: {
-          /** @description Symbol of the token to retrieve */
-          symbol: string;
+          /** @description Wallet public address */
+          address: string;
         };
       };
       responses: {
         /** @description Successful operation */
         200: {
           content: {
-            "application/json": components["schemas"]["TokensList"];
+            "application/json": components["schemas"]["WalletBalance"];
           };
         };
       };
     };
   };
-  "/token": {
+  "/tokens": {
     /**
      * Get All Tokens
      * @description Retrieves all tokens
      */
     get: {
+      parameters: {
+        query?: {
+          /** @description Maximum number of tokens to return */
+          limit?: number;
+          /** @description Number of tokens to skip */
+          offset?: number;
+          /** @description Field to sort by */
+          orderBy?: string;
+          /** @description Sort order (asc or desc) */
+          order?: "asc" | "desc";
+        };
+      };
       responses: {
         /** @description Successful operation */
         200: {
@@ -85,7 +79,11 @@ export interface paths {
       };
     };
   };
-  "/token/issue": {
+  "/tokens/{id}": {
+    /** Get Token by ID */
+    get: operations["getTokenById"];
+  };
+  "/tokens/issue": {
     /**
      * Issue Token
      * @description Issues a token to a specific address
@@ -133,38 +131,14 @@ export interface paths {
       };
     };
   };
-  "/transaction/{symbol}": {
-    /**
-     * Get Transaction History by Symbol
-     * @description Retrieves transaction history for a specific symbol
-     */
-    get: {
-      parameters: {
-        path: {
-          /** @description Symbol identifier */
-          symbol: string;
-        };
-      };
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["Transaction"][];
-          };
-        };
-      };
-    };
+  "/transactions": {
+    /** Get Transactions */
+    get: operations["getTransactions"];
     /**
      * Verify Signature and Perform Transaction
      * @description Verifies a signature and performs a transaction for a specific symbol
      */
     post: {
-      parameters: {
-        path: {
-          /** @description Symbol identifier */
-          symbol: string;
-        };
-      };
       requestBody: {
         content: {
           "application/json": components["schemas"]["TransactionRequest"];
@@ -181,63 +155,6 @@ export interface paths {
         400: {
           content: {
             "application/json": unknown;
-          };
-        };
-      };
-    };
-  };
-  "/transaction/address/{address}": {
-    /** Get all transactions by address */
-    get: {
-      parameters: {
-        path: {
-          /** @description Wallet address to fetch transactions */
-          address: string;
-        };
-      };
-      responses: {
-        /** @description Successful response */
-        200: {
-          content: {
-            "application/json": components["schemas"]["Transaction"][];
-          };
-        };
-      };
-    };
-  };
-  "/wallet": {
-    /**
-     * Create Random Wallet
-     * @description Creates a random Ethereum wallet
-     */
-    get: {
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["Wallet"];
-          };
-        };
-      };
-    };
-  };
-  "/wallet/{key}": {
-    /**
-     * Get Wallet Balance
-     * @description Retrieves wallet balance by key
-     */
-    get: {
-      parameters: {
-        path: {
-          /** @description Wallet key */
-          key: string;
-        };
-      };
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["WalletBalance"];
           };
         };
       };
@@ -297,6 +214,8 @@ export interface components {
       value: number;
       signature: string;
       message?: string;
+      /** @description Token symbol */
+      symbol?: string;
     };
     TransactionResponse: {
       _id?: string;
@@ -318,40 +237,6 @@ export interface components {
       message?: string;
       value?: number;
     };
-    Wallet: {
-      /** @description Ethereum address of the created wallet */
-      address?: string;
-      /** @description Chain code of the created wallet */
-      chainCode?: string;
-      /** @description Depth of the created wallet */
-      depth?: number;
-      /** @description Fingerprint of the created wallet */
-      fingerprint?: string;
-      /** @description Index of the created wallet */
-      index?: number;
-      mnemonic?: {
-        /** @description Entropy of the mnemonic phrase */
-        entropy?: string;
-        /** @description Password used with the mnemonic phrase */
-        password?: string;
-        /** @description Mnemonic phrase of the created wallet */
-        phrase?: string;
-        wordlist?: {
-          /** @description Locale of the wordlist */
-          locale?: string;
-        };
-      };
-      /** @description Parent fingerprint of the created wallet */
-      parentFingerprint?: string;
-      /** @description Derivation path of the created wallet */
-      path?: string;
-      /** @description Provider of the created wallet */
-      provider?: string;
-      /** @description Public key of the created wallet */
-      publicKey?: string;
-      /** @description Public key of the created wallet */
-      privateKey?: string;
-    };
     /** @description Balance by symbol */
     WalletBalance: {
       [key: string]: number;
@@ -368,4 +253,50 @@ export type $defs = Record<string, never>;
 
 export type external = Record<string, never>;
 
-export type operations = Record<string, never>;
+export interface operations {
+
+  /** Get Token by ID */
+  getTokenById: {
+    parameters: {
+      path: {
+        /** @description ID of the token to retrieve */
+        id: string;
+      };
+    };
+    responses: {
+      /** @description Successful operation */
+      200: {
+        content: {
+          "application/json": components["schemas"]["TokenResponse"];
+        };
+      };
+    };
+  };
+  /** Get Transactions */
+  getTransactions: {
+    parameters: {
+      query?: {
+        /** @description Maximum number of transactions to return */
+        limit?: number;
+        /** @description Number of transactions to skip */
+        offset?: number;
+        /** @description Field to sort by */
+        orderBy?: string;
+        /** @description Sort order (asc or desc) */
+        order?: "asc" | "desc";
+        /** @description Filter transactions by symbol */
+        symbol?: string;
+        /** @description Filter transactions by address (to or from) */
+        address?: string;
+      };
+    };
+    responses: {
+      /** @description Successful operation */
+      200: {
+        content: {
+          "application/json": components["schemas"]["Transaction"][];
+        };
+      };
+    };
+  };
+}

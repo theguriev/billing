@@ -11,43 +11,16 @@
     }
   ],
   "paths": {
-    "/signature": {
-      "post": {
-        "summary": "Sign Ethereum Message",
-        "description": "Signs an Ethereum message using a private key",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MessageRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SignedMessage"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/token/{symbol}": {
+    "/ballance/{address}": {
       "get": {
-        "summary": "Retrieve token information by symbol",
+        "summary": "Get Wallet Balance",
+        "description": "Retrieves wallet balance by public address",
         "parameters": [
           {
-            "name": "symbol",
+            "name": "address",
             "in": "path",
+            "description": "Wallet public address",
             "required": true,
-            "description": "Symbol of the token to retrieve",
             "schema": {
               "type": "string"
             }
@@ -59,7 +32,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TokensList"
+                  "$ref": "#/components/schemas/WalletBalance"
                 }
               }
             }
@@ -67,7 +40,7 @@
         }
       }
     },
-    "/token": {
+    "/tokens": {
       "post": {
         "summary": "Create Token",
         "description": "Creates a new token",
@@ -107,6 +80,52 @@
       "get": {
         "summary": "Get All Tokens",
         "description": "Retrieves all tokens",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of tokens to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of tokens to skip",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field to sort by",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "timestamp"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Sort order (asc or desc)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -121,7 +140,36 @@
         }
       }
     },
-    "/token/issue": {
+    "/tokens/{id}": {
+      "get": {
+        "summary": "Get Token by ID",
+        "operationId": "getTokenById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the token to retrieve",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tokens/issue": {
       "post": {
         "summary": "Issue Token",
         "description": "Issues a token to a specific address",
@@ -209,21 +257,10 @@
         }
       }
     },
-    "/transaction/{symbol}": {
+    "/transactions": {
       "post": {
         "summary": "Verify Signature and Perform Transaction",
         "description": "Verifies a signature and performs a transaction for a specific symbol",
-        "parameters": [
-          {
-            "name": "symbol",
-            "in": "path",
-            "description": "Symbol identifier",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -258,45 +295,67 @@
         }
       },
       "get": {
-        "summary": "Get Transaction History by Symbol",
-        "description": "Retrieves transaction history for a specific symbol",
+        "summary": "Get Transactions",
+        "operationId": "getTransactions",
         "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of transactions to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number of transactions to skip",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "orderBy",
+            "in": "query",
+            "description": "Field to sort by",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "timestamp"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Sort order (asc or desc)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
+          },
           {
             "name": "symbol",
-            "in": "path",
-            "description": "Symbol identifier",
-            "required": true,
+            "in": "query",
+            "description": "Filter transactions by symbol",
+            "required": false,
             "schema": {
               "type": "string"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Transaction"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/transaction/address/{address}": {
-      "get": {
-        "summary": "Get all transactions by address",
-        "parameters": [
+          },
           {
             "name": "address",
-            "in": "path",
-            "description": "Wallet address to fetch transactions",
-            "required": true,
+            "in": "query",
+            "description": "Filter transactions by address (to or from)",
+            "required": false,
             "schema": {
               "type": "string"
             }
@@ -304,7 +363,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Successful operation",
             "content": {
               "application/json": {
                 "schema": {
@@ -312,53 +371,6 @@
                   "items": {
                     "$ref": "#/components/schemas/Transaction"
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/wallet": {
-      "get": {
-        "summary": "Create Random Wallet",
-        "description": "Creates a random Ethereum wallet",
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Wallet"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/wallet/{key}": {
-      "get": {
-        "summary": "Get Wallet Balance",
-        "description": "Retrieves wallet balance by key",
-        "parameters": [
-          {
-            "name": "key",
-            "in": "path",
-            "description": "Wallet key",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/WalletBalance"
                 }
               }
             }
@@ -517,6 +529,12 @@
           },
           "message": {
             "type": "string"
+          },
+          "symbol": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3,
+            "description": "Token symbol"
           }
         },
         "required": [
@@ -577,77 +595,6 @@
           },
           "value": {
             "type": "integer"
-          }
-        }
-      },
-      "Wallet": {
-        "type": "object",
-        "properties": {
-          "address": {
-            "type": "string",
-            "description": "Ethereum address of the created wallet"
-          },
-          "chainCode": {
-            "type": "string",
-            "description": "Chain code of the created wallet"
-          },
-          "depth": {
-            "type": "integer",
-            "description": "Depth of the created wallet"
-          },
-          "fingerprint": {
-            "type": "string",
-            "description": "Fingerprint of the created wallet"
-          },
-          "index": {
-            "type": "integer",
-            "description": "Index of the created wallet"
-          },
-          "mnemonic": {
-            "type": "object",
-            "properties": {
-              "entropy": {
-                "type": "string",
-                "description": "Entropy of the mnemonic phrase"
-              },
-              "password": {
-                "type": "string",
-                "description": "Password used with the mnemonic phrase"
-              },
-              "phrase": {
-                "type": "string",
-                "description": "Mnemonic phrase of the created wallet"
-              },
-              "wordlist": {
-                "type": "object",
-                "properties": {
-                  "locale": {
-                    "type": "string",
-                    "description": "Locale of the wordlist"
-                  }
-                }
-              }
-            }
-          },
-          "parentFingerprint": {
-            "type": "string",
-            "description": "Parent fingerprint of the created wallet"
-          },
-          "path": {
-            "type": "string",
-            "description": "Derivation path of the created wallet"
-          },
-          "provider": {
-            "type": "string",
-            "description": "Provider of the created wallet"
-          },
-          "publicKey": {
-            "type": "string",
-            "description": "Public key of the created wallet"
-          },
-          "privateKey": {
-            "type": "string",
-            "description": "Public key of the created wallet"
           }
         }
       },
