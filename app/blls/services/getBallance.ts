@@ -1,9 +1,9 @@
 import { api } from "@/lib/openapi/apiClient";
 
 const getBallance = async (address: string) => {
-  const request = await api.billing("/wallet/{key}", "get", {
+  const request = await api.billing("/ballance/{address}", "get", {
     next: { tags: ["ballance"] },
-    path: { key: address },
+    path: { address },
   });
   const response = await request.json();
   return response;
