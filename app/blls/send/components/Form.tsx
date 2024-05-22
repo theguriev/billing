@@ -43,8 +43,10 @@ import ServerErrorMessage from "./ServerErrorMessage";
 
 const SendFundsForm = ({
   ballanceEntries,
+  symbol,
 }: {
   ballanceEntries: [string, number][];
+  symbol: string;
 }) => {
   const [submitState, setSubmitState] = useState<SubmitAction>();
   const form = useForm<FormSchema>({
@@ -53,16 +55,13 @@ const SendFundsForm = ({
     defaultValues: {
       amount: "1",
       address: "",
-      symbol: ballanceEntries[0][0],
+      symbol,
     },
   });
 
   const handleSubmit = async (body: FormSchema) => {
     setSubmitState(await submitAction(body));
   };
-
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
 
   return (
     <div>
