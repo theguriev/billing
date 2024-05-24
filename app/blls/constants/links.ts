@@ -25,7 +25,7 @@ const links = [
     isActive: () => false,
   },
   {
-    href: "/wallet?logout=true",
+    href: "/login?logout=true",
     Icon: LogOutIcon,
     text: "Log out",
     isActive: () => false,
