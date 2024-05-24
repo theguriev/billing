@@ -17,7 +17,7 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
   return (
     <TooltipProvider delayDuration={0}>
       <div className="flex min-h-screen flex-col justify-between">
-        <div className="relative grid w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+        <div className="relative grid w-full flex-1 md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
           <div className="hidden md:block">
             <div className="flex h-full max-h-screen flex-col gap-2">
               <div className="flex-1 pt-4">

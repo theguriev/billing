@@ -15,9 +15,10 @@ const WalletPage = async () => {
   const wallet = getWalletFromCookie();
   const ballance = await getBallance(wallet.address);
   const ballanceEntries = Object.entries(ballance);
+  const noTransactions = ballanceEntries.length === 0;
   return (
     <>
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-1 flex-col space-y-4">
         <div className="flex items-end justify-between">
           <div className="flex space-x-2">
             <CryptoGradient
@@ -31,9 +32,11 @@ const WalletPage = async () => {
               </h6>
             </div>
           </div>
-          <Button asChild>
-            <Link href="/blls/send">Send</Link>
-          </Button>
+          {!noTransactions && (
+            <Button asChild>
+              <Link href="/blls/send">Send</Link>
+            </Button>
+          )}
         </div>
         <div className="flex flex-col">
           {ballanceEntries.map(([key, value]) => (
@@ -48,9 +51,29 @@ const WalletPage = async () => {
         <div className="flex items-center">
           <h1 className="text-lg font-semibold md:text-2xl">Transactions</h1>
         </div>
-        <Suspense fallback={null}>
-          <Transactions address={wallet.address} />
-        </Suspense>
+        {!noTransactions ? (
+          <Suspense fallback={null}>
+            <Transactions address={wallet.address} />
+          </Suspense>
+        ) : (
+          <div
+            className="flex flex-1 items-center justify-center"
+            x-chunk="dashboard-02-chunk-1"
+          >
+            <div className="flex flex-col items-center gap-1 text-center">
+              <h3 className="text-2xl font-bold tracking-tight">
+                No Transactions Yet 🤷🏼‍♂️
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                You haven&apos;t made any transactions. You can create your own
+                token or receive some from your friends.
+              </p>
+              <Button className="mt-4" asChild>
+                <Link href="/blls/create-token">Create Token</Link>
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
