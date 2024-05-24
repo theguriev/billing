@@ -1,32 +1,32 @@
 {
-  "/billing/token": {
-    "methods": ["GET", "POST"],
+  "/billing/ballance/:address": {
+    "methods": ["GET"],
     "proxy": {
-      "to": "http://billing:3000/token"
+      "to": "http://billing:3000/ballance/:address"
     }
   },
-  "/billing/token/issue": {
+  "/billing/tokens": {
+    "methods": ["POST", "GET"],
+    "proxy": {
+      "to": "http://billing:3000/tokens"
+    }
+  },
+  "/billing/tokens/:id": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://billing:3000/tokens/:id"
+    }
+  },
+  "/billing/tokens/issue": {
     "methods": ["POST"],
     "proxy": {
-      "to": "http://billing:3000/token/issue"
+      "to": "http://billing:3000/tokens/issue"
     }
   },
-  "/billing/transaction/:symbol": {
+  "/billing/transactions": {
     "methods": ["GET", "POST"],
     "proxy": {
-      "to": "http://billing:3000/transaction/:symbol"
-    }
-  },
-  "/billing/wallet/:key": {
-    "methods": ["GET"],
-    "proxy": {
-      "to": "http://billing:3000/wallet/:key"
-    }
-  },
-  "/billing/wallet": {
-    "methods": ["GET"],
-    "proxy": {
-      "to": "http://billing:3000/wallet"
+      "to": "http://billing:3000/transactions"
     }
   }
 }
