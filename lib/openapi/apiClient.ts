@@ -61,6 +61,10 @@ const createRequest = <Paths>({ getBaseUrl }: { getBaseUrl: () => string }) => {
   ): Promise<FancyResponse> => {
     const body = "body" in parameters ? parameters.body : undefined;
     const cookie = "cookie" in parameters ? parameters.cookie : undefined;
+    const query =
+      "query" in parameters
+        ? (parameters.query as Record<string, string>)
+        : undefined;
     const cookieWithAuthorization = parameters.authorization
       ? { accessToken: getAccessToken(), ...(cookie as Record<string, string>) }
       : cookie;
@@ -88,11 +92,17 @@ const createRequest = <Paths>({ getBaseUrl }: { getBaseUrl: () => string }) => {
     console.log(
       "log: ",
       fetchParameters,
-      `${getBaseUrl()}${replacePathParameters(path.toString(), pathParams)}`
+      `${getBaseUrl()}${replacePathParameters(
+        path.toString(),
+        pathParams
+      )}?${new URLSearchParams(query)}`
     );
 
     return (await fetch(
-      `${getBaseUrl()}${replacePathParameters(path.toString(), pathParams)}`,
+      `${getBaseUrl()}${replacePathParameters(
+        path.toString(),
+        pathParams
+      )}?${new URLSearchParams(query)}`,
       fetchParameters
     )) as unknown as Promise<FancyResponse>;
   };
