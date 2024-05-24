@@ -31,7 +31,7 @@ const Token = ({
         <div>
           <div>
             <Button variant="link" asChild className="h-auto p-0">
-              <Link href={`/app/transactions/${symbol}`}>{name}</Link>
+              <Link href={`/blls/symbol/${symbol}`}>{name}</Link>
             </Button>
           </div>
           <div className="flex flex-wrap items-center space-x-2">
@@ -62,7 +62,7 @@ const Token = ({
       </div>
       {canIssue && (
         <Button variant="outline" asChild>
-          <Link prefetch={true} href={`/app/issue/${symbol}`}>
+          <Link prefetch={true} href={`/blls/issue/${symbol}`}>
             Issue
           </Link>
         </Button>

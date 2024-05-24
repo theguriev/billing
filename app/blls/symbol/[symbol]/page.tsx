@@ -2,7 +2,6 @@ import { Suspense } from "react";
 
 import Link from "next/link";
 
-import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
 import { Button } from "@/components/ui/button";
 
 import Transactions from "../../components/Transactions";
@@ -10,10 +9,11 @@ import TransactionsSkeleton from "../../components/TransactionsSkeleton";
 
 const WalletPage = async ({
   params: { symbol },
+  searchParams: { address },
 }: {
   params: { symbol: string };
+  searchParams: { address?: string };
 }) => {
-  const wallet = getWalletFromCookie();
   return (
     <>
       <div className="flex flex-col space-y-4">
@@ -26,7 +26,7 @@ const WalletPage = async ({
           </Button>
         </div>
         <Suspense fallback={<TransactionsSkeleton />}>
-          <Transactions address={wallet.address} symbol={symbol} />
+          <Transactions address={address} symbol={symbol} />
         </Suspense>
       </div>
     </>

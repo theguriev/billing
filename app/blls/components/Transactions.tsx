@@ -8,10 +8,10 @@ import { api } from "@/lib/openapi/apiClient";
 dayjs.extend(relativeTime);
 
 const AllAddressTransactions = async ({
-  address,
+  address = "",
   symbol = "",
 }: {
-  address: string;
+  address?: string;
   symbol?: string;
 }) => {
   const request = await api.billing("/transactions", "get", {
