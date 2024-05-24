@@ -20,7 +20,7 @@ const TokensPage = async () => {
         <h1 className="text-lg font-semibold md:text-2xl">Tokens</h1>
         {tokens.length > 0 && (
           <Button asChild>
-            <Link href="/app/create-token">Create Token</Link>
+            <Link href="/blls/create-token">Create Token</Link>
           </Button>
         )}
       </div>
@@ -46,7 +46,7 @@ const TokensPage = async () => {
                 Your token can be first.
               </p>
               <Button className="mt-4" asChild>
-                <Link href="/app/create-token">Create Token</Link>
+                <Link href="/blls/create-token">Create Token</Link>
               </Button>
             </div>
           </div>
