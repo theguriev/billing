@@ -9,6 +9,7 @@ import BallanceRow from "../components/BallanceRow";
 import CryptoGradient from "../components/CryptoGradient";
 
 import Transactions from "./components/Transactions";
+import TransactionsSkeleton from "./components/TransactionsSkeleton";
 import getBallance from "./services/getBallance";
 
 const WalletPage = async () => {
@@ -52,7 +53,7 @@ const WalletPage = async () => {
           <h1 className="text-lg font-semibold md:text-2xl">Transactions</h1>
         </div>
         {!noTransactions ? (
-          <Suspense fallback={null}>
+          <Suspense fallback={<TransactionsSkeleton />}>
             <Transactions address={wallet.address} />
           </Suspense>
         ) : (

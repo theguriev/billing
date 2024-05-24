@@ -6,6 +6,7 @@ import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
 import { Button } from "@/components/ui/button";
 
 import Transactions from "../../components/Transactions";
+import TransactionsSkeleton from "../../components/TransactionsSkeleton";
 
 const WalletPage = async ({
   params: { symbol },
@@ -24,7 +25,7 @@ const WalletPage = async ({
             </Link>
           </Button>
         </div>
-        <Suspense fallback={null}>
+        <Suspense fallback={<TransactionsSkeleton />}>
           <Transactions address={wallet.address} symbol={symbol} />
         </Suspense>
       </div>
