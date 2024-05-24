@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <main className="absolute inset-0 flex flex-col items-center p-6 sm:justify-center">
       <div className="w-full max-w-80">{children}</div>
       <div className="absolute inset-x-0 bottom-4 flex items-center justify-center">
-        <Link href="/app">
+        <Link href="/blls">
           <Logo className="w-14" />
         </Link>
       </div>

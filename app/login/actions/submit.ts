@@ -9,7 +9,7 @@ const submit = async (body: FormSchema) => {
   const wallet = Wallet.fromPhrase(body.mnemonic);
   cookies().set("privateKey", wallet.privateKey, { path: "/" });
   cookies().set("address", wallet.address, { path: "/" });
-  redirect("/app");
+  redirect("/blls");
 };
 
 export default submit;
