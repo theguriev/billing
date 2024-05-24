@@ -12,7 +12,7 @@ import type { FormSchema } from "../zod";
 
 const submit = async (body: FormSchema) => {
   const wallet = getWalletFromCookie();
-  const request = await api.billing("/token", "post", {
+  const request = await api.billing("/tokens", "post", {
     headers: { "Content-Type": "application/json" },
     authorization: true,
     body: {
@@ -32,7 +32,7 @@ const submit = async (body: FormSchema) => {
   passSetCookie(request.headers.getSetCookie());
   if (request.status === 200) {
     revalidateTag("tokens");
-    redirect("/app");
+    redirect("/blls");
   }
   const response = await request.json();
   return response;
