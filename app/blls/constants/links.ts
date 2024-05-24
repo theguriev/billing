@@ -7,20 +7,16 @@ import {
 
 const links = [
   {
-    href: "/app",
-    Icon: BanknoteIcon,
-    text: "Tokens",
-    isActive: (pathname: string) =>
-      pathname === "/app" ||
-      pathname.startsWith("/app/transactions") ||
-      pathname.startsWith("/app/create-token") ||
-      pathname.startsWith("/app/issue"),
-  },
-  {
-    href: "/app/wallet",
+    href: "/blls",
     Icon: WalletIcon,
     text: "Wallet",
-    isActive: (pathname: string) => pathname === "/app/wallet",
+    isActive: (pathname: string) => pathname === "/blls",
+  },
+  {
+    href: "/blls/tokens",
+    Icon: BanknoteIcon,
+    text: "Tokens",
+    isActive: (pathname: string) => pathname === "/blls/tokens",
   },
   {
     href: "https://t.me/theguriev",
