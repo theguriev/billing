@@ -22,7 +22,7 @@ const WalletPage = async () => {
   return (
     <>
       <div className="flex flex-1 flex-col space-y-4">
-        <div className="flex flex-col justify-between space-y-2 md:flex-row md:items-end">
+        <div className="flex justify-between space-y-2 md:items-end">
           <div className="flex space-x-2">
             <CryptoGradient
               address={wallet.address}
@@ -39,7 +39,7 @@ const WalletPage = async () => {
             </div>
           </div>
           {!noTransactions && (
-            <Button asChild className="w-full md:w-auto">
+            <Button asChild>
               <Link href="/blls/send">Send</Link>
             </Button>
           )}

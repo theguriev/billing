@@ -24,7 +24,7 @@ const Token = ({
   canIssue,
 }: components["schemas"]["TokenResponse"] & { canIssue?: boolean }) => {
   return (
-    <div className="flex items-center justify-between border-x border-b p-4 first:rounded-t-md first:border-t last:rounded-b-md">
+    <div className="flex flex-col justify-between space-y-2 border-x border-b p-4 first:rounded-t-md first:border-t last:rounded-b-md md:flex-row md:items-center md:space-y-0">
       <div className="flex items-center space-x-2">
         <CryptoGradient className="size-10 rounded-full" address={address!} />
 

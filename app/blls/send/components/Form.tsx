@@ -203,7 +203,7 @@ const SendFundsForm = ({
           />
           <ServerErrorMessage response={submitState} />
           <div>
-            <Button name="submit" type="submit">
+            <Button name="submit" type="submit" className="w-full md:w-auto">
               Send
             </Button>
           </div>

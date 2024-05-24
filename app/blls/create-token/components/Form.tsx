@@ -112,7 +112,7 @@ const CreateTokenForm = () => {
         />
         <ServerErrorMessage response={submitState} />
         <div>
-          <Button name="submit" type="submit">
+          <Button name="submit" type="submit" className="w-full md:w-auto">
             Create
           </Button>
         </div>
