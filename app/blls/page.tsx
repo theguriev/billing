@@ -17,24 +17,29 @@ const WalletPage = async () => {
   const ballance = await getBallance(wallet.address);
   const ballanceEntries = Object.entries(ballance);
   const noTransactions = ballanceEntries.length === 0;
+  const mobileAddress =
+    wallet.address.slice(0, 6) + "..." + wallet.address.slice(-4);
   return (
     <>
       <div className="flex flex-1 flex-col space-y-4">
-        <div className="flex items-end justify-between">
+        <div className="flex flex-col justify-between space-y-2 md:flex-row md:items-end">
           <div className="flex space-x-2">
             <CryptoGradient
               address={wallet.address}
               className="size-12 rounded-full"
             />
-            <div>
+            <div className="flex flex-col justify-center">
               <h1 className="text-lg font-semibold md:text-2xl">Wallet</h1>
-              <h6 className="text-sm text-muted-foreground">
+              <h6 className="hidden text-sm text-muted-foreground md:flex">
                 Address: {wallet.address}
+              </h6>
+              <h6 className="text-sm text-muted-foreground md:hidden">
+                {mobileAddress}
               </h6>
             </div>
           </div>
           {!noTransactions && (
-            <Button asChild>
+            <Button asChild className="w-full md:w-auto">
               <Link href="/blls/send">Send</Link>
             </Button>
           )}

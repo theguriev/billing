@@ -7,13 +7,13 @@ const TransactioSkeleton = () => {
       <div className="flex items-center space-x-2">
         <Skeleton className="size-10 rounded-full" />
         <div className="flex flex-col space-y-1">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[200px]" />
+          <Skeleton className="h-4 w-[100px] md:w-[250px]" />
+          <Skeleton className="h-4 w-[50px] md:w-[200px]" />
         </div>
       </div>
       <div className="flex flex-col items-end space-y-1">
-        <Skeleton className="h-4 w-[100px]" />
-        <Skeleton className="h-4 w-[60px]" />
+        <Skeleton className="h-4 w-[40px] md:w-[100px]" />
+        <Skeleton className="h-4 w-[20px] md:w-[60px]" />
       </div>
     </div>
   );
