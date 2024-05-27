@@ -44,18 +44,19 @@ export default function Component() {
             <div className="mx-auto grid max-w-[1300px] gap-4 px-4 sm:px-6 md:grid-cols-2 md:gap-16 md:px-10">
               <div className="flex flex-col space-y-4">
                 <h1 className="lg:leading-tighter text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-[3.4rem] 2xl:text-[3.75rem]">
-                  Create Your Own Cryptocurrency
+                  Create Your Own Cryptocurrency in Minutes
                 </h1>
                 <p className="mx-auto max-w-[700px] text-gray-500 dark:text-gray-400 md:text-xl">
-                  Our platform makes it easy to launch your own cryptocurrency
-                  in just a few simple steps.
+                  Effortlessly launch your custom points, credits, or
+                  cryptocurrency system with just a few clicks. No distributed
+                  servers needed.
                 </p>
                 <div className="mt-6 space-x-4">
                   <Link
                     className="inline-flex h-9 items-center justify-center rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
                     href="/blls/create-token"
                   >
-                    Create Your Crypto
+                    Get Started Now
                   </Link>
                 </div>
               </div>
@@ -73,53 +74,53 @@ export default function Component() {
                   Everything You Need to Launch Your Crypto
                 </h2>
                 <p className="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our platform provides a comprehensive set of tools and
-                  features to help you create, launch, and manage your own
-                  cryptocurrency.
+                  Discover the powerful features that make our platform the
+                  perfect choice for creating your own cryptocurrency or points
+                  system.
                 </p>
               </div>
             </div>
             <div className="mx-auto grid items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3">
               <div className="grid gap-1">
-                <h3 className="text-lg font-bold">Customizable Token</h3>
+                <h3 className="text-lg font-bold">Instant Wallet Creation</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Fully customize your cryptocurrency token with your own
-                  branding, supply, and distribution.
+                  Create a secure wallet with a private and public key in
+                  seconds. Your public key doubles as your wallet address.
                 </p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-lg font-bold">Secure Blockchain</h3>
+                <h3 className="text-lg font-bold">Custom Cryptocurrency</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Your cryptocurrency will be built on a secure, decentralized
-                  blockchain network.
+                  Easily design and launch your own cryptocurrency tailored to
+                  your specific needs and preferences.
                 </p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-lg font-bold">User-Friendly Dashboard</h3>
+                <h3 className="text-lg font-bold">Flexible Points System</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Manage your cryptocurrency, track transactions, and monitor
-                  performance through our intuitive dashboard.
+                  Set up a versatile points or credits system for rewards,
+                  loyalty programs, or internal currency.
                 </p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-lg font-bold">Automated Processes</h3>
+                <h3 className="text-lg font-bold">Simple Token Management</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Streamline your cryptocurrency operations with automated
-                  processes for minting, burning, and distribution.
+                  Seamlessly create, distribute, and manage your tokens without
+                  the need for distributed servers.
                 </p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-lg font-bold">Global Accessibility</h3>
+                <h3 className="text-lg font-bold">User-Friendly Interface</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Make your cryptocurrency available to a global audience with
-                  support for multiple languages and currencies.
+                  Enjoy an intuitive, easy-to-use platform designed to make
+                  cryptocurrency creation accessible to everyone.
                 </p>
               </div>
               <div className="grid gap-1">
-                <h3 className="text-lg font-bold">Regulatory Compliance</h3>
+                <h3 className="text-lg font-bold">Secure Transactions</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Ensure your cryptocurrency meets all relevant regulatory
-                  requirements and guidelines.
+                  Benefit from robust security features that ensure your
+                  transactions and tokens are safe and reliable.
                 </p>
               </div>
             </div>
@@ -129,11 +130,11 @@ export default function Component() {
           <div className="container grid items-center justify-center gap-4 px-4 md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                The Benefits of Creating Your Own Cryptocurrency
+                Benefits of Our Platform
               </h2>
               <p className="max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Launching your own cryptocurrency can provide a range of
-                benefits for your business or community.
+                Experience the advantages of creating your own cryptocurrency or
+                points system with our innovative platform.
               </p>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
@@ -149,31 +150,37 @@ export default function Component() {
                   <li>
                     <div className="grid gap-1">
                       <h3 className="text-xl font-bold">
-                        Increased Engagement
+                        Quick and Easy Setup
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400">
-                        Encourage user participation and loyalty by allowing
-                        them to earn, hold, and use your cryptocurrency.
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="grid gap-1">
-                      <h3 className="text-xl font-bold">New Revenue Streams</h3>
-                      <p className="text-gray-500 dark:text-gray-400">
-                        Monetize your products or services by accepting your
-                        cryptocurrency as a payment method.
+                        Launch your custom cryptocurrency or points system in
+                        minutes without the need for technical expertise. Our
+                        streamlined process makes it simple and efficient.
                       </p>
                     </div>
                   </li>
                   <li>
                     <div className="grid gap-1">
                       <h3 className="text-xl font-bold">
-                        Competitive Advantage
+                        Cost-Effective Solution
                       </h3>
                       <p className="text-gray-500 dark:text-gray-400">
-                        Set your business apart by offering a unique
-                        cryptocurrency that provides value to your customers.
+                        Avoid the high costs associated with traditional
+                        distributed server systems. Our platform offers an
+                        affordable way to create and manage your own digital
+                        currency.
+                      </p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="grid gap-1">
+                      <h3 className="text-xl font-bold">
+                        Enhanced Control and Flexibility
+                      </h3>
+                      <p className="text-gray-500 dark:text-gray-400">
+                        Maintain complete control over your currency or points
+                        system. Customize it to fit your specific needs and
+                        adapt it as your requirements evolve.
                       </p>
                     </div>
                   </li>
@@ -193,42 +200,45 @@ export default function Component() {
                   3 Simple Steps to Create Your Cryptocurrency
                 </h2>
                 <p className="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  Our platform makes it easy to launch your own cryptocurrency
-                  in just a few simple steps.
+                  Follow these simple steps to create and manage your own
+                  cryptocurrency or points system.
                 </p>
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
               <div className="grid gap-1">
-                <h3 className="text-xl font-bold">1. Design Your Token</h3>
+                <h3 className="text-xl font-bold">1. Create Your Wallet</h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Customize your cryptocurrency token with your own branding,
-                  supply, and distribution.
+                  Generate a secure wallet with a private and public key. The
+                  public key also serves as your wallet address, making it easy
+                  to manage your digital assets.
+                </p>
+              </div>
+              <div className="grid gap-1">
+                <h3 className="text-xl font-bold">2. Design Your Currency</h3>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Customize your cryptocurrency or points system to match your
+                  specific needs. Define the rules, values, and other parameters
+                  effortlessly.
                 </p>
               </div>
               <div className="grid gap-1">
                 <h3 className="text-xl font-bold">
-                  2. Build on the Blockchain
+                  3. Manage and Distribute Tokens
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  Your cryptocurrency will be built on a secure, decentralized
-                  blockchain network.
-                </p>
-              </div>
-              <div className="grid gap-1">
-                <h3 className="text-xl font-bold">3. Launch and Manage</h3>
-                <p className="text-gray-500 dark:text-gray-400">
-                  Easily launch your cryptocurrency and manage it through our
-                  user-friendly dashboard.
+                  Issue and distribute your tokens as needed. Use our platform
+                  to manage transactions and keep track of your digital
+                  currency.
                 </p>
               </div>
             </div>
             <div className="mt-8 flex justify-center space-x-4">
               <Link
                 className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                href="#"
+                href="/blls/create-token"
               >
-                Create Your Crypto
+                Get Started
               </Link>
               <Link
                 className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
