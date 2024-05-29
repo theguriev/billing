@@ -1,11 +1,8 @@
 /* eslint-disable tailwindcss/no-arbitrary-value */
 import { ReactNode } from "react";
 
-import { Menu, Package2 } from "lucide-react";
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 import Logo from "../components/Logo";
@@ -16,7 +13,7 @@ import MobileNavigation from "./components/MobileNavigation";
 const AppLayout = ({ children }: { children: ReactNode }) => {
   return (
     <TooltipProvider delayDuration={0}>
-      <div className="flex min-h-screen flex-col justify-between">
+      <div className="flex min-h-screen flex-col justify-between pb-24 md:pb-0">
         <div className="relative flex w-full flex-1 overflow-hidden lg:grid lg:grid-cols-[280px_1fr]">
           <div className="hidden md:block">
             <div className="flex h-full max-h-screen flex-col gap-2">
@@ -31,11 +28,12 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
             </main>
           </div>
         </div>
-        <div className="flex w-full items-center justify-center py-4">
+        <div className="hidden w-full items-center justify-center py-4 md:flex">
           <Link href="/" className="flex">
             <Logo className="w-16" />
           </Link>
         </div>
+        <MobileNavigation />
       </div>
     </TooltipProvider>
   );
