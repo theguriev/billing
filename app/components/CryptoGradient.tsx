@@ -1,10 +1,14 @@
+"use client";
 import { forwardRef, HTMLAttributes, CSSProperties } from "react";
+
+import copy from "copy-to-clipboard";
 
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useToast } from "@/components/ui/use-toast";
 
 import chunk from "../utils/chunk";
 import { cn } from "../utils/shadcn";
@@ -16,6 +20,16 @@ const CryptoGradient = forwardRef<
   const [firstColor, secondColor] = chunk(address.slice(2).split(""), 6).map(
     (item) => `#${item.join("")}`
   );
+  const { toast } = useToast();
+
+  const handleClick = () => {
+    copy(address);
+    toast({
+      title: "Address copied to clipboard",
+      description: address,
+      duration: 5000,
+    });
+  };
   if (address === "0x") {
     return (
       <Tooltip>
@@ -53,6 +67,7 @@ const CryptoGradient = forwardRef<
           )}
           {...props}
           ref={ref}
+          onClick={handleClick}
         ></div>
       </TooltipTrigger>
       <TooltipContent>{address}</TooltipContent>
