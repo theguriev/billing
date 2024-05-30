@@ -114,7 +114,13 @@ export interface paths {
         400: {
           content: {
             "application/json": {
-              /** @description Error message indicating invalid signature */
+              /** @example /tokens/issue */
+              url?: string;
+              /** @example 409 */
+              statusCode?: number;
+              /** @example Validation Error */
+              statusMessage?: string;
+              /** @example Validation Error */
               message?: string;
             };
           };
@@ -154,7 +160,16 @@ export interface paths {
         /** @description Bad request */
         400: {
           content: {
-            "application/json": unknown;
+            "application/json": {
+              /** @example /transactions */
+              url?: string;
+              /** @example 409 */
+              statusCode?: number;
+              /** @example Validation Error */
+              statusMessage?: string;
+              /** @example Validation Error */
+              message?: string;
+            };
           };
         };
       };
