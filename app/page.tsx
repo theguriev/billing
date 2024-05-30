@@ -1,7 +1,15 @@
 /* eslint-disable tailwindcss/no-arbitrary-value */
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import Logo from "./components/Logo";
+
+export const metadata: Metadata = {
+  title:
+    "Create Your Own Cryptocurrency or Points System in Minutes | Easy and Secure",
+  description:
+    "Effortlessly design and launch your custom cryptocurrency, points, or credits system with our user-friendly platform. Enjoy quick setup, enhanced security, and complete control without the need for distributed servers. Start creating your digital currency today!",
+};
 
 export default function Component() {
   return (
