@@ -1,17 +1,27 @@
 /* eslint-disable tailwindcss/no-arbitrary-value */
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import Logo from "./components/Logo";
+import MobileNavigation from "./components/MobileNavigation";
+
+export const metadata: Metadata = {
+  title:
+    "Create Your Own Cryptocurrency or Points System in Minutes | Easy and Secure",
+  description:
+    "Effortlessly design and launch your custom cryptocurrency, points, or credits system with our user-friendly platform. Enjoy quick setup, enhanced security, and complete control without the need for distributed servers. Start creating your digital currency today!",
+};
 
 export default function Component() {
   return (
     <div className="flex min-h-dvh flex-col">
-      <header className="flex h-14 items-center px-4 lg:px-6">
+      <MobileNavigation />
+      <header className="hidden h-14 items-center px-4 md:flex lg:px-6">
         <Link className="flex items-center justify-center" href="#">
           <Logo className="size-14" />
           <span className="sr-only">Crypto Creator</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <nav className="ml-auto hidden gap-4 sm:gap-6 md:flex">
           <Link
             className="text-sm font-medium underline-offset-4 hover:underline"
             href="#key-features"
@@ -151,13 +161,6 @@ export default function Component() {
               </p>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-              <img
-                alt="Image"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
-                height="310"
-                src="/placeholder.svg"
-                width="550"
-              />
               <div className="flex flex-col justify-center space-y-4">
                 <ul className="grid gap-6">
                   <li>

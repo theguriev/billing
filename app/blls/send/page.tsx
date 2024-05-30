@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
+
 import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
 
 import getBallance from "../services/getBallance";
 
 import Form from "./components/Form";
+
+export const metadata: Metadata = {
+  title:
+    "Send Tokens Securely | Efficient Token Transfer for Your Cryptocurrency",
+  description:
+    "Streamline token transfers with our platform's user-friendly send form. Send tokens securely and effortlessly manage transactions within your cryptocurrency or points system. Simplify token sending processes today!",
+};
 
 const SendFoundsPage = async ({
   searchParams: { symbol },
