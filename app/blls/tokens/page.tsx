@@ -1,6 +1,7 @@
 /* eslint-disable tailwindcss/no-arbitrary-value */
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
@@ -10,6 +11,13 @@ import Token from "../components/Token";
 import getTokens from "../services/getTokens";
 
 dayjs.extend(relativeTime);
+
+export const metadata: Metadata = {
+  title:
+    "Manage Tokens | Track and Organize Tokens in Your Cryptocurrency System",
+  description:
+    "Efficiently organize and track tokens with our tokens table page. Easily view token details, balances, and activity within your custom cryptocurrency or points system. Simplify token management and stay informed about your digital currency assets.",
+};
 
 const TokensPage = async () => {
   const wallet = getWalletFromCookie();

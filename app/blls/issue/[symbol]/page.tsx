@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import {
@@ -10,6 +11,13 @@ import {
 } from "@/components/ui/breadcrumb";
 
 import Form from "./components/Form";
+
+export const metadata: Metadata = {
+  title:
+    "Issue Tokens for Your Cryptocurrency | Manage Existing Tokens Efficiently",
+  description:
+    "Easily issue additional tokens for your existing cryptocurrency or points system. Our platform simplifies token management, allowing you to scale your digital currency seamlessly. Start issuing tokens now to meet your growing needs.",
+};
 
 const AddTokenPage = async ({
   params: { symbol },
