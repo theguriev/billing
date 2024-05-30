@@ -1,11 +1,19 @@
 import { Suspense } from "react";
 
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 
 import Transactions from "../../components/Transactions";
 import TransactionsSkeleton from "../../components/TransactionsSkeleton";
+
+export const metadata: Metadata = {
+  title:
+    "View Transactions | Track Token Activity in Your Cryptocurrency System",
+  description:
+    "Monitor and analyze token transactions with our comprehensive transactions table. Easily track token movement, transaction details, and account activity within your custom cryptocurrency or points system. Gain valuable insights into your digital currency operations.",
+};
 
 const WalletPage = async ({
   params: { symbol },
