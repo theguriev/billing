@@ -229,9 +229,21 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "url": {
+                      "type": "string",
+                      "example": "/tokens/issue"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 409
+                    },
+                    "statusMessage": {
+                      "type": "string",
+                      "example": "Validation Error"
+                    },
                     "message": {
                       "type": "string",
-                      "description": "Error message indicating invalid signature"
+                      "example": "Validation Error"
                     }
                   }
                 }
@@ -286,8 +298,26 @@
             "description": "Bad request",
             "content": {
               "application/json": {
-                "example": {
-                  "error": "Invalid signature! Or Insufficient funds!"
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "example": "/transactions"
+                    },
+                    "statusCode": {
+                      "type": "integer",
+                      "example": 409
+                    },
+                    "statusMessage": {
+                      "type": "string",
+                      "example": "Validation Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Validation Error"
+                    }
+                  }
                 }
               }
             }
