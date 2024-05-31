@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 
 import "./globals.css";
@@ -13,6 +14,14 @@ export const metadata: Metadata = {
     "Effortlessly design and launch your custom cryptocurrency, points, or credits system with our user-friendly platform. Enjoy quick setup, enhanced security, and complete control without the need for distributed servers. Start creating your digital currency today!",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -23,6 +32,7 @@ export default function RootLayout({
       <body className={inter.className}>
         {children}
         <Toaster />
+        <GoogleAnalytics gaId="G-Z3RB673VHE" />
       </body>
     </html>
   );
