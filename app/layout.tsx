@@ -7,6 +7,9 @@ import { cn } from "@/app/utils/shadcn";
 import { Toaster } from "@/components/ui/toaster";
 import siteConfig from "@/config/site";
 
+import Header from "./components/Header";
+import Providers from "./components/Providers";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -88,8 +91,19 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased"
         )}
       >
-        {children}
-        <Toaster />
+        <Providers
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="relative flex min-h-screen flex-col bg-background">
+            <Header />
+            <main className="flex-1">{children}</main>
+            {/* <SiteFooter /> */}
+          </div>
+          <Toaster />
+        </Providers>
         <GoogleAnalytics gaId="G-Z3RB673VHE" />
       </body>
     </html>

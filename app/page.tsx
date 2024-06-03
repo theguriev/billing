@@ -2,9 +2,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import Logo from "./components/Logo";
-import MobileNavigation from "./components/MobileNavigation";
-
 export const metadata: Metadata = {
   title:
     "Create Your Own Cryptocurrency or Points System in Minutes | Easy and Secure",
@@ -15,46 +12,6 @@ export const metadata: Metadata = {
 export default function Component() {
   return (
     <div className="flex min-h-dvh flex-col">
-      <MobileNavigation />
-      <header className="hidden h-14 items-center px-4 md:flex lg:px-6">
-        <Link className="flex items-center justify-center" href="#">
-          <Logo className="size-14" />
-          <span className="sr-only">Crypto Creator</span>
-        </Link>
-        <nav className="ml-auto hidden gap-4 sm:gap-6 md:flex">
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="#key-features"
-          >
-            Features
-          </Link>
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="#benefits"
-          >
-            Benefits
-          </Link>
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="#how-it-works"
-          >
-            How it works
-          </Link>
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="/docs"
-          >
-            Docs
-          </Link>
-          <Link
-            className="text-sm font-medium underline-offset-4 hover:underline"
-            href="https://t.me/theguriev"
-            target="_blank"
-          >
-            Contact
-          </Link>
-        </nav>
-      </header>
       <main className="flex-1">
         <section className="w-full border-y py-12 md:py-24 lg:py-32">
           <div className="container space-y-10 px-4 md:px-6 xl:space-y-16">
