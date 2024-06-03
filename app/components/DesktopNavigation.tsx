@@ -35,18 +35,34 @@ const DesktopNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
             {item.title}
           </Link>
         ))}
-        {tokens.map((item) => (
-          <Link
-            key={`desktop-${item.title}`}
-            href={String(item.href)}
-            className={cn(
-              "transition-colors hover:text-foreground/80",
-              item.isActive ? "text-foreground" : "text-foreground/60"
-            )}
-          >
-            {item.title}
-          </Link>
-        ))}
+        {tokens.map((item) => {
+          if (item.href.startsWith("/logout")) {
+            return (
+              <a
+                key={`desktop-${item.title}`}
+                href={String(item.href)}
+                className={cn(
+                  "transition-colors hover:text-foreground/80",
+                  item.isActive ? "text-foreground" : "text-foreground/60"
+                )}
+              >
+                {item.title}
+              </a>
+            );
+          }
+          return (
+            <Link
+              key={`desktop-${item.title}`}
+              href={String(item.href)}
+              className={cn(
+                "transition-colors hover:text-foreground/80",
+                item.isActive ? "text-foreground" : "text-foreground/60"
+              )}
+            >
+              {item.title}
+            </Link>
+          );
+        })}
       </nav>
     </div>
   );

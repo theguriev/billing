@@ -27,6 +27,21 @@ const MobileLink = ({
   className?: string;
 }) => {
   const router = useRouter();
+  if (href.toString().startsWith("/logout")) {
+    return (
+      <a
+        href={href}
+        onClick={() => {
+          router.push(href.toString());
+          onOpenChange?.(false);
+        }}
+        className={cn(className)}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  }
   return (
     <Link
       href={href}
@@ -100,30 +115,24 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
-            {info.map(
-              (item) =>
-                item.href && (
-                  <MobileLink
-                    key={item.href}
-                    href={item.href}
-                    onOpenChange={setOpen}
-                  >
-                    {item.title}
-                  </MobileLink>
-                )
-            )}
-            {tokens.map(
-              (item) =>
-                item.href && (
-                  <MobileLink
-                    key={item.href}
-                    href={item.href}
-                    onOpenChange={setOpen}
-                  >
-                    {item.title}
-                  </MobileLink>
-                )
-            )}
+            {info.map((item) => (
+              <MobileLink
+                key={item.href}
+                href={item.href}
+                onOpenChange={setOpen}
+              >
+                {item.title}
+              </MobileLink>
+            ))}
+            {tokens.map((item) => (
+              <MobileLink
+                key={item.href}
+                href={item.href}
+                onOpenChange={setOpen}
+              >
+                {item.title}
+              </MobileLink>
+            ))}
           </div>
           <div className="flex flex-col space-y-2">
             {sidebarNav.map((item, index) => (
