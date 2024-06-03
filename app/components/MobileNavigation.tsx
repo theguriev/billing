@@ -42,10 +42,10 @@ const MobileLink = ({
   );
 };
 
-const MobileNavigation = () => {
+const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const docsConfig = generateDocsConfig({ pathname, isLoggedIn: false });
+  const docsConfig = generateDocsConfig({ pathname, isLoggedIn: loggedIn });
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>

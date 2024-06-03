@@ -23,7 +23,7 @@ const TokensPage = async () => {
   const wallet = getWalletFromCookie();
   const tokens = await getTokens();
   return (
-    <>
+    <div className="flex flex-col space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold md:text-2xl">Tokens</h1>
         {tokens.length > 0 && (
@@ -60,7 +60,7 @@ const TokensPage = async () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

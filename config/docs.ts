@@ -32,15 +32,15 @@ const generateDocsConfig = ({
         href: "https://t.me/theguriev",
         isActive: false,
       },
-      {
-        ...(isLoggedIn
-          ? {
+      ...(isLoggedIn
+        ? [
+            {
               title: "Log out",
               href: "/login?logout=true",
               isActive: false,
-            }
-          : {}),
-      },
+            },
+          ]
+        : []),
     ],
     sidebarNav: [
       {
