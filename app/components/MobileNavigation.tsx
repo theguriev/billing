@@ -132,23 +132,18 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
                 {item?.items?.length &&
                   item.items.map((item) => (
                     <Fragment key={item.href}>
-                      {!item.disabled &&
-                        (item.href ? (
-                          <MobileLink
-                            href={item.href}
-                            onOpenChange={setOpen}
-                            className="text-muted-foreground"
-                          >
-                            {item.title}
-                            {item.label && (
-                              <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">
-                                {item.label}
-                              </span>
-                            )}
-                          </MobileLink>
-                        ) : (
-                          item.title
-                        ))}
+                      <MobileLink
+                        href={item.href}
+                        onOpenChange={setOpen}
+                        className="text-muted-foreground"
+                      >
+                        {item.title}
+                        {"label" in item && (
+                          <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">
+                            {item.label}
+                          </span>
+                        )}
+                      </MobileLink>
                     </Fragment>
                   ))}
               </div>
