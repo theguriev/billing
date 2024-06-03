@@ -12,7 +12,7 @@ import Logo from "./Logo";
 const DesktopNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
   const pathname = usePathname();
   const docsConfig = generateDocsConfig({ pathname, isLoggedIn: loggedIn });
-  const { mainNav } = docsConfig;
+  const { info, tokens } = docsConfig;
 
   return (
     <div className="mr-4 hidden md:flex">
@@ -23,7 +23,19 @@ const DesktopNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
         </span>
       </Link>
       <nav className="flex items-center gap-6 text-sm">
-        {mainNav.map((item) => (
+        {info.map((item) => (
+          <Link
+            key={`desktop-${item.title}`}
+            href={String(item.href)}
+            className={cn(
+              "transition-colors hover:text-foreground/80",
+              item.isActive ? "text-foreground" : "text-foreground/60"
+            )}
+          >
+            {item.title}
+          </Link>
+        ))}
+        {tokens.map((item) => (
           <Link
             key={`desktop-${item.title}`}
             href={String(item.href)}

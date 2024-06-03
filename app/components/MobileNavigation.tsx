@@ -45,7 +45,10 @@ const MobileLink = ({
 const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const docsConfig = generateDocsConfig({ pathname, isLoggedIn: loggedIn });
+  const { info, sidebarNav, tokens } = generateDocsConfig({
+    pathname,
+    isLoggedIn: loggedIn,
+  });
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -97,7 +100,19 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
-            {docsConfig.mainNav?.map(
+            {info.map(
+              (item) =>
+                item.href && (
+                  <MobileLink
+                    key={item.href}
+                    href={item.href}
+                    onOpenChange={setOpen}
+                  >
+                    {item.title}
+                  </MobileLink>
+                )
+            )}
+            {tokens.map(
               (item) =>
                 item.href && (
                   <MobileLink
@@ -111,7 +126,7 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
             )}
           </div>
           <div className="flex flex-col space-y-2">
-            {docsConfig.sidebarNav.map((item, index) => (
+            {sidebarNav.map((item, index) => (
               <div key={index} className="flex flex-col space-y-3 pt-6">
                 <h4 className="font-medium">{item.title}</h4>
                 {item?.items?.length &&

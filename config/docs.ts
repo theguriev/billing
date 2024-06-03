@@ -6,21 +6,11 @@ const generateDocsConfig = ({
   isLoggedIn: boolean;
 }) => {
   const docsConfig = {
-    mainNav: [
+    info: [
       {
         title: "Documentation",
         href: "/docs",
         isActive: pathname === "/docs",
-      },
-      {
-        title: "Wallet",
-        href: "/blls",
-        isActive: pathname === "/blls",
-      },
-      {
-        title: "Tokens",
-        href: "/blls/tokens",
-        isActive: pathname === "/blls/tokens",
       },
       {
         title: "Examples",
@@ -32,16 +22,32 @@ const generateDocsConfig = ({
         href: "https://t.me/theguriev",
         isActive: false,
       },
-      ...(isLoggedIn
-        ? [
-            {
-              title: "Log out",
-              href: "/login?logout=true",
-              isActive: false,
-            },
-          ]
-        : []),
     ],
+    tokens: isLoggedIn
+      ? [
+          {
+            title: "Wallet",
+            href: "/blls",
+            isActive: pathname === "/blls",
+          },
+          {
+            title: "Tokens",
+            href: "/blls/tokens",
+            isActive: pathname === "/blls/tokens",
+          },
+          {
+            title: "Log out",
+            href: "/logout",
+            isActive: false,
+          },
+        ]
+      : [
+          {
+            title: "Log in",
+            href: "/login",
+            isActive: false,
+          },
+        ],
     sidebarNav: [
       {
         title: "Getting Started",
