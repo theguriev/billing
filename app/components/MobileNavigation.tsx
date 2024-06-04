@@ -30,7 +30,7 @@ const MobileLink = ({
   if (href.toString().startsWith("/logout")) {
     return (
       <a
-        href={href}
+        href={String(href)}
         onClick={() => {
           router.push(href.toString());
           onOpenChange?.(false);
