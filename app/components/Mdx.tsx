@@ -6,7 +6,6 @@ import { useMDXComponent } from "next-contentlayer/hooks";
 import { Node } from "unist-builder";
 
 import { Event } from "@/lib/events";
-import { cn } from "@/lib/utils";
 import { useConfig } from "@/hooks/use-config";
 import { Callout } from "@/components/callout";
 import { CodeBlockWrapper } from "@/components/code-block-wrapper";
@@ -35,6 +34,7 @@ import {
   TabsTrigger,
 } from "@/registry/new-york/ui/tabs";
 import { Style } from "@/registry/styles";
+import { cn } from "@/app/utils/shadcn";
 
 export interface UnistNode extends Node {
   type: string;
