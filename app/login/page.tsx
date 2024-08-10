@@ -1,10 +1,7 @@
-import { Suspense } from "react";
-
 import { Wallet } from "ethers";
 import type { Metadata } from "next";
 
 import Form from "./components/Form";
-import LogoutHandler from "./components/LogoutHandler";
 
 export const metadata: Metadata = {
   title: "Secure Mnemonic phrase Login | Access Your Account Safely",
@@ -19,9 +16,6 @@ export default function Page() {
   return (
     <div>
       <Form initialMnemonic={String(wallet.mnemonic?.phrase)} />
-      <Suspense fallback={null}>
-        <LogoutHandler />
-      </Suspense>
     </div>
   );
 }
