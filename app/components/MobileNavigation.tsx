@@ -123,7 +123,7 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
             {info.map((item) => (
               <MobileLink
                 key={item.href}
-                href={item.href}
+                href={String(item.href)}
                 onOpenChange={setOpen}
               >
                 {item.title}
@@ -133,7 +133,7 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
               ? tokensLoggedIn.map((item) => (
                   <MobileLink
                     key={item.href}
-                    href={item.href}
+                    href={String(item.href)}
                     onOpenChange={setOpen}
                   >
                     {item.title}
@@ -142,7 +142,7 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
               : tokensLoggedOut.map((item) => (
                   <MobileLink
                     key={item.href}
-                    href={item.href}
+                    href={String(item.href)}
                     onOpenChange={setOpen}
                   >
                     {item.title}
@@ -157,7 +157,7 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
                   item.items.map((item) => (
                     <Fragment key={item.href}>
                       <MobileLink
-                        href={item.href}
+                        href={String(item.href)}
                         onOpenChange={setOpen}
                         className="text-muted-foreground"
                       >

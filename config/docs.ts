@@ -1,3 +1,5 @@
+import { Icons } from "@/app/components/Icons";
+
 export type NavigationItem = {
   title: string;
   href?: string;
@@ -5,6 +7,7 @@ export type NavigationItem = {
   label?: string;
   disabled?: boolean;
   items?: NavigationItem[];
+  icon?: keyof typeof Icons;
 };
 
 export const info: Array<NavigationItem> = [
