@@ -7,6 +7,7 @@ import Balancer from "react-wrap-balancer";
 
 import DashboardTableOfContents from "@/app/components/DashboardTableOfContents";
 import { DocsPager } from "@/app/components/DocsPager";
+import { Mdx } from "@/app/components/Mdx";
 import { cn, absoluteUrl } from "@/app/utils/shadcn";
 import { getTableOfContents } from "@/app/utils/toc";
 import { badgeVariants } from "@/components/ui/badge";
@@ -15,8 +16,6 @@ import siteConfig from "@/config/site";
 import { allDocs } from "contentlayer/generated";
 
 import "@/styles/mdx.css";
-
-// import { Mdx } from "@/components/mdx-components";
 
 interface DocPageProps {
   params: {
@@ -132,7 +131,9 @@ export default async function DocPage({ params }: DocPageProps) {
             )}
           </div>
         ) : null}
-        <div className="pb-12 pt-8">{/* <Mdx code={doc.body.code} /> */}</div>
+        <div className="pb-12 pt-8">
+          <Mdx code={doc.body.code} />
+        </div>
         <DocsPager doc={doc} />
       </div>
       {doc.toc && (
