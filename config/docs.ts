@@ -57,49 +57,24 @@ export const sidebarNav: Array<NavigationItem> = [
         items: [],
       },
       {
-        title: "Installation",
-        href: "/docs/installation",
+        title: "How it works",
+        href: "/docs/how-it-works",
         items: [],
       },
       {
-        title: "components.json",
-        href: "/docs/components-json",
+        title: "More tokens",
+        href: "/docs/more-tokens",
         items: [],
       },
       {
-        title: "Theming",
-        href: "/docs/theming",
-        items: [],
-      },
-      {
-        title: "Dark mode",
-        href: "/docs/dark-mode",
-        items: [],
-      },
-      {
-        title: "CLI",
-        href: "/docs/cli",
-        items: [],
-      },
-      {
-        title: "Typography",
-        href: "/docs/components/typography",
-        items: [],
-      },
-      {
-        title: "Figma",
-        href: "/docs/figma",
-        items: [],
-      },
-      {
-        title: "Changelog",
-        href: "/docs/changelog",
+        title: "Safely Transfer Your Tokens",
+        href: "/docs/send-funds",
         items: [],
       },
     ],
   },
   {
-    title: "Components",
+    title: "Integration (API)",
     items: [
       {
         title: "Accordion",
