@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/app/utils/shadcn";
+import { Separator } from "@/components/ui/separator";
 import { info, tokensLoggedIn, tokensLoggedOut } from "@/config/docs";
 import type { NavigationItem } from "@/config/docs";
 import siteConfig from "@/config/site";
@@ -46,6 +47,7 @@ const DesktopNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
             pathname={pathname}
           />
         ))}
+        <Separator orientation="vertical" />
         {loggedIn
           ? tokensLoggedIn.map((item) => (
               <DesktopNavigationItem
