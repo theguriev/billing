@@ -77,8 +77,8 @@ export const sidebarNav: Array<NavigationItem> = [
     title: "Integration (API)",
     items: [
       {
-        title: "Accordion",
-        href: "/docs/components/accordion",
+        title: "Create a wallet",
+        href: "/docs/integration/create-a-wallet",
         items: [],
       },
       {
