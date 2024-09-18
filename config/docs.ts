@@ -82,8 +82,8 @@ export const sidebarNav: Array<NavigationItem> = [
         items: [],
       },
       {
-        title: "Alert",
-        href: "/docs/components/alert",
+        title: "Get balance of a wallet",
+        href: "/docs/integration/get-balance-of-a-wallet",
         items: [],
       },
       {
