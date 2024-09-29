@@ -10,7 +10,12 @@ import { cn } from "@/app/utils/shadcn";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import generateDocsConfig from "@/config/docs";
+import {
+  info,
+  sidebarNav,
+  tokensLoggedIn,
+  tokensLoggedOut,
+} from "@/config/docs";
 import siteConfig from "@/config/site";
 
 import Logo from "./Logo";
@@ -60,10 +65,10 @@ const MobileLink = ({
 const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const { info, sidebarNav, tokens } = generateDocsConfig({
-    pathname,
-    isLoggedIn: loggedIn,
-  });
+  // const { info, sidebarNav, tokens } = generateDocsConfig({
+  //   pathname,
+  //   isLoggedIn: loggedIn,
+  // });
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -118,21 +123,31 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
             {info.map((item) => (
               <MobileLink
                 key={item.href}
-                href={item.href}
+                href={String(item.href)}
                 onOpenChange={setOpen}
               >
                 {item.title}
               </MobileLink>
             ))}
-            {tokens.map((item) => (
-              <MobileLink
-                key={item.href}
-                href={item.href}
-                onOpenChange={setOpen}
-              >
-                {item.title}
-              </MobileLink>
-            ))}
+            {loggedIn
+              ? tokensLoggedIn.map((item) => (
+                  <MobileLink
+                    key={item.href}
+                    href={String(item.href)}
+                    onOpenChange={setOpen}
+                  >
+                    {item.title}
+                  </MobileLink>
+                ))
+              : tokensLoggedOut.map((item) => (
+                  <MobileLink
+                    key={item.href}
+                    href={String(item.href)}
+                    onOpenChange={setOpen}
+                  >
+                    {item.title}
+                  </MobileLink>
+                ))}
           </div>
           <div className="flex flex-col space-y-2">
             {sidebarNav.map((item, index) => (
@@ -142,7 +157,7 @@ const MobileNavigation = ({ loggedIn }: { loggedIn: boolean }) => {
                   item.items.map((item) => (
                     <Fragment key={item.href}>
                       <MobileLink
-                        href={item.href}
+                        href={String(item.href)}
                         onOpenChange={setOpen}
                         className="text-muted-foreground"
                       >
