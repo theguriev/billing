@@ -1,8 +1,68 @@
 ---
-title: nothing
-description: description
+title: Retrieves all tokens
+description: How to Retrieve All Tokens
 ---
 
-Hello
+To retrieve a list of all tokens on the platform, you need to send a GET request to the following API endpoint:
 
+```bash
+api.blls.me/billing/tokens
+```
+
+### Search Request Parameters
+
+You can customize your request by adding optional query parameters:
+
+- **limit**: Maximum number of tokens to return.  
+  **Default**: 10
+- **offset**: Number of tokens to skip (useful for pagination).  
+  **Default**: 0
+- **orderBy**: Field to sort the results by.  
+  **Default**: `timestamp`
+- **order**: Sort order, either ascending (`asc`) or descending (`desc`).  
+  **Default**: `desc`
+
+#### Example Request:
+
+To retrieve 20 tokens, starting from the 5th token, sorted by name in ascending order:
+
+```bash
+api.blls.me/billing/tokens?limit=20&offset=5&orderBy=name&order=asc
+```
+
+### API Response
+
+If your request is successful, the server will return a `200` status code with a list of tokens in JSON format.
+
+#### Success Response:
+
+```json
+[
+  {
+    "_id": "string",         // Unique token ID
+    "name": "string",        // Token name
+    "timestamp": "2024-10-15T18:02:52.743Z",  // Timestamp of token creation
+    "address": "string",     // Wallet address that controls the token
+    "symbol": "string"       // Token symbol
+  }
+]
+```
+
+This response includes:
+
+* **_id**: The unique identifier for the token.
+* **name**: The name of the token.
+* **timestamp**: The time the token was created.
+* **address**: The wallet address that controls the token.
+* **symbol**: The token’s symbol.
+
+**Summary**
+
+To retrieve tokens:
+
+* Send a GET request to api.blls.me/billing/tokens.
+* Use optional parameters like limit, offset, orderBy, and order to customize your search.
+* Check the response for a list of tokens in JSON format.
+
+This simple method allows you to list all tokens on the platform with flexibility in sorting and pagination.
 
