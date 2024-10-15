@@ -1,0 +1,46 @@
+---
+title: Get balance of a wallet
+description: How to get your wallet balance.
+---
+
+Once you've created your wallet and started using your tokens, you’ll want to check your balance from time to time. Our platform makes it easy to retrieve your wallet’s balance by sending a simple GET request to the server.
+
+### Step-by-Step Guide to Checking Your Balance
+
+To get your wallet balance, you just need to make a GET request to the following API endpoint:
+
+```bash
+api.blls.me/billing/ballance/{address}
+```
+
+#### Parameters:
+- **address**: This is your wallet’s public address. You’ll use this to specify which wallet’s balance you’d like to retrieve.
+
+#### Example Request:
+If your wallet address is `0x12345abcdef`, you would send a GET request to:
+
+
+```bash
+api.blls.me/billing/ballance/0x12345abcdef
+```
+
+### Response Format:
+
+When your request is successful, the server will return the balance of your wallet in JSON format. Here’s what the response will look like:
+
+#### Status: 200
+```json
+{
+  "token": 95
+}
+```
+
+This response means that your wallet contains **95 tokens**.
+
+#### Quick and Simple
+
+That’s it! By sending this GET request with your wallet address, you can easily check your balance and keep track of your tokens.
+
+
+
+

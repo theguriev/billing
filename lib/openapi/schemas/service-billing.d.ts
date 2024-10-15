@@ -4,314 +4,435 @@
  */
 
 export interface paths {
-  "/ballance/{address}": {
-    /**
-     * Get Wallet Balance
-     * @description Retrieves wallet balance by public address
-     */
-    get: {
-      parameters: {
-        path: {
-          /** @description Wallet public address */
-          address: string;
+    "/ballance/{address}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["WalletBalance"];
-          };
-        };
-      };
-    };
-  };
-  "/tokens": {
-    /**
-     * Get All Tokens
-     * @description Retrieves all tokens
-     */
-    get: {
-      parameters: {
-        query?: {
-          /** @description Maximum number of tokens to return */
-          limit?: number;
-          /** @description Number of tokens to skip */
-          offset?: number;
-          /** @description Field to sort by */
-          orderBy?: string;
-          /** @description Sort order (asc or desc) */
-          order?: "asc" | "desc";
-        };
-      };
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["TokensList"];
-          };
-        };
-      };
-    };
-    /**
-     * Create Token
-     * @description Creates a new token
-     */
-    post: {
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["TokenRequest"];
-        };
-      };
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["TokenResponse"];
-          };
-        };
-        /** @description Token already exists */
-        409: {
-          content: {
-            "application/json": components["schemas"]["TokenPost409Error"];
-          };
-        };
-      };
-    };
-  };
-  "/tokens/{id}": {
-    /** Get Token by ID */
-    get: operations["getTokenById"];
-  };
-  "/tokens/issue": {
-    /**
-     * Issue Token
-     * @description Issues a token to a specific address
-     */
-    post: {
-      requestBody: {
-        content: {
-          "application/json": {
-            /** @description Symbol of the token (1-3 characters) */
-            symbol: string;
-            /** @description Address associated with the token issuance */
-            address: string;
-            /** @description Emission value for the token (1-10000000000) */
-            emission: number;
-            /** @description Signature for verification */
-            signature: string;
-          };
-        };
-      };
-      responses: {
-        /** @description Token issued successfully */
-        200: {
-          content: {
-            "application/json": components["schemas"]["TransactionResponse"];
-          };
-        };
-        /** @description Invalid signature */
-        400: {
-          content: {
-            "application/json": {
-              /** @example /tokens/issue */
-              url?: string;
-              /** @example 409 */
-              statusCode?: number;
-              /** @example Validation Error */
-              statusMessage?: string;
-              /** @example Validation Error */
-              message?: string;
+        /**
+         * Get Wallet Balance
+         * @description Retrieves wallet balance by public address
+         */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    /** @description Wallet public address */
+                    address: string;
+                };
+                cookie?: never;
             };
-          };
-        };
-        /** @description Token does not exist */
-        404: {
-          content: {
-            "application/json": {
-              /** @description Error message indicating token not found */
-              message?: string;
+            requestBody?: never;
+            responses: {
+                /** @description Successful operation */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["WalletBalance"];
+                    };
+                };
             };
-          };
         };
-      };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-  };
-  "/transactions": {
-    /** Get Transactions */
-    get: operations["getTransactions"];
-    /**
-     * Verify Signature and Perform Transaction
-     * @description Verifies a signature and performs a transaction for a specific symbol
-     */
-    post: {
-      requestBody: {
-        content: {
-          "application/json": components["schemas"]["TransactionRequest"];
+    "/tokens": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
         };
-      };
-      responses: {
-        /** @description Successful operation */
-        200: {
-          content: {
-            "application/json": components["schemas"]["TransactionResponse"];
-          };
-        };
-        /** @description Bad request */
-        400: {
-          content: {
-            "application/json": {
-              /** @example /transactions */
-              url?: string;
-              /** @example 409 */
-              statusCode?: number;
-              /** @example Validation Error */
-              statusMessage?: string;
-              /** @example Validation Error */
-              message?: string;
+        /**
+         * Get All Tokens
+         * @description Retrieves all tokens
+         */
+        get: {
+            parameters: {
+                query?: {
+                    /** @description Maximum number of tokens to return */
+                    limit?: number;
+                    /** @description Number of tokens to skip */
+                    offset?: number;
+                    /** @description Field to sort by */
+                    orderBy?: string;
+                    /** @description Sort order (asc or desc) */
+                    order?: "asc" | "desc";
+                };
+                header?: never;
+                path?: never;
+                cookie?: never;
             };
-          };
+            requestBody?: never;
+            responses: {
+                /** @description Successful operation */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["TokensList"];
+                    };
+                };
+            };
         };
-      };
+        put?: never;
+        /**
+         * Create Token
+         * @description Creates a new token
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["TokenRequest"];
+                };
+            };
+            responses: {
+                /** @description Successful operation */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["TokenResponse"];
+                    };
+                };
+                /** @description Token already exists */
+                409: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["TokenPost409Error"];
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
     };
-  };
+    "/tokens/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Token by ID */
+        get: operations["getTokenById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/tokens/issue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Issue Token
+         * @description Issues a token to a specific address
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        /** @description Symbol of the token (1-3 characters) */
+                        symbol: string;
+                        /** @description Address associated with the token issuance */
+                        address: string;
+                        /** @description Emission value for the token (1-10000000000) */
+                        emission: number;
+                        /** @description Signature for verification */
+                        signature: string;
+                    };
+                };
+            };
+            responses: {
+                /** @description Token issued successfully */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["TransactionResponse"];
+                    };
+                };
+                /** @description Invalid signature */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example /tokens/issue */
+                            url?: string;
+                            /** @example 409 */
+                            statusCode?: number;
+                            /** @example Validation Error */
+                            statusMessage?: string;
+                            /** @example Validation Error */
+                            message?: string;
+                        };
+                    };
+                };
+                /** @description Token does not exist */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @description Error message indicating token not found */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/transactions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Transactions */
+        get: operations["getTransactions"];
+        put?: never;
+        /**
+         * Verify Signature and Perform Transaction
+         * @description Verifies a signature and performs a transaction for a specific symbol
+         */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": components["schemas"]["TransactionRequest"];
+                };
+            };
+            responses: {
+                /** @description Successful operation */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["TransactionResponse"];
+                    };
+                };
+                /** @description Bad request */
+                400: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": {
+                            /** @example /transactions */
+                            url?: string;
+                            /** @example 409 */
+                            statusCode?: number;
+                            /** @example Validation Error */
+                            statusMessage?: string;
+                            /** @example Validation Error */
+                            message?: string;
+                        };
+                    };
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
-
 export type webhooks = Record<string, never>;
-
 export interface components {
-  schemas: {
-    MessageRequest: {
-      privateKey: string;
-      from: string;
-      to: string;
-      value: number;
-      symbol: string;
+    schemas: {
+        MessageRequest: {
+            privateKey: string;
+            from: string;
+            to: string;
+            value: number;
+            symbol: string;
+        };
+        /** @example 0x1234567890abcdef */
+        SignedMessage: string;
+        TokenRequest: {
+            name: string;
+            symbol: string;
+            address?: string;
+            emission: number;
+            signature?: string;
+        };
+        TokenResponse: {
+            _id?: string;
+            name?: string;
+            /** Format: date-time */
+            timestamp?: string;
+            address?: string;
+            symbol?: string;
+        };
+        TokenPost409Error: {
+            /** @example /forgot-password */
+            url?: string;
+            /** @example 409 */
+            statusCode?: number;
+            /** @example Validation Error */
+            statusMessage?: string;
+            /** @example Validation Error */
+            message?: string;
+        };
+        TokensList: {
+            _id?: string;
+            name?: string;
+            /** Format: date-time */
+            timestamp?: string;
+            address?: string;
+            symbol?: string;
+        }[];
+        TransactionRequest: {
+            from: string;
+            to: string;
+            value: number;
+            signature: string;
+            message?: string;
+            /** @description Token symbol */
+            symbol?: string;
+        };
+        TransactionResponse: {
+            _id?: string;
+            from?: string;
+            to?: string;
+            symbol?: string;
+            /** Format: date-time */
+            timestamp?: string;
+            message?: string;
+            value?: number;
+        };
+        Transaction: {
+            _id?: string;
+            from?: string;
+            to?: string;
+            symbol?: string;
+            /** Format: date-time */
+            timestamp?: string;
+            message?: string;
+            value?: number;
+        };
+        /** @description Balance by symbol */
+        WalletBalance: {
+            [key: string]: number;
+        };
     };
-    /** @example 0x1234567890abcdef */
-    SignedMessage: string;
-    TokenRequest: {
-      name: string;
-      symbol: string;
-      address?: string;
-      emission: number;
-      signature?: string;
-    };
-    TokenResponse: {
-      _id?: string;
-      name?: string;
-      /** Format: date-time */
-      timestamp?: string;
-      address?: string;
-      symbol?: string;
-    };
-    TokenPost409Error: {
-      /** @example /forgot-password */
-      url?: string;
-      /** @example 409 */
-      statusCode?: number;
-      /** @example Validation Error */
-      statusMessage?: string;
-      /** @example Validation Error */
-      message?: string;
-    };
-    TokensList: {
-        _id?: string;
-        name?: string;
-        /** Format: date-time */
-        timestamp?: string;
-        address?: string;
-        symbol?: string;
-      }[];
-    TransactionRequest: {
-      from: string;
-      to: string;
-      value: number;
-      signature: string;
-      message?: string;
-      /** @description Token symbol */
-      symbol?: string;
-    };
-    TransactionResponse: {
-      _id?: string;
-      from?: string;
-      to?: string;
-      symbol?: string;
-      /** Format: date-time */
-      timestamp?: string;
-      message?: string;
-      value?: number;
-    };
-    Transaction: {
-      _id?: string;
-      from?: string;
-      to?: string;
-      symbol?: string;
-      /** Format: date-time */
-      timestamp?: string;
-      message?: string;
-      value?: number;
-    };
-    /** @description Balance by symbol */
-    WalletBalance: {
-      [key: string]: number;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
-
 export type $defs = Record<string, never>;
-
-export type external = Record<string, never>;
-
 export interface operations {
-
-  /** Get Token by ID */
-  getTokenById: {
-    parameters: {
-      path: {
-        /** @description ID of the token to retrieve */
-        id: string;
-      };
-    };
-    responses: {
-      /** @description Successful operation */
-      200: {
-        content: {
-          "application/json": components["schemas"]["TokenResponse"];
+    getTokenById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the token to retrieve */
+                id: string;
+            };
+            cookie?: never;
         };
-      };
-    };
-  };
-  /** Get Transactions */
-  getTransactions: {
-    parameters: {
-      query?: {
-        /** @description Maximum number of transactions to return */
-        limit?: number;
-        /** @description Number of transactions to skip */
-        offset?: number;
-        /** @description Field to sort by */
-        orderBy?: string;
-        /** @description Sort order (asc or desc) */
-        order?: "asc" | "desc";
-        /** @description Filter transactions by symbol */
-        symbol?: string;
-        /** @description Filter transactions by address (to or from) */
-        address?: string;
-      };
-    };
-    responses: {
-      /** @description Successful operation */
-      200: {
-        content: {
-          "application/json": components["schemas"]["Transaction"][];
+        requestBody?: never;
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponse"];
+                };
+            };
         };
-      };
     };
-  };
+    getTransactions: {
+        parameters: {
+            query?: {
+                /** @description Maximum number of transactions to return */
+                limit?: number;
+                /** @description Number of transactions to skip */
+                offset?: number;
+                /** @description Field to sort by */
+                orderBy?: string;
+                /** @description Sort order (asc or desc) */
+                order?: "asc" | "desc";
+                /** @description Filter transactions by symbol */
+                symbol?: string;
+                /** @description Filter transactions by address (to or from) */
+                address?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful operation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["Transaction"][];
+                };
+            };
+        };
+    };
 }
