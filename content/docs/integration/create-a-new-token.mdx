@@ -1,8 +1,92 @@
 ---
-title: nothing
-description: description
+title: Create a New Token
+description: How to Create a New Token
 ---
 
-Hello
+Creating your own cryptocurrency token is simple and straightforward with our platform. To get started, you'll need to send a POST request with the necessary token details. Below is a guide on how to do this, along with information on generating a signature to secure your token creation.
+
+### 1. Send a POST Request
+
+To create a new token, send a POST request to our server with the following body:
+
+```json
+{
+  "name": "string",      // Token name
+  "symbol": "string",    // Token symbol
+  "address": "string",   // Wallet address that will control the token
+  "emission": 1000000000, // Total emission (token supply)
+  "signature": "string"  // Signature generated using the private key
+}
+```
+
+**Example Request:**
+
+To create a token called “MyToken” with the symbol “MTK” and an emission of 1 billion tokens, controlled by a wallet at address 0x12345abcdef, your request body would look something like this:
 
 
+```json
+{
+  "name": "MyToken",
+  "symbol": "MTK",
+  "address": "0x12345abcdef",
+  "emission": 1000000000,
+  "signature": "your-generated-signature"
+}
+```
+
+### 2. Generating the Signature
+
+In order to validate the token creation request, you need to include a **signature**. The signature is generated using the **private key** of the wallet that will control the token. We provide a simple function using the ethers library to help you create this signature:
+
+```ts
+import { Wallet } from 'ethers';
+
+const signToken = (privateKey, name, address, emission, symbol) => {
+  const wallet = new Wallet(privateKey);
+  return wallet.signMessage(JSON.stringify({ name, symbol, address, emission }));
+};
+
+export default signToken;
+```
+
+You can use this function to sign the token details and include the signature in your POST request. Make sure to keep your private key secure—it’s used to verify that you are authorized to create the token.
+
+
+### 3. API Responses
+
+**Success Response [200]:**
+
+If your request is successful, the server will return a 200 status code with a response like this:
+
+```json
+{
+  "_id": "string",        // Unique ID of the token
+  "name": "string",       // Token name
+  "timestamp": "2024-10-15T18:02:52.726Z", // Creation timestamp
+  "address": "string",    // Wallet address
+  "symbol": "string"      // Token symbol
+}
+```
+
+**Error Response [409]:**
+
+If there’s a validation error, you will receive a 409 status code, indicating a conflict. The response will look like this:
+
+```json
+{
+  "url": "/forgot-password",
+  "statusCode": 409,
+  "statusMessage": "Validation Error",
+  "message": "Validation Error"
+}
+```
+
+This typically occurs if there’s an issue with the input data, such as a missing or incorrect field.
+
+### 4. Summary
+
+To create a new token:
+
+* Prepare a POST request with the token name, symbol, wallet address, emission, and a generated signature.
+* Use the ethers library or a similar tool to generate the signature.
+* Make sure to validate your data to avoid errors and successfully create your new token!
