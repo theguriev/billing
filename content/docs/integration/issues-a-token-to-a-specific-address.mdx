@@ -1,8 +1,89 @@
 ---
-title: nothing
-description: description
+title: Issues a token to a specific Address
+description: How to Make an Additional Issue to a Token
 ---
 
-Hello
+To increase the supply of a specific token, you can make an additional issuance by sending a POST request to the following API endpoint:
 
+```bash
+[POST] api.blls.me/billing/tokens/issue
+```
 
+### Request Body
+
+The request body should contain the following fields:
+
+```json
+{
+  "symbol": "string",      // Token symbol
+  "address": "string",     // Wallet address controlling the token
+  "emission": 10000000000, // Amount of additional tokens to issue
+  "signature": "string"    // Signature for authorization
+}
+```
+
+**Example Request:**
+
+To issue an additional 10 billion tokens for a token with the symbol “MYTKN”, controlled by a wallet at 0x12345abcdef, your request body would look like this:
+
+```json
+{
+  "symbol": "MYTKN",
+  "address": "0x12345abcdef",
+  "emission": 10000000000,
+  "signature": "your-generated-signature"
+}
+```
+
+### Signing Your Transaction
+
+You need to include a signature in the request to verify that you are authorized to issue new tokens. The method for generating the signature is the same as described in the [Create a New Token](/docs/integration//create-a-new-token) guide. Use your private key and the ethers library (or an equivalent Ethereum-compatible tool) to generate the signature.
+
+#### API Responses
+
+**Success Response:**
+
+If the issuance is successful, the server will return a 200 status code with details about the transaction:
+
+```json
+{
+  "_id": "string",         // Unique transaction ID
+  "from": "string",        // Issuing address
+  "to": "string",          // Receiving address (typically the same as the issuing address)
+  "symbol": "string",      // Token symbol
+  "timestamp": "2024-10-15T18:59:48.527Z",  // Time of issuance
+  "message": "string",     // Optional message
+  "value": 0               // Value of the transaction
+}
+```
+
+**Error Responses:**
+
+* **400 Validation Error**: If there is an issue with the request data, you will receive a 400 status code with the following response:
+
+```json
+{
+  "url": "/tokens/issue",
+  "statusCode": 409,
+  "statusMessage": "Validation Error",
+  "message": "Validation Error"
+}
+```
+
+* **404 Not Found:** If the token does not exist or there’s an issue with the token symbol or address, you will receive a 404 status code:
+
+```json
+{
+  "message": "Token not found"
+}
+```
+
+**Summary**
+
+To make an additional issuance to a token:
+
+* Send a POST request to api.blls.me/billing/tokens/issue.
+* Include the symbol, address, emission, and a generated signature in the request body.
+* Ensure that the request is properly signed using the private key for the wallet controlling the token.
+
+By following these steps, you can increase the token supply as needed.
