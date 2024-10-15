@@ -1,8 +1,76 @@
 ---
-title: nothing
-description: description
+title: Get token by ID
+description: How to Retrieve a Token by ID
 ---
 
-Hello
+
+To retrieve a specific token by its unique ID, you need to send a GET request to the following API endpoint:
+
+```bash
+api.blls.me/billing/tokens/token_id
+```
+
+### Request Parameters
+
+- **id**: The unique identifier of the token you want to retrieve.
+
+#### Example Request:
+
+To retrieve a token with ID `0x12345abcdef`, the request would look like this:
+
+```bash
+api.blls.me/billing/tokens/0x12345abcdef
+```
+
+### API Responses
+
+#### Success Response:
+
+If the request is successful, the server will return a `200` status code with the token details in JSON format.
+
+```json
+{
+  "_id": "string",         // Unique token ID
+  "name": "string",        // Token name
+  "timestamp": "2024-10-15T18:42:40.120Z",  // Timestamp of token creation
+  "address": "string",     // Wallet address that controls the token
+  "symbol": "string"       // Token symbol
+}
+```
+
+**This response includes:**
+
+* **_id:** The unique identifier of the token.
+* **name:** The name of the token.
+* **timestamp:** The time the token was created.
+* **address:** The wallet address controlling the token.
+* **symbol:** The token’s symbol.
+
+**Error Response:**
+
+If the token ID is invalid or there’s a server error, you may receive a 500 status code with an error message.
+
+
+```json
+{
+  "url": "/tokens/0x922A245e1164Bc4e9acB60741013c1FE0E975a9F1",
+  "statusCode": 500,
+  "statusMessage": "",
+  "message": "Cast to ObjectId failed for value \"0x922A245e1164Bc4e9acB60741011013c1FE0E975a9F1\" (type string) at path \"_id\" for model \"Tokens\""
+}
+```
+
+This error typically occurs if the ID format is incorrect or cannot be cast to an expected object type.
+
+**Summary**
+
+To retrieve a token by ID:
+
+* Send a GET request to api.blls.me/billing/tokens/token_id with the token’s unique ID.
+* On success, you will receive the token’s details in JSON format.
+* If an error occurs, you will receive a 500 error response explaining the issue.
+
+This method lets you retrieve specific token information quickly and easily.
+
 
 
