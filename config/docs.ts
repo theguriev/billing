@@ -86,6 +86,36 @@ export const sidebarNav: Array<NavigationItem> = [
         href: "/docs/integration/get-balance-of-a-wallet",
         items: [],
       },
+      {
+        title: "Create a new token",
+        href: "/docs/integration/create-a-new-token",
+        items: [],
+      },
+      {
+        title: "Retrieves all tokens",
+        href: "/docs/integration/retrieves-all-tokens",
+        items: [],
+      },
+      {
+        title: "Get token by ID",
+        href: "/docs/integration/get-token-by-id",
+        items: [],
+      },
+      {
+        title: "Issues a token to a specific address",
+        href: "/docs/integration/issues-a-token-to-a-specific-address",
+        items: [],
+      },
+      {
+        title: "Verifies a signature and performs a transaction",
+        href: "/docs/integration/verifies-a-signature-and-performs-a-transaction",
+        items: [],
+      },
+      {
+        title: "Get all transactions",
+        href: "/docs/integration/get-all-transactions",
+        items: [],
+      },
     ],
   },
 ] as const;
