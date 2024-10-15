@@ -7,7 +7,7 @@ description: How to Retrieve a Token by ID
 To retrieve a specific token by its unique ID, you need to send a GET request to the following API endpoint:
 
 ```bash
-api.blls.me/billing/tokens/token_id
+[GET] api.blls.me/billing/tokens/:id
 ```
 
 ### Request Parameters
@@ -66,7 +66,7 @@ This error typically occurs if the ID format is incorrect or cannot be cast to a
 
 To retrieve a token by ID:
 
-* Send a GET request to api.blls.me/billing/tokens/token_id with the token’s unique ID.
+* Send a GET request to api.blls.me/billing/tokens/:id with the token’s unique ID.
 * On success, you will receive the token’s details in JSON format.
 * If an error occurs, you will receive a 500 error response explaining the issue.
 
