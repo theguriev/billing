@@ -1,8 +1,47 @@
 ---
-title: nothing
-description: description
+title: Get all transactions
+description: How to Retrieve All Available Transactions
 ---
 
-Hello
+To retrieve all available transactions, you need to send a GET request to the following API endpoint:
 
+```bash
+[GET] api.blls.me/billing/transactions
+```
 
+### Search Request Parameters
+
+When sending your request, you can include the following optional query parameters to filter and sort the transactions:
+
+- **limit**: Maximum number of transactions to return. The default value is `10`.
+- **offset**: The number of transactions to skip. The default value is `0`.
+- **orderBy**: Field to sort the transactions by. The default is `timestamp`.
+- **order**: Sort order for the transactions (either `asc` for ascending or `desc` for descending). 
+- **symbol**: Filter transactions by token symbol.
+- **address**: Filter transactions by a specific address (either `to` or `from`).
+
+### Example Response
+
+If the request is successful, the server will return a `200` status code along with the list of transactions in the following format:
+
+```json
+[
+  {
+    "_id": "string",
+    "from": "string",       // Sender address
+    "to": "string",         // Recipient address
+    "symbol": "string",     // Token symbol
+    "timestamp": "2024-10-16T17:38:42.166Z", // Time of transaction
+    "message": "string",    // Optional message with the transaction
+    "value": 0              // Value of the transaction
+  }
+]
+```
+
+**Summary**
+
+To retrieve all available transactions:
+
+1.	Send a GET request to api.blls.me/billing/transactions.
+2.	Optionally, include limit, offset, orderBy, order, symbol, or address parameters to filter and sort the results.
+3.	The response will return a list of transactions with details such as sender and recipient addresses, token symbol, timestamp, and more.
