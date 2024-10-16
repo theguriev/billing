@@ -17,7 +17,7 @@ export const info: Array<NavigationItem> = [
   },
   {
     title: "Examples",
-    href: "/examples",
+    href: "/docs/examples/normal-purchase",
   },
   {
     title: "Support",
@@ -134,6 +134,21 @@ export const sidebarNav: Array<NavigationItem> = [
       {
         title: "Sign transaction",
         href: "/docs/utilities/sign-transaction",
+        items: [],
+      },
+    ],
+  },
+  {
+    title: "Examples",
+    items: [
+      {
+        title: "Normal purchase",
+        href: "/docs/examples/normal-purchase",
+        items: [],
+      },
+      {
+        title: "Subscription",
+        href: "/docs/examples/subscription",
         items: [],
       },
     ],
