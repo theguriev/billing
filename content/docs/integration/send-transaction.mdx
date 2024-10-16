@@ -1,0 +1,72 @@
+---
+title: Send transaction
+description: How to Send a Transaction
+---
+
+To send a transaction, you need to send a POST request to the following API endpoint:
+
+```bash
+[POST] api.blls.me/billing/transactions
+```
+
+### Request Body
+
+The body of the request should contain the following fields:
+
+```json
+{
+  "from": "string",     // Address from where the transaction is sent
+  "to": "string",       // Address to where the transaction is sent
+  "value": 1,           // Quantity of tokens to send
+  "signature": "string",// Signature to verify the transaction
+  "message": "string",  // Optional message with the transaction
+  "symbol": "str"       // Token symbol
+}
+```
+
+### Signing the Transaction
+
+To send a valid transaction, you need to sign it using your private key. You can read about how to sign a transaction here. The signature ensures the transaction is authorized by the wallet owner.
+
+You can read how to sign the transaction [here](/docs/utilities/sign-transaction)
+
+### API Responses
+
+**Success Response (200):**
+
+If the transaction is successful, you will receive a 200 status code with the transaction details:
+
+```json
+{
+  "_id": "string",        // Unique transaction ID
+  "from": "string",       // Sender address
+  "to": "string",         // Recipient address
+  "symbol": "string",     // Token symbol
+  "timestamp": "2024-10-16T16:38:58.973Z", // Time of transaction
+  "message": "string",    // Optional message
+  "value": 0              // Value of the transaction
+}
+```
+
+**Validation Error (400):**
+
+If there’s a problem with the request data, you will receive a 400 status code indicating a validation error:
+
+```json
+{
+  "url": "/transactions",
+  "statusCode": 409,
+  "statusMessage": "Validation Error",
+  "message": "Validation Error"
+}
+```
+
+**Summary**
+
+To send a transaction:
+
+* Send a POST request to api.blls.me/billing/transactions.
+* Include the from and to addresses, value, signature, message, and symbol in the request body.
+* Make sure your transaction is signed using your private key.
+
+By following these steps, you can transfer tokens securely.

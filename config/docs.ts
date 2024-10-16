@@ -107,13 +107,33 @@ export const sidebarNav: Array<NavigationItem> = [
         items: [],
       },
       {
-        title: "Verifies a signature and performs a transaction",
-        href: "/docs/integration/verifies-a-signature-and-performs-a-transaction",
+        title: "Send transaction",
+        href: "/docs/integration/send-transaction",
         items: [],
       },
       {
         title: "Get all transactions",
         href: "/docs/integration/get-all-transactions",
+        items: [],
+      },
+    ],
+  },
+  {
+    title: "Utilities",
+    items: [
+      {
+        title: "Sign token",
+        href: "/docs/utilities/sign-token",
+        items: [],
+      },
+      {
+        title: "Sign issue",
+        href: "/docs/utilities/sign-issue",
+        items: [],
+      },
+      {
+        title: "Sign transaction",
+        href: "/docs/utilities/sign-transaction",
         items: [],
       },
     ],

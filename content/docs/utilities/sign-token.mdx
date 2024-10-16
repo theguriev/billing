@@ -1,0 +1,21 @@
+---
+title: Sign token
+description: Generating the token signature
+---
+
+In order to validate the token creation request, you need to include a signature. The signature is generated using the private key of the wallet that will control the token. We provide a simple function using the ethers library to help you create this signature:
+
+```ts
+import { Wallet } from 'ethers';
+
+const signToken = (privateKey, name, address, emission, symbol) => {
+  const wallet = new Wallet(privateKey);
+  return wallet.signMessage(JSON.stringify({ name, symbol, address, emission }));
+};
+
+export default signToken;
+
+```
+
+You can use this function to sign the token details and include the signature in your POST request. Make sure to keep your private key secure—it’s used to verify that you are authorized to create the token.
+
