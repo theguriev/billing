@@ -1,0 +1,52 @@
+---
+title: Sign issue
+description: How to Create an Additional Issue with a Signed Transaction
+---
+
+To create an additional issue for your token, you will need to sign the transaction with your private key. This signature ensures that the issuance is authorized by the wallet owner. 
+
+To simplify the process, we have created a simple function using the `ethers` library.
+
+### Code Example for Signing an Additional Issue
+
+Here is a function to help you sign the additional issue:
+
+```typescript
+import { Wallet } from 'ethers'
+
+const signIssue = (privateKey: string, address: string, emission: number, symbol: string) => {
+  const wallet = new Wallet(privateKey)
+  return wallet.signMessage(JSON.stringify({ symbol, address, emission }))
+}
+
+export default signIssue
+
+```
+
+### Explanation:
+
+* **privateKey**: Your private key, which authorizes the signing process.
+* **address**: The wallet address that controls the token.
+* **emission**: The amount of additional tokens you are issuing.
+* **symbol**: The token symbol.
+
+### Using the Ethers Library
+
+In the example above, we used the ethers library to handle the signing process. However, you can use any other Ethereum-compatible library to generate the signature.
+
+### Steps to Create an Additional Issue
+
+1.	Install the ethers library using npm:
+```bash
+npm install ethers
+```
+2.	Use the signIssue function to generate the signature by passing your private key, wallet address, token emission amount, and token symbol.
+3.	Once the signature is generated, you can include it in your API request to authorize the additional issue.
+
+**Summary**
+
+* Use your private key to sign the additional token issue.
+* We provide a simple signing function using the ethers library, but you can choose any Ethereum-compatible tool.
+* The signature ensures that the additional issuance is valid and authorized by the token’s controlling wallet.
+
+

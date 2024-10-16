@@ -6,7 +6,7 @@ description: How to Retrieve All Tokens
 To retrieve a list of all tokens on the platform, you need to send a GET request to the following API endpoint:
 
 ```bash
-api.blls.me/billing/tokens
+[GET] api.blls.me/billing/tokens
 ```
 
 ### Search Request Parameters
@@ -27,7 +27,7 @@ You can customize your request by adding optional query parameters:
 To retrieve 20 tokens, starting from the 5th token, sorted by name in ascending order:
 
 ```bash
-api.blls.me/billing/tokens?limit=20&offset=5&orderBy=name&order=asc
+[GET] api.blls.me/billing/tokens?limit=20&offset=5&orderBy=name&order=asc
 ```
 
 ### API Response

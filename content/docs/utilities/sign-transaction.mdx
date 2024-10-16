@@ -1,0 +1,52 @@
+---
+title: Sign transaction
+description: How to Send a Transaction with a Signed Private Key
+---
+
+To send a transaction from one wallet to another, you will need to sign the transaction using your private key. This ensures that the transaction is authorized by the sender's wallet.
+
+To simplify the process, we have created a simple function using the `ethers` library.
+
+### Code Example for Signing a Transaction
+
+Here is a function to help you sign the transaction:
+
+```typescript
+import { Wallet } from 'ethers'
+
+const signTransaction = (privateKey: string, from: string, to: string, value: number, symbol: string) => {
+  const wallet = new Wallet(privateKey)
+  return wallet.signMessage(JSON.stringify({ from, to, value, symbol }))
+}
+
+export default signTransaction
+```
+
+### Explanation:
+
+* **privateKey**: The private key of the wallet from which you are sending the transaction.
+* **from**: The address of the wallet sending the transaction.
+* **to**: The address of the wallet receiving the transaction.
+* **value**: The amount of tokens to send.
+* **symbol**: The token symbol being transferred.
+
+### Using the Ethers Library
+
+In the example above, we used the ethers library to handle the signing process. However, you can use any other Ethereum-compatible library to generate the signature.
+
+### Steps to Send a Transaction
+
+1.	Install the ethers library using npm:
+```bash
+npm install ethers
+```
+2.	Use the signTransaction function to generate the signature by passing your private key, from and to wallet addresses, the transaction value, and the token symbol.
+3.	Once the signature is generated, include it in your transaction API request to authorize the transfer of tokens.
+
+**Summary**
+
+* Use your private key to sign the transaction for wallet-to-wallet transfers.
+* The signTransaction function provided here uses the ethers library, but you can use any other Ethereum-compatible tool.
+* The signature ensures the transaction is valid and authorized by the sender’s wallet.
+
+
