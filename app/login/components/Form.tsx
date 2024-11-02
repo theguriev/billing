@@ -35,7 +35,7 @@ const WalletForm = ({ initialMnemonic }: { initialMnemonic: string }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(handleSubmit)}
-        className="flex w-full flex-col gap-y-4"
+        className="mt-10 flex w-full flex-col gap-y-4"
       >
         <FormField
           control={form.control}

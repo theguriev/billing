@@ -79,14 +79,14 @@ const Transaction = ({
   );
   const textColor = getTransactionDirectionColor(from!, to!, targetAddress);
   return (
-    <div className="flex items-center justify-between border-x border-b p-4 first:rounded-t-md first:border-t last:rounded-b-md">
+    <div className="flex flex-col justify-between border-x border-b p-4 first:rounded-t-md first:border-t last:rounded-b-md sm:flex-row sm:items-center">
       <div className="flex items-center space-x-2">
         <CryptoGradient
-          className="size-10 rounded-full"
+          className="min-h-10 min-w-10 rounded-full"
           address={colorAddress!}
         />
-        <div>
-          <span className="text-xs font-medium text-muted-foreground">
+        <div className="truncate">
+          <span className="truncate text-xs font-medium text-muted-foreground">
             {message}
           </span>
           <div className="flex space-x-1">
@@ -104,7 +104,7 @@ const Transaction = ({
           </div>
         </div>
       </div>
-      <div className="flex flex-col items-end">
+      <div className="ml-12 mt-2 flex flex-col sm:ml-0 sm:mt-0 sm:items-end">
         <span className={cn("flex text-sm", textColor)}>
           {transactionDirectionSymbol}
           {value} {symbol?.toUpperCase()}
