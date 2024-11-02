@@ -4,7 +4,7 @@ import { UnistNode, UnistTree } from "types/unist";
 
 export function rehypeComponent() {
   return async (tree: UnistTree) => {
-    visit(tree, (node: UnistNode) => {
+    visit(tree as any, (node: UnistNode) => {
       // src prop overrides both name and fileName.
       const { value: srcPath } =
         (getNodeAttributeByName(node, "src") as {
