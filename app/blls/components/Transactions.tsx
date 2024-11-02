@@ -14,12 +14,9 @@ const AllAddressTransactions = async ({
   address?: string;
   symbol?: string;
 }) => {
-  // const request = await api.billing("/transactions", "get", {
-  //   next: { tags: ["transactions"] },
-  //   query: { address, symbol },
-  // });
   const request = await api.billing("/transactions", "get", {
-    query: { address },
+    next: { tags: ["transactions"] },
+    query: { address, symbol },
   });
 
   const transactions = await request.json();
