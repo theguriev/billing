@@ -143,7 +143,7 @@ export const sidebarNav: Array<NavigationItem> = [
     items: [
       {
         title: "Normal purchase",
-        href: "/docs/examples/normal-purchase",
+        href: "https://purchase-example.vercel.app/",
         items: [],
       },
       {

@@ -6,6 +6,7 @@ import {
   makeSource,
 } from "contentlayer/source-files";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+// @ts-ignore: No types available
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import { codeImport } from "remark-code-import";
@@ -123,17 +124,21 @@ export default makeSource({
             );
             return await getHighlighter({ theme });
           },
-          onVisitLine(node) {
+          onVisitLine(node: { children: Array<unknown> }) {
             // Prevent lines from collapsing in `display: grid` mode, and allow empty
             // lines to be copy/pasted
             if (node.children.length === 0) {
               node.children = [{ type: "text", value: " " }];
             }
           },
-          onVisitHighlightedLine(node) {
+          onVisitHighlightedLine(node: {
+            properties: { className: Array<string> };
+          }) {
             node.properties.className.push("line--highlighted");
           },
-          onVisitHighlightedWord(node) {
+          onVisitHighlightedWord(node: {
+            properties: { className: Array<string> };
+          }) {
             node.properties.className = ["word--highlighted"];
           },
         },
