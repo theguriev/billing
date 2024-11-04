@@ -16,6 +16,7 @@ const AllAddressTransactions = async ({
 }) => {
   const request = await api.billing("/transactions", "get", {
     next: { tags: ["transactions"] },
+    cache: "no-cache",
     query: { address, symbol },
   });
 
