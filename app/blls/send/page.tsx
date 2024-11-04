@@ -26,7 +26,7 @@ const SendFoundsPage = async ({
   return (
     <>
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl">Send funds</h1>
+        <h1 className="mb-4 text-lg font-semibold md:text-2xl">Send funds</h1>
       </div>
       <Form ballanceEntries={ballanceEntries} symbol={defaultOne} />
     </>

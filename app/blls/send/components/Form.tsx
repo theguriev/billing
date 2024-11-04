@@ -83,7 +83,7 @@ const SendFundsForm = ({
                         variant="outline"
                         role="combobox"
                         className={cn(
-                          "w-full justify-between",
+                          "sm:w-full justify-between",
                           !field.value && "text-muted-foreground"
                         )}
                       >
@@ -96,7 +96,7 @@ const SendFundsForm = ({
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[600px] p-0">
+                  <PopoverContent className="w-[366px] p-0 sm:w-[600px]">
                     <Command>
                       <CommandInput
                         placeholder="Search symbol..."
