@@ -89,15 +89,6 @@ const createRequest = <Paths>({ getBaseUrl }: { getBaseUrl: () => string }) => {
       ])
     ) as unknown as RequestInit;
 
-    console.log(
-      "log: ",
-      fetchParameters,
-      `${getBaseUrl()}${replacePathParameters(
-        path.toString(),
-        pathParams
-      )}?${new URLSearchParams(query)}`
-    );
-
     return (await fetch(
       `${getBaseUrl()}${replacePathParameters(
         path.toString(),

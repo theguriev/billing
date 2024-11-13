@@ -14,7 +14,6 @@ const DocsSidebarNavItems = ({
   if (items.length === 0) {
     return null;
   }
-  console.log("log: items", items);
   return (
     <div className="grid grid-flow-row auto-rows-max text-sm" id="findme">
       {items.map((item, index) =>
