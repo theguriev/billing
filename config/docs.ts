@@ -71,6 +71,11 @@ export const sidebarNav: Array<NavigationItem> = [
         href: "/docs/send-funds",
         items: [],
       },
+      {
+        title: "Use cases",
+        href: "/docs/use-cases",
+        items: [],
+      },
     ],
   },
   {
