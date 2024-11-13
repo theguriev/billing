@@ -16,10 +16,6 @@ export const info: Array<NavigationItem> = [
     href: "/docs",
   },
   {
-    title: "Examples",
-    href: "/docs/examples/normal-purchase",
-  },
-  {
     title: "Support",
     href: "https://t.me/theguriev",
   },
