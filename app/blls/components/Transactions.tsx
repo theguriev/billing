@@ -2,7 +2,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-import Transaction from "@/app/blls/components/Transaction";
+import InfiniteTransactions from "@/app/blls/components/InfiniteTransactions";
 import { api } from "@/lib/openapi/apiClient";
 
 dayjs.extend(relativeTime);
@@ -17,20 +17,22 @@ const AllAddressTransactions = async ({
   const request = await api.billing("/transactions", "get", {
     next: { tags: ["transactions"] },
     cache: "no-cache",
-    query: { address, symbol },
+    query: { 
+      address, 
+      symbol,
+      limit: 10,
+      offset: 0
+    },
   });
 
-  const transactions = await request.json();
+  const initialTransactions = await request.json();
+  
   return (
-    <div className="flex flex-col">
-      {transactions.map((transaction) => (
-        <Transaction
-          key={transaction._id}
-          {...transaction}
-          targetAddress={address}
-        />
-      ))}
-    </div>
+    <InfiniteTransactions
+      address={address}
+      symbol={symbol}
+      initialTransactions={initialTransactions}
+    />
   );
 };
 
