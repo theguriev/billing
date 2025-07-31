@@ -10,6 +10,8 @@ import CryptoGradient from "../components/CryptoGradient";
 
 import Transactions from "./components/Transactions";
 import TransactionsSkeleton from "./components/TransactionsSkeleton";
+import TransactionStats from "./components/TransactionStats";
+import TransactionStatsSkeleton from "./components/TransactionStatsSkeleton";
 import getBallance from "./services/getBallance";
 
 const WalletPage = async () => {
@@ -54,6 +56,12 @@ const WalletPage = async () => {
             />
           ))}
         </div>
+        <div className="flex items-center">
+          <h1 className="text-lg font-semibold md:text-2xl">Network Statistics</h1>
+        </div>
+        <Suspense fallback={<TransactionStatsSkeleton />}>
+          <TransactionStats address={wallet.address} />
+        </Suspense>
         <div className="flex items-center">
           <h1 className="text-lg font-semibold md:text-2xl">Transactions</h1>
         </div>

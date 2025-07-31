@@ -28,5 +28,17 @@
     "proxy": {
       "to": "http://billing:3000/transactions"
     }
+  },
+  "/billing/transactions/stats": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://billing:3000/transactions/stats"
+    }
+  },
+  "/billing/transactions/summary": {
+    "methods": ["GET"],
+    "proxy": {
+      "to": "http://billing:3000/transactions/summary"
+    }
   }
 }
