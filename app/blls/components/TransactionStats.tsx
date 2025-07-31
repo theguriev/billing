@@ -11,7 +11,14 @@ const formatValue = (value: number) => {
   if (value >= 1000) {
     return `${(value / 1000).toFixed(1)}K`;
   }
-  return value.toLocaleString();
+  return value.toLocaleString('ru-RU').replace(/,/g, ' ');
+};
+
+const formatDecimal = (value: number, decimals: number = 2) => {
+  return value.toLocaleString('ru-RU', { 
+    minimumFractionDigits: decimals, 
+    maximumFractionDigits: decimals 
+  }).replace(/,/g, ' ');
 };
 
 const TransactionStats = async ({ address }: {
@@ -71,10 +78,10 @@ const TransactionStats = async ({ address }: {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {(total.avgValue || 0).toFixed(2)}
+              {formatDecimal(total.avgValue || 0)}
             </div>
             <p className="text-xs text-muted-foreground">
-              Min: {(total.minValue || 0).toFixed(2)} • Max: {(total.maxValue || 0).toFixed(2)}
+              Min: {formatDecimal(total.minValue || 0)} • Max: {formatDecimal(total.maxValue || 0)}
             </p>
           </CardContent>
         </Card>
@@ -185,7 +192,7 @@ const TransactionStats = async ({ address }: {
                       {formatValue(token.totalValue || 0)}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      avg: {(token.avgValue || 0).toFixed(2)}
+                      avg: {formatDecimal(token.avgValue || 0)}
                     </div>
                   </div>
                 </div>
