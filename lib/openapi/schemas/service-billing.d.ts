@@ -325,6 +325,36 @@ export interface components {
         /** @description Applied limit for top lists */
         limit?: string;
       };
+      /** @description Statistics for sent transactions (only when address filter is applied) */
+      sent?: {
+        bySymbol?: {
+            /** @description Token symbol */
+            _id?: string;
+            /** @description Number of sent transactions */
+            count?: number;
+            /** @description Total value sent */
+            totalValue?: number;
+          }[];
+        /** @description Total number of sent transactions */
+        totalTransactions?: number;
+        /** @description Total value of sent transactions */
+        totalValue?: number;
+      };
+      /** @description Statistics for received transactions (only when address filter is applied) */
+      received?: {
+        bySymbol?: {
+            /** @description Token symbol */
+            _id?: string;
+            /** @description Number of received transactions */
+            count?: number;
+            /** @description Total value received */
+            totalValue?: number;
+          }[];
+        /** @description Total number of received transactions */
+        totalTransactions?: number;
+        /** @description Total value of received transactions */
+        totalValue?: number;
+      };
     };
     TransactionSummary: {
       /** @description Total number of transactions */
@@ -341,6 +371,36 @@ export interface components {
       symbolsCount?: number;
       /** @description List of unique token symbols */
       symbols?: string[];
+      /** @description Statistics for sent transactions (only when address filter is applied) */
+      sent?: {
+        bySymbol?: {
+            /** @description Token symbol */
+            _id?: string;
+            /** @description Number of sent transactions */
+            count?: number;
+            /** @description Total value sent */
+            totalValue?: number;
+          }[];
+        /** @description Total number of sent transactions */
+        totalTransactions?: number;
+        /** @description Total value of sent transactions */
+        totalValue?: number;
+      };
+      /** @description Statistics for received transactions (only when address filter is applied) */
+      received?: {
+        bySymbol?: {
+            /** @description Token symbol */
+            _id?: string;
+            /** @description Number of received transactions */
+            count?: number;
+            /** @description Total value received */
+            totalValue?: number;
+          }[];
+        /** @description Total number of received transactions */
+        totalTransactions?: number;
+        /** @description Total value of received transactions */
+        totalValue?: number;
+      };
     };
     /** @description Balance by symbol */
     WalletBalance: {
