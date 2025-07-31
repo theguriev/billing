@@ -320,6 +320,8 @@ export interface components {
         dateTo?: string;
         /** @description Applied symbol filter */
         symbol?: string;
+        /** @description Applied address filter */
+        address?: string;
         /** @description Applied limit for top lists */
         limit?: string;
       };
@@ -417,6 +419,8 @@ export interface operations {
         symbol?: string;
         /** @description Limit for top lists (senders, receivers) */
         limit?: number;
+        /** @description Filter by address (transactions from or to this address) */
+        address?: string;
       };
     };
     responses: {
@@ -437,6 +441,8 @@ export interface operations {
       query?: {
         /** @description Filter by token symbol */
         symbol?: string;
+        /** @description Filter by address (transactions from or to this address) */
+        address?: string;
       };
     };
     responses: {
