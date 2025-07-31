@@ -453,6 +453,10 @@ export interface operations {
         symbol?: string;
         /** @description Filter transactions by address (to or from) */
         address?: string;
+        /** @description Start date filter (timestamp in milliseconds) */
+        from?: number;
+        /** @description End date filter (timestamp in milliseconds) */
+        to?: number;
       };
     };
     responses: {
