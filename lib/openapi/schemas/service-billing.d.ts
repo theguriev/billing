@@ -175,6 +175,20 @@ export interface paths {
       };
     };
   };
+  "/transactions/stats": {
+    /**
+     * Get Transaction Statistics
+     * @description Retrieves detailed statistics about transactions with filtering options
+     */
+    get: operations["getTransactionStats"];
+  };
+  "/transactions/summary": {
+    /**
+     * Get Transaction Summary
+     * @description Retrieves a quick summary of transaction metrics for dashboard display
+     */
+    get: operations["getTransactionSummary"];
+  };
 }
 
 export type webhooks = Record<string, never>;
@@ -216,13 +230,13 @@ export interface components {
       message?: string;
     };
     TokensList: {
-      _id?: string;
-      name?: string;
-      /** Format: date-time */
-      timestamp?: string;
-      address?: string;
-      symbol?: string;
-    }[];
+        _id?: string;
+        name?: string;
+        /** Format: date-time */
+        timestamp?: string;
+        address?: string;
+        symbol?: string;
+      }[];
     TransactionRequest: {
       from: string;
       to: string;
@@ -252,6 +266,80 @@ export interface components {
       message?: string;
       value?: number;
     };
+    TransactionStats: {
+      total?: {
+        /** @description Total number of transactions */
+        totalTransactions?: number;
+        /** @description Total value of all transactions */
+        totalValue?: number;
+        /** @description Average transaction value */
+        avgValue?: number;
+        /** @description Minimum transaction value */
+        minValue?: number;
+        /** @description Maximum transaction value */
+        maxValue?: number;
+      };
+      bySymbol?: {
+          /** @description Token symbol */
+          _id?: string;
+          /** @description Number of transactions for this symbol */
+          count?: number;
+          /** @description Total value for this symbol */
+          totalValue?: number;
+          /** @description Average value for this symbol */
+          avgValue?: number;
+        }[];
+      topSenders?: {
+          /** @description Sender address */
+          _id?: string;
+          /** @description Number of transactions sent */
+          count?: number;
+          /** @description Total value sent */
+          totalSent?: number;
+        }[];
+      topReceivers?: {
+          /** @description Receiver address */
+          _id?: string;
+          /** @description Number of transactions received */
+          count?: number;
+          /** @description Total value received */
+          totalReceived?: number;
+        }[];
+      daily?: {
+          /** @description Date in YYYY-MM-DD format */
+          _id?: string;
+          /** @description Number of transactions on this date */
+          count?: number;
+          /** @description Total value of transactions on this date */
+          totalValue?: number;
+        }[];
+      filters?: {
+        /** @description Applied from date filter */
+        dateFrom?: string;
+        /** @description Applied to date filter */
+        dateTo?: string;
+        /** @description Applied symbol filter */
+        symbol?: string;
+        /** @description Applied limit for top lists */
+        limit?: string;
+      };
+    };
+    TransactionSummary: {
+      /** @description Total number of transactions */
+      totalTransactions?: number;
+      /** @description Total value of all transactions */
+      totalValue?: number;
+      /** @description Average transaction value (rounded to 2 decimal places) */
+      avgValue?: number;
+      /** @description Number of unique sender addresses */
+      uniqueSendersCount?: number;
+      /** @description Number of unique receiver addresses */
+      uniqueReceiversCount?: number;
+      /** @description Number of unique token symbols */
+      symbolsCount?: number;
+      /** @description List of unique token symbols */
+      symbols?: string[];
+    };
     /** @description Balance by symbol */
     WalletBalance: {
       [key: string]: number;
@@ -269,6 +357,7 @@ export type $defs = Record<string, never>;
 export type external = Record<string, never>;
 
 export interface operations {
+
   /** Get Token by ID */
   getTokenById: {
     parameters: {
@@ -309,6 +398,52 @@ export interface operations {
       200: {
         content: {
           "application/json": components["schemas"]["Transaction"][];
+        };
+      };
+    };
+  };
+  /**
+   * Get Transaction Statistics
+   * @description Retrieves detailed statistics about transactions with filtering options
+   */
+  getTransactionStats: {
+    parameters: {
+      query?: {
+        /** @description Start date filter (timestamp in milliseconds) */
+        from?: number;
+        /** @description End date filter (timestamp in milliseconds) */
+        to?: number;
+        /** @description Filter by token symbol */
+        symbol?: string;
+        /** @description Limit for top lists (senders, receivers) */
+        limit?: number;
+      };
+    };
+    responses: {
+      /** @description Successful operation */
+      200: {
+        content: {
+          "application/json": components["schemas"]["TransactionStats"];
+        };
+      };
+    };
+  };
+  /**
+   * Get Transaction Summary
+   * @description Retrieves a quick summary of transaction metrics for dashboard display
+   */
+  getTransactionSummary: {
+    parameters: {
+      query?: {
+        /** @description Filter by token symbol */
+        symbol?: string;
+      };
+    };
+    responses: {
+      /** @description Successful operation */
+      200: {
+        content: {
+          "application/json": components["schemas"]["TransactionSummary"];
         };
       };
     };
