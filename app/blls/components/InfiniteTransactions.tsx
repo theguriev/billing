@@ -7,17 +7,12 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 import Transaction from "@/app/blls/components/Transaction";
 import useMounted from "@/app/hooks/useMounted";
+import { api } from "@/lib/openapi/apiClient";
 import { components } from "@/lib/openapi/schemas/service-billing";
 
 dayjs.extend(relativeTime);
 
 type TransactionType = components["schemas"]["Transaction"];
-
-interface InfiniteTransactionsProps {
-  address?: string;
-  symbol?: string;
-  initialTransactions: TransactionType[];
-}
 
 const LIMIT = 10;
 
@@ -25,8 +20,17 @@ const InfiniteTransactions = ({
   address = "",
   symbol = "",
   initialTransactions = [],
-}: InfiniteTransactionsProps) => {
-  const [transactions, setTransactions] = useState<TransactionType[]>(initialTransactions);
+  fromDate,
+  toDate,
+}: {
+  address?: string;
+  symbol?: string;
+  initialTransactions: TransactionType[];
+  fromDate: number;
+  toDate: number;
+}) => {
+  const [transactions, setTransactions] =
+    useState<TransactionType[]>(initialTransactions);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [offset, setOffset] = useState(LIMIT);
@@ -44,6 +48,8 @@ const InfiniteTransactions = ({
       const params = new URLSearchParams();
       params.set("limit", LIMIT.toString());
       params.set("offset", offset.toString());
+      params.set('from', fromDate.toString());
+      params.set('to', toDate.toString());
       if (address) {
         params.set("address", address);
       }
@@ -52,19 +58,20 @@ const InfiniteTransactions = ({
       }
 
       const response = await fetch(`/api/transactions?${params.toString()}`);
+
       if (!response.ok) {
         throw new Error("Failed to fetch transactions");
       }
 
       const newTransactions: TransactionType[] = await response.json();
-      
+
       if (newTransactions.length < LIMIT) {
         setHasMore(false);
       }
 
       if (newTransactions.length > 0) {
-        setTransactions(prev => [...prev, ...newTransactions]);
-        setOffset(prev => prev + LIMIT);
+        setTransactions((prev) => [...prev, ...newTransactions]);
+        setOffset((prev) => prev + LIMIT);
       } else {
         setHasMore(false);
       }
@@ -73,7 +80,7 @@ const InfiniteTransactions = ({
     } finally {
       setLoading(false);
     }
-  }, [loading, hasMore, offset, address, symbol]);
+  }, [loading, hasMore, offset, address, symbol, fromDate, toDate]);
 
   useEffect(() => {
     if (!mounted) {
@@ -129,26 +136,29 @@ const InfiniteTransactions = ({
           targetAddress={address}
         />
       ))}
-      
+
       {hasMore && (
-        <div 
-          ref={loadingRef}
-          className="flex items-center justify-center py-4"
-        >
+        <div ref={loadingRef} className="flex items-center justify-center py-4">
           {loading ? (
             <div className="flex items-center space-x-2">
               <div className="size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-              <span className="text-sm text-muted-foreground">Loading more transactions...</span>
+              <span className="text-sm text-muted-foreground">
+                Loading more transactions...
+              </span>
             </div>
           ) : (
-            <span className="text-sm text-muted-foreground">Scroll down to load more</span>
+            <span className="text-sm text-muted-foreground">
+              Scroll down to load more
+            </span>
           )}
         </div>
       )}
-      
+
       {!hasMore && transactions.length > 0 && (
         <div className="flex items-center justify-center py-4">
-          <span className="text-sm text-muted-foreground">No more transactions to load</span>
+          <span className="text-sm text-muted-foreground">
+            No more transactions to load
+          </span>
         </div>
       )}
     </div>

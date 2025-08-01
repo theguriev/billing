@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 
+import { subDays } from "date-fns";
 import Link from "next/link";
 
 import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
@@ -12,15 +13,22 @@ import Transactions from "./components/Transactions";
 import TransactionsSkeleton from "./components/TransactionsSkeleton";
 import TransactionStats from "./components/TransactionStats";
 import TransactionStatsSkeleton from "./components/TransactionStatsSkeleton";
+import { TransactionStatsWithFilter } from "./components/TransactionStatsWithFilter";
 import getBallance from "./services/getBallance";
 
-const WalletPage = async () => {
+const WalletPage = async ({ 
+  searchParams 
+}: { 
+  searchParams: { from?: string; to?: string } 
+}) => {
   const wallet = getWalletFromCookie();
   const ballance = await getBallance(wallet.address);
   const ballanceEntries = Object.entries(ballance);
   const noTransactions = ballanceEntries.length === 0;
   const mobileAddress =
     wallet.address.slice(0, 6) + "..." + wallet.address.slice(-4);
+  const fromDate = searchParams.from ? Date.parse(searchParams.from) : subDays(new Date(), 30).getTime();
+  const toDate = searchParams.to ? Date.parse(searchParams.to) : Date.now();
   return (
     <>
       <div className="flex flex-1 flex-col space-y-4">
@@ -56,18 +64,17 @@ const WalletPage = async () => {
             />
           ))}
         </div>
-        <div className="flex items-center">
-          <h1 className="text-lg font-semibold md:text-2xl">Network Statistics</h1>
-        </div>
-        <Suspense fallback={<TransactionStatsSkeleton />}>
-          <TransactionStats address={wallet.address} />
-        </Suspense>
+        <TransactionStatsWithFilter>
+          <Suspense fallback={<TransactionStatsSkeleton />}>
+            <TransactionStats fromDate={fromDate} toDate={toDate} address={wallet.address} />
+          </Suspense>
+        </TransactionStatsWithFilter>
         <div className="flex items-center">
           <h1 className="text-lg font-semibold md:text-2xl">Transactions</h1>
         </div>
         {!noTransactions ? (
           <Suspense fallback={<TransactionsSkeleton />}>
-            <Transactions address={wallet.address} />
+            <Transactions address={wallet.address} fromDate={fromDate} toDate={toDate} />
           </Suspense>
         ) : (
           <div

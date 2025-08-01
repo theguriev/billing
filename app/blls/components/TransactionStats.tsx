@@ -1,4 +1,12 @@
-import { TrendingUp, Users, Coins, BarChart3, Activity, Crown, Zap } from "lucide-react";
+import { subDays } from "date-fns";
+import {
+  Activity,
+  BarChart3,
+  Coins,
+  Crown,
+  TrendingUp,
+  Zap
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,23 +19,31 @@ const formatValue = (value: number) => {
   if (value >= 1000) {
     return `${(value / 1000).toFixed(1)}K`;
   }
-  return value.toLocaleString('ru-RU').replace(/,/g, ' ');
+  return value.toLocaleString("ru-RU").replace(/,/g, " ");
 };
 
 const formatDecimal = (value: number, decimals: number = 2) => {
-  return value.toLocaleString('ru-RU', { 
-    minimumFractionDigits: decimals, 
-    maximumFractionDigits: decimals 
-  }).replace(/,/g, ' ');
+  return value
+    .toLocaleString("ru-RU", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    })
+    .replace(/,/g, " ");
 };
 
-const TransactionStats = async ({ address }: {
+const TransactionStats = async ({
+  address,
+  fromDate,
+  toDate,
+}: {
   address?: string;
+  fromDate: number;
+  toDate: number;
 }) => {
   const request = await api.billing("/transactions/stats", "get", {
     next: { tags: ["transaction-stats"] },
     cache: "no-cache",
-    query: { address },
+    query: { address, from: fromDate, to: toDate },
   });
   const stats = request.ok ? await request.json() : null;
 
@@ -44,11 +60,15 @@ const TransactionStats = async ({ address }: {
 
   // Сортируем дневную статистику по дате (последние дни)
   const sortedDaily = daily
-    .sort((a: any, b: any) => new Date(a._id).getTime() - new Date(b._id).getTime())
+    .sort(
+      (a: any, b: any) => new Date(a._id).getTime() - new Date(b._id).getTime()
+    )
     .slice(-7); // Последние 7 дней
 
   // Находим максимальное значение для нормализации высоты баров
-  const maxDailyValue = Math.max(...sortedDaily.map((day: any) => day.count || 0));
+  const maxDailyValue = Math.max(
+    ...sortedDaily.map((day: any) => day.count || 0)
+  );
 
   return (
     <div className="space-y-6">
@@ -56,9 +76,7 @@ const TransactionStats = async ({ address }: {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Volume
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Total Volume</CardTitle>
             <TrendingUp className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -81,7 +99,8 @@ const TransactionStats = async ({ address }: {
               {formatDecimal(total.avgValue || 0)}
             </div>
             <p className="text-xs text-muted-foreground">
-              Min: {formatDecimal(total.minValue || 0)} • Max: {formatDecimal(total.maxValue || 0)}
+              Min: {formatDecimal(total.minValue || 0)} • Max:{" "}
+              {formatDecimal(total.maxValue || 0)}
             </p>
           </CardContent>
         </Card>
@@ -92,11 +111,11 @@ const TransactionStats = async ({ address }: {
             <Crown className="size-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {topSenders.length}
-            </div>
+            <div className="text-2xl font-bold">{topSenders.length}</div>
             <p className="text-xs text-muted-foreground">
-              {topSenders[0] ? `Leader: ${formatValue(topSenders[0].count || 0)} txs` : 'No data'}
+              {topSenders[0]
+                ? `Leader: ${formatValue(topSenders[0].count || 0)} txs`
+                : "No data"}
             </p>
           </CardContent>
         </Card>
@@ -131,7 +150,9 @@ const TransactionStats = async ({ address }: {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-lg font-medium">Daily Activity</CardTitle>
+                <CardTitle className="text-lg font-medium">
+                  Daily Activity
+                </CardTitle>
                 <Activity className="size-4 text-muted-foreground" />
               </div>
               <p className="text-sm text-muted-foreground">
@@ -141,16 +162,25 @@ const TransactionStats = async ({ address }: {
             <CardContent>
               <div className="flex h-32 items-end justify-between gap-2">
                 {sortedDaily.map((day: any, index: number) => {
-                  const height = maxDailyValue > 0 ? (day.count / maxDailyValue) * 100 : 0;
+                  const height =
+                    maxDailyValue > 0 ? (day.count / maxDailyValue) * 100 : 0;
                   const date = new Date(day._id);
-                  const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-                  
+                  const dayName = date.toLocaleDateString("en-US", {
+                    weekday: "short",
+                  });
+
                   return (
-                    <div key={day._id} className="flex flex-1 flex-col items-center">
+                    <div
+                      key={day._id}
+                      className="flex flex-1 flex-col items-center"
+                    >
                       <div className="mb-2 flex h-24 w-full flex-col justify-end">
-                        <div 
+                        <div
                           className="w-full rounded-t bg-blue-500 transition-all duration-300 hover:bg-blue-400"
-                          style={{ height: `${height}%`, minHeight: height > 0 ? '4px' : '0px' }}
+                          style={{
+                            height: `${height}%`,
+                            minHeight: height > 0 ? "4px" : "0px",
+                          }}
                           title={`${day.count} transactions on ${day._id}`}
                         />
                       </div>
@@ -172,7 +202,9 @@ const TransactionStats = async ({ address }: {
         {bySymbol.length > 0 && (
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg font-medium">Token Statistics</CardTitle>
+              <CardTitle className="text-lg font-medium">
+                Token Statistics
+              </CardTitle>
               <p className="text-sm text-muted-foreground">
                 Volume by token type
               </p>
@@ -180,7 +212,10 @@ const TransactionStats = async ({ address }: {
             <CardContent>
               <div className="space-y-3">
                 {bySymbol.slice(0, 5).map((token: any) => (
-                  <div key={token._id} className="flex items-center justify-between">
+                  <div
+                    key={token._id}
+                    className="flex items-center justify-between"
+                  >
                     <div className="flex items-center gap-3">
                       <Badge variant="outline" className="font-mono">
                         {token._id}
@@ -227,7 +262,10 @@ const TransactionStats = async ({ address }: {
               <CardContent>
                 <div className="space-y-3">
                   {topSenders.slice(0, 3).map((sender: any, index: number) => (
-                    <div key={sender._id} className="flex items-center justify-between">
+                    <div
+                      key={sender._id}
+                      className="flex items-center justify-between"
+                    >
                       <div className="flex items-center gap-3">
                         <div className="flex size-6 items-center justify-center rounded-full bg-primary/10 text-xs font-medium">
                           {index + 1}
@@ -262,26 +300,32 @@ const TransactionStats = async ({ address }: {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {topReceivers.slice(0, 3).map((receiver: any, index: number) => (
-                    <div key={receiver._id} className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex size-6 items-center justify-center rounded-full bg-green-500/10 text-xs font-medium">
-                          {index + 1}
+                  {topReceivers
+                    .slice(0, 3)
+                    .map((receiver: any, index: number) => (
+                      <div
+                        key={receiver._id}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div className="flex size-6 items-center justify-center rounded-full bg-green-500/10 text-xs font-medium">
+                            {index + 1}
+                          </div>
+                          <div className="font-mono text-sm">
+                            {receiver._id?.slice(0, 8)}...
+                            {receiver._id?.slice(-4)}
+                          </div>
                         </div>
-                        <div className="font-mono text-sm">
-                          {receiver._id?.slice(0, 8)}...{receiver._id?.slice(-4)}
+                        <div className="text-right">
+                          <div className="text-sm font-medium">
+                            {formatValue(receiver.count || 0)} txs
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {formatValue(receiver.totalReceived || 0)} total
+                          </div>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-sm font-medium">
-                          {formatValue(receiver.count || 0)} txs
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {formatValue(receiver.totalReceived || 0)} total
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </CardContent>
             </Card>

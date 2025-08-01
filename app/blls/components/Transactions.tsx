@@ -1,4 +1,5 @@
 /* eslint-disable tailwindcss/no-arbitrary-value */
+import { subDays } from "date-fns";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -10,9 +11,13 @@ dayjs.extend(relativeTime);
 const AllAddressTransactions = async ({
   address = "",
   symbol = "",
+  fromDate = subDays(new Date(), 365).getTime(),
+  toDate = Date.now()
 }: {
   address?: string;
   symbol?: string;
+  fromDate: number;
+  toDate: number;
 }) => {
   const request = await api.billing("/transactions", "get", {
     next: { tags: ["transactions"] },
@@ -21,7 +26,9 @@ const AllAddressTransactions = async ({
       address, 
       symbol,
       limit: 10,
-      offset: 0
+      offset: 0,
+      from: fromDate,
+      to: toDate,
     },
   });
 
@@ -31,6 +38,8 @@ const AllAddressTransactions = async ({
     <InfiniteTransactions
       address={address}
       symbol={symbol}
+      fromDate={fromDate}
+      toDate={toDate}
       initialTransactions={initialTransactions}
     />
   );
