@@ -5,7 +5,6 @@ import * as React from "react";
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMDXComponent } from "next-contentlayer/hooks";
 
 import {
   Accordion,
@@ -304,10 +303,38 @@ interface MdxProps {
   code: string;
 }
 
+// Безопасная функция для создания MDX компонента
+function createMDXComponent(code: string) {
+  try {
+    // Выполняем скомпилированный код от contentlayer
+    const func = new Function('React', `
+      ${code}
+      return Component;
+    `);
+    const result = func(React);
+    
+    // Если результат - объект с default экспортом, используем его
+    if (result && typeof result === 'object' && result.default) {
+      return result.default;
+    }
+    
+    // Если результат - функция, возвращаем её
+    if (typeof result === 'function') {
+      return result;
+    }
+    
+    // Если ничего не получилось, возвращаем ошибку
+    throw new Error('Invalid component returned from MDX code');
+  } catch (error) {
+    console.error('Error creating MDX component:', error);
+    const ErrorComponent = () => React.createElement('div', {}, 'Error loading content');
+    ErrorComponent.displayName = 'MDXErrorComponent';
+    return ErrorComponent;
+  }
+}
+
 export function Mdx({ code }: MdxProps) {
-  const Component = useMDXComponent(code, {
-    style: "new-york",
-  });
+  const Component = React.useMemo(() => createMDXComponent(code), [code]);
 
   return (
     <div className="mdx">

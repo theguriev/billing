@@ -87,7 +87,7 @@ export default makeSource({
   contentDirPath: "./content",
   documentTypes: [Doc],
   mdx: {
-    remarkPlugins: [remarkGfm, codeImport],
+    remarkPlugins: [remarkGfm],
     rehypePlugins: [
       rehypeSlug,
       rehypeComponent,
