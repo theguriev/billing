@@ -15,7 +15,7 @@ import TransactionStatsSkeleton from "./components/TransactionStatsSkeleton";
 import getBallance from "./services/getBallance";
 
 const WalletPage = async () => {
-  const wallet = getWalletFromCookie();
+  const wallet = await getWalletFromCookie();
   const ballance = await getBallance(wallet.address);
   const ballanceEntries = Object.entries(ballance);
   const noTransactions = ballanceEntries.length === 0;

@@ -14,11 +14,12 @@ export const metadata: Metadata = {
 };
 
 const SendFoundsPage = async ({
-  searchParams: { symbol },
+  searchParams,
 }: {
-  searchParams: { symbol: string };
+  searchParams: Promise<{ symbol: string }>;
 }) => {
-  const wallet = getWalletFromCookie();
+  const { symbol } = await searchParams;
+  const wallet = await getWalletFromCookie();
   const ballance = await getBallance(wallet.address);
   const ballanceEntries = Object.entries(ballance);
 

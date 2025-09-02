@@ -5,8 +5,8 @@ import DocsSidebarNav from "@/app/components/DocsSidebarNav";
 import getWalletFromCookie from "@/app/utils/getWalletFromCookie";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-export default function DocsLayout({ children }: PropsWithChildren) {
-  const wallet = getWalletFromCookie();
+export default async function DocsLayout({ children }: PropsWithChildren) {
+  const wallet = await getWalletFromCookie();
   const isLoggedIn = Boolean(wallet.address) && Boolean(wallet.privateKey);
 
   return (

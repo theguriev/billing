@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 };
 
 const TokensPage = async () => {
-  const wallet = getWalletFromCookie();
+  const wallet = await getWalletFromCookie();
   const tokens = await getTokens();
   return (
     <div className="flex flex-col space-y-4">

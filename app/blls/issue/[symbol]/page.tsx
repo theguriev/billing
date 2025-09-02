@@ -20,10 +20,11 @@ export const metadata: Metadata = {
 };
 
 const AddTokenPage = async ({
-  params: { symbol },
+  params,
 }: {
-  params: { symbol: string };
+  params: Promise<{ symbol: string }>;
 }) => {
+  const { symbol } = await params;
   return (
     <>
       <Breadcrumb className="hidden md:flex">

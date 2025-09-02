@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { parse } from "set-cookie-parser";
 
-const passSetCookie = (setCookies: Array<string>) => {
-  const cookieStore = cookies();
+const passSetCookie = async (setCookies: Array<string>) => {
+  const cookieStore = await cookies();
   setCookies.forEach((cookie) => {
     const parsedCookie = parse(cookie)[0];
     cookieStore.set({

@@ -18,14 +18,15 @@ import { allDocs } from "contentlayer/generated";
 import "@/styles/mdx.css";
 
 interface DocPageProps {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 }
 
 async function getDocFromParams({ params }: DocPageProps) {
-  const slug = params.slug?.join("/") || "";
-  const doc = allDocs.find((doc) => doc.slugAsParams === slug);
+  const { slug } = await params;
+  const slugString = slug?.join("/") || "";
+  const doc = allDocs.find((doc) => doc.slugAsParams === slugString);
 
   if (!doc) {
     return null;
@@ -70,9 +71,7 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  DocPageProps["params"][]
-> {
+export async function generateStaticParams() {
   return allDocs.map((doc) => ({
     slug: doc.slugAsParams.split("/"),
   }));

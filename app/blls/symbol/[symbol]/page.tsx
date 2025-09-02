@@ -16,12 +16,14 @@ export const metadata: Metadata = {
 };
 
 const WalletPage = async ({
-  params: { symbol },
-  searchParams: { address },
+  params,
+  searchParams,
 }: {
-  params: { symbol: string };
-  searchParams: { address?: string };
+  params: Promise<{ symbol: string }>;
+  searchParams: Promise<{ address?: string }>;
 }) => {
+  const { symbol } = await params;
+  const { address } = await searchParams;
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex items-end justify-between">

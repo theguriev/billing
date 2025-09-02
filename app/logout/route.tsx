@@ -2,7 +2,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export async function GET(request: Request) {
-  cookies().delete("privateKey");
-  cookies().delete("address");
+  const cookieStore = await cookies();
+  cookieStore.delete("privateKey");
+  cookieStore.delete("address");
   return redirect("/");
 }

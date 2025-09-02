@@ -9,12 +9,13 @@ const ONE_YEAR = 1000 * 60 * 60 * 24 * 365;
 
 const submit = async (body: FormSchema) => {
   const wallet = Wallet.fromPhrase(body.mnemonic);
-  cookies().set("privateKey", wallet.privateKey, {
+  const cookieStore = await cookies();
+  cookieStore.set("privateKey", wallet.privateKey, {
     path: "/",
     expires: Date.now() + ONE_YEAR,
     domain: process.env.COOKIE_DOMAIN,
   });
-  cookies().set("address", wallet.address, {
+  cookieStore.set("address", wallet.address, {
     path: "/",
     expires: Date.now() + ONE_YEAR,
     domain: process.env.COOKIE_DOMAIN,

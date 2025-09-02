@@ -11,7 +11,7 @@ import { api } from "@/lib/openapi/apiClient";
 import type { FormSchema } from "../zod";
 
 const submit = async (body: FormSchema) => {
-  const wallet = getWalletFromCookie();
+  const wallet = await getWalletFromCookie();
   const request = await api.billing("/tokens", "post", {
     headers: { "Content-Type": "application/json" },
     authorization: true,

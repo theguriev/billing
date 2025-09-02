@@ -10,7 +10,7 @@ import { api } from "@/lib/openapi/apiClient";
 import { type FormSchema } from "../zod";
 
 const submit = async (body: FormSchema & { symbol: string }) => {
-  const wallet = getWalletFromCookie();
+  const wallet = await getWalletFromCookie();
   const signature = await signTransaction(
     wallet.privateKey,
     wallet.address,

@@ -31,8 +31,8 @@ const objectifyOrUndefinedCookie = (cookie: Record<string, string>) => {
   };
 };
 
-const getAccessToken = () => {
-  const cookieStore = cookies();
+const getAccessToken = async () => {
+  const cookieStore = await cookies();
   return cookieStore.get("accessToken")?.value;
 };
 

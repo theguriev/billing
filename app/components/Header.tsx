@@ -12,9 +12,7 @@ import DesktopNavigation from "./DesktopNavigation";
 import MobileNavigation from "./MobileNavigation";
 import ModeToggle from "./ModeToggle";
 
-const Header = () => {
-  const wallet = getWalletFromCookie();
-  const isLoggedIn = Boolean(wallet.address) && Boolean(wallet.privateKey);
+const Header = ({ isLoggedIn = false }: { isLoggedIn?: boolean }) => {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
