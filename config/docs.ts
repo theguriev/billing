@@ -78,6 +78,11 @@ export const sidebarNav: Array<NavigationItem> = [
     title: "Integration (API)",
     items: [
       {
+        title: "Idempotency Keys",
+        href: "/docs/integration/idempotency-keys",
+        items: [],
+      },
+      {
         title: "Create a wallet",
         href: "/docs/integration/create-a-wallet",
         items: [],

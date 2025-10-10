@@ -18,9 +18,26 @@ The request body should contain the following fields:
   "symbol": "string",      // Token symbol
   "address": "string",     // Wallet address controlling the token
   "emission": 10000000000, // Amount of additional tokens to issue
-  "signature": "string"    // Signature for authorization
+  "signature": "string",   // Signature for authorization
+  "idempotencyKey": "string" // Optional: unique key to prevent duplicates (1-64 chars)
 }
 ```
+
+#### Idempotency Key (Recommended)
+
+For safe token issuance, especially in production environments, include an `idempotencyKey` field in the request body to prevent duplicate issuance:
+
+```json
+{
+  "symbol": "MYTKN",
+  "address": "0x12345abcdef",
+  "emission": 10000000000,
+  "signature": "your-generated-signature",
+  "idempotencyKey": "issue-token-a1b2c3d4-e5f6-7890"
+}
+```
+
+Learn more about [Idempotency Keys](/docs/integration/idempotency-keys) for safe API operations.
 
 **Example Request:**
 

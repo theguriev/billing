@@ -21,6 +21,50 @@ To create a new token, send a POST request to our server with the following body
   "symbol": "string",    // Token symbol
   "address": "string",   // Wallet address that will control the token
   "emission": 1000000000, // Total emission (token supply)
+  "signature": "string", // Signature generated using the private key
+  "idempotencyKey": "string" // Optional: unique key to prevent duplicates (1-64 chars)
+}
+```
+
+#### Idempotency Key (Recommended)
+
+For safe token creation, especially in production environments, include an `idempotencyKey` field in the request body to prevent duplicate token creation:
+
+```json
+{
+  "name": "MyToken",
+  "symbol": "MTK",
+  "address": "0x12345abcdef",
+  "emission": 1000000000,
+  "signature": "your-generated-signature",
+  "idempotencyKey": "create-token-f47ac10b-58cc-4372"
+}
+```
+
+Learn more about [Idempotency Keys](/docs/integration/idempotency-keys) for safe API operations.
+
+**Example Request:**
+
+To create a token called "MyToken" with the symbol "MTK" and an emission of 1 billion tokens, controlled by a wallet at address 0x12345abcdef, your request body would look something like this:description: How to Create a New Token
+links:
+  doc: https://www.npmjs.com/package/ethers
+
+Creating your own cryptocurrency token is simple and straightforward with our platform. To get started, you'll need to send a POST request with the necessary token details. Below is a guide on how to do this, along with information on generating a signature to secure your token creation.
+
+```bash
+[POST] api.blls.me/billing/tokens
+```
+
+### 1. Send a POST Request
+
+To create a new token, send a POST request to our server with the following body:
+
+```json
+{
+  "name": "string",      // Token name
+  "symbol": "string",    // Token symbol
+  "address": "string",   // Wallet address that will control the token
+  "emission": 1000000000, // Total emission (token supply)
   "signature": "string"  // Signature generated using the private key
 }
 ```

@@ -1,0 +1,283 @@
+---
+title: Idempotency Keys
+description: Understanding and implementing idempotency keys for safe API operations
+---
+
+## What are Idempotency Keys?
+
+Idempotency keys are unique identifiers that ensure API operations can be safely retried without creating duplicate resources or executing the same operation multiple times. This is especially important for financial operations like token creation, token issuance, and transactions.
+
+When you include an idempotency key with your API request, the server can detect if the same operation has already been performed and return the original result instead of creating a duplicate.
+
+## Why Use Idempotency Keys?
+
+### Network Reliability
+- **Network timeouts**: If your request times out, you can safely retry with the same key
+- **Connection issues**: Temporary network problems won't cause duplicate operations
+- **Client-side errors**: Applications can retry failed requests without side effects
+
+### Financial Safety
+- **No duplicate transactions**: Prevents accidental double-spending
+- **Consistent token creation**: Avoids creating multiple tokens with the same symbol
+- **Reliable token issuance**: Ensures tokens are only issued once per request
+
+## How to Generate Idempotency Keys
+
+Idempotency keys should be:
+- **Unique**: Each operation should have a unique key
+- **Random**: Use UUIDs or cryptographically secure random strings
+- **Client-generated**: Generated on the client side before making the request
+- **1-64 characters**: Length constraint as defined by the API
+
+### Automatic Generation (Default Behavior)
+
+**For transactions only**: If you don't provide an `idempotencyKey`, the system will automatically generate one based on your transaction signature. This ensures backward compatibility and provides idempotency protection even for existing clients.
+
+```javascript
+// This transaction will have an auto-generated idempotencyKey
+const response = await fetch('/api/transactions', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    from: '0x742d35Cc6634C0532925a3b8D5C',
+    to: '0x8ba1f109551bD432803012645Hac',
+    value: 100,
+    symbol: 'MTK',
+    signature: '0x...' // Key will be generated from this signature
+    // No idempotencyKey needed - auto-generated
+  })
+});
+```
+
+### Manual Generation (Recommended for Production)
+
+For better control and debugging, provide your own idempotency keys:
+
+### JavaScript Example
+
+```javascript
+import { v4 as uuidv4 } from 'uuid';
+
+// Generate a unique idempotency key
+const idempotencyKey = uuidv4();
+// Example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+
+// Use with your API request - idempotencyKey goes in the request body
+const response = await fetch('/api/transactions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    from: '0x742d35Cc6634C0532925a3b8D5C',
+    to: '0x8ba1f109551bD432803012645Hac',
+    value: 100,
+    symbol: 'MTK',
+    signature: '0x...',
+    idempotencyKey: idempotencyKey  // Include in request body
+  })
+});
+```
+
+### Python Example
+
+```python
+import uuid
+import requests
+
+# Generate a unique idempotency key
+idempotency_key = str(uuid.uuid4())
+
+# Use with your API request - idempotencyKey goes in the request body
+response = requests.post(
+    'https://api.blls.me/billing/transactions',
+    headers={
+        'Content-Type': 'application/json'
+    },
+    json={
+        'from': '0x742d35Cc6634C0532925a3b8D5C',
+        'to': '0x8ba1f109551bD432803012645Hac',
+        'value': 100,
+        'symbol': 'MTK',
+        'signature': '0x...',
+        'idempotencyKey': idempotency_key  # Include in request body
+    }
+)
+```
+
+## Supported Endpoints
+
+The following API endpoints support idempotency keys as part of the request body:
+
+### Token Creation
+```http
+POST /tokens
+Content-Type: application/json
+
+{
+  "name": "MyToken",
+  "symbol": "MTK",
+  "emission": 1000000,
+  "signature": "0x...",
+  "idempotencyKey": "create-token-f47ac10b"
+}
+```
+
+### Token Issuance
+```http
+POST /tokens/issue
+Content-Type: application/json
+
+{
+  "symbol": "MTK",
+  "address": "0x742d35Cc6634C0532925a3b8D5C",
+  "emission": 5000,
+  "signature": "0x...",
+  "idempotencyKey": "issue-token-a1b2c3d4"
+}
+```
+
+### Transactions (Primary Use Case)
+```http
+POST /transactions
+Content-Type: application/json
+
+{
+  "from": "0x742d35Cc6634C0532925a3b8D5C",
+  "to": "0x8ba1f109551bD432803012645Hac",
+  "value": 100,
+  "symbol": "MTK",
+  "signature": "0x...",
+  "idempotencyKey": "payment-12345678"
+}
+```
+
+**Note**: For transactions, if you don't provide an `idempotencyKey`, the system will automatically generate one based on the transaction signature. This ensures backward compatibility while providing idempotency protection.
+
+## Best Practices
+
+### 1. Store Keys for Retry Logic
+```javascript
+class APIClient {
+  async sendTransaction(transactionData, maxRetries = 3) {
+    const idempotencyKey = uuidv4();
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const response = await fetch('/api/transactions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            ...transactionData,
+            idempotencyKey: idempotencyKey // Same key for all retries
+          })
+        });
+        
+        if (response.ok) {
+          return await response.json();
+        }
+        
+        if (response.status >= 400 && response.status < 500) {
+          // Client error, don't retry
+          throw new Error(`Client error: ${response.status}`);
+        }
+        
+      } catch (error) {
+        if (attempt === maxRetries) {
+          throw error;
+        }
+        // Wait before retrying
+        await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+      }
+    }
+  }
+}
+```
+
+### 2. Use Meaningful Key Prefixes
+```javascript
+// Include operation type in the key for debugging
+const createTokenKey = `create-token-${uuidv4()}`;
+const issueTokenKey = `issue-token-${uuidv4()}`;
+const transactionKey = `payment-${uuidv4()}`;
+
+// Or use business-specific identifiers
+const invoicePaymentKey = `invoice-payment-${invoiceId}`;
+const subscriptionKey = `subscription-${userId}-${Date.now()}`;
+```
+
+### 3. Key Expiration
+Idempotency keys typically expire after 24 hours. After expiration, using the same key will be treated as a new operation.
+
+## Error Handling
+
+### Successful Idempotent Response
+If you retry with the same idempotency key, you'll receive the original response:
+
+```json
+{
+  "_id": "64f1a2b3c4d5e6f7g8h9i0j1",
+  "name": "MyToken",
+  "symbol": "MTK",
+  "emission": 1000000,
+  "timestamp": "2024-10-15T18:02:52.726Z"
+}
+```
+
+## Implementation Notes
+
+### Key Storage
+The system stores idempotency keys with their associated request data and response for up to 24 hours. This ensures:
+- Duplicate detection works correctly
+- Keys eventually expire to prevent unbounded storage growth
+- Retry attempts receive consistent responses
+
+### Performance Impact
+Using idempotency keys has minimal performance impact:
+- Keys are indexed for fast lookup
+- Validation is performed before business logic
+- Cached responses are returned immediately for duplicates
+
+## Common Pitfalls
+
+### ❌ Don't reuse keys across different operations
+```javascript
+// Wrong: Using same key for different operations
+const key = uuidv4();
+await createToken({...tokenData, idempotencyKey: key});
+await sendTransaction({...txData, idempotencyKey: key}); // Don't do this!
+```
+
+### ❌ Don't generate keys on retry
+```javascript
+// Wrong: New key on each retry
+for (let i = 0; i < 3; i++) {
+  const key = uuidv4(); // This defeats the purpose!
+  await sendTransaction({...data, idempotencyKey: key});
+}
+```
+
+### ✅ Do generate once, use for all retries
+```javascript
+// Correct: Same key for all retry attempts
+const key = uuidv4();
+for (let i = 0; i < 3; i++) {
+  try {
+    return await sendTransaction({...data, idempotencyKey: key});
+  } catch (error) {
+    if (i === 2) throw error;
+  }
+}
+```
+
+## Summary
+
+Idempotency keys are essential for building robust applications that interact with financial APIs. They provide:
+
+- **Safety**: Prevent duplicate operations
+- **Reliability**: Enable safe retries
+- **Consistency**: Ensure predictable behavior
+
+Always use idempotency keys for operations that create or modify resources, especially when dealing with tokens and transactions.

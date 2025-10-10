@@ -20,9 +20,30 @@ The body of the request should contain the following fields:
   "value": 1,           // Quantity of tokens to send
   "signature": "string",// Signature to verify the transaction
   "message": "string",  // Optional message with the transaction
-  "symbol": "str"       // Token symbol
+  "symbol": "str",      // Token symbol
+  "idempotencyKey": "string" // Optional: unique key to prevent duplicates (1-64 chars)
 }
 ```
+
+#### Idempotency Protection
+
+**Automatic**: If you don't provide an `idempotencyKey`, the system will automatically generate one based on your transaction signature. This ensures duplicate protection even for existing clients.
+
+**Manual (Recommended)**: For better control, provide your own `idempotencyKey`:
+
+```json
+{
+  "from": "0x742d35Cc6634C0532925a3b8D5C",
+  "to": "0x8ba1f109551bD432803012645Hac",
+  "value": 100,
+  "symbol": "MTK",
+  "signature": "0x...",
+  "message": "Payment for invoice #12345",
+  "idempotencyKey": "payment-invoice-12345"
+}
+```
+
+Learn more about [Idempotency Keys](/docs/integration/idempotency-keys) for safe API operations.
 
 ### Signing the Transaction
 
